@@ -1,5 +1,7 @@
+import Home from '../components/home';
+
 function Index() {
-    return <div>Welcome</div>;
+    return <Home />;
 }
 
 export default Index;
