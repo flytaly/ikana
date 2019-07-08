@@ -21,8 +21,9 @@ const GlobalStyle = createGlobalStyle`
     font-size: 62.5%;
   }
   body {
+    max-width: 100vw;
     background: ${props => props.theme.pageBackground};
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     font-family: ${props => props.theme.mainFont};
   }
 `;

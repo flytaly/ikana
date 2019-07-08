@@ -1,11 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
+import Header from './header';
+import Body from './body';
 
-const StyledH = styled.h1`
+const PageContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
 `;
 
-const Home = () => (
-    <StyledH>EnひかРу</StyledH>
+const Home = props => (
+    <PageContainer>
+        <Header />
+        <Body {...props} />
+    </PageContainer>
 );
 
 export default Home;
