@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Card from './styled/card-button';
+import CogIcon from '../assets/svg/cog.svg';
 
 const Container = styled.div`
     display: flex;
@@ -56,9 +57,26 @@ const Body = () => {
     return (
         <Container>
             <CardContainer expanded={expanded}>
-                <Card0 onClick={makeClickHandler(0)} isBig={!expanded} />
-                <Card1 onClick={makeClickHandler(1)} isBig={!expanded} />
-                <Card2 onClick={makeClickHandler(2)} isBig={!expanded} />
+                <Card0
+                    onClick={makeClickHandler(0)}
+                    isBig={!expanded}
+                    name="Hiragana"
+                    shortName="あ"
+                    statusLine="status"
+                />
+                <Card1
+                    onClick={makeClickHandler(1)}
+                    isBig={!expanded}
+                    name="Katakana"
+                    shortName="ア"
+                    statusLine="status"
+                />
+                <Card2
+                    onClick={makeClickHandler(2)}
+                    isBig={!expanded}
+                    name="Settings"
+                    IconSvg={CogIcon}
+                />
             </CardContainer>
             {expanded ? <CardContent cardId={cardId}>{cardTypes[cardId]}</CardContent> : null}
         </Container>

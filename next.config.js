@@ -1,8 +1,7 @@
-const path = require('path');
 const withReactSvg = require('next-react-svg');
 
 module.exports = withReactSvg({
-    include: path.resolve(__dirname, 'src/assets/svg'),
+    include: `${__dirname}/assets/svg`,
     target: 'serverless',
     webpack(config) {
         return config;
