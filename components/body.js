@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { Flipper, Flipped } from 'react-flip-toolkit';
 import Card from './styled/card-button';
 import CogIcon from '../assets/svg/cog.svg';
 
@@ -8,8 +9,9 @@ const Container = styled.div`
     flex-direction: row;
     justify-content: center;
     margin-top: 5rem;
-    width: 100%;
-    max-width: 100%;
+    width: 100vw;
+    max-width: 100vw;
+    padding: 1rem;
 `;
 
 const CardContainer = styled.div`
@@ -55,31 +57,39 @@ const Body = () => {
     };
 
     return (
-        <Container>
-            <CardContainer expanded={expanded}>
-                <Card0
-                    onClick={makeClickHandler(0)}
-                    isBig={!expanded}
-                    name="Hiragana"
-                    shortName="あ"
-                    statusLine="status"
-                />
-                <Card1
-                    onClick={makeClickHandler(1)}
-                    isBig={!expanded}
-                    name="Katakana"
-                    shortName="ア"
-                    statusLine="status"
-                />
-                <Card2
-                    onClick={makeClickHandler(2)}
-                    isBig={!expanded}
-                    name="Settings"
-                    IconSvg={CogIcon}
-                />
-            </CardContainer>
-            {expanded ? <CardContent cardId={cardId}>{cardTypes[cardId]}</CardContent> : null}
-        </Container>
+        <Flipper flipKey={expanded}>
+            <Container>
+                <CardContainer expanded={expanded}>
+                    <Flipped flipId="0">
+                        <Card0
+                            onClick={makeClickHandler(0)}
+                            isBig={!expanded}
+                            name="Hiragana"
+                            shortName="あ"
+                            statusLine="status"
+                        />
+                    </Flipped>
+                    <Flipped flipId="1">
+                        <Card1
+                            onClick={makeClickHandler(1)}
+                            isBig={!expanded}
+                            name="Katakana"
+                            shortName="ア"
+                            statusLine="status"
+                        />
+                    </Flipped>
+                    <Flipped flipId="2">
+                        <Card2
+                            onClick={makeClickHandler(2)}
+                            isBig={!expanded}
+                            name="Settings"
+                            IconSvg={CogIcon}
+                        />
+                    </Flipped>
+                </CardContainer>
+                {expanded ? <CardContent cardId={cardId}>{cardTypes[cardId]}</CardContent> : null}
+            </Container>
+        </Flipper>
     );
 };
 

@@ -7,7 +7,6 @@ const PageContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 1rem;
 `;
 
 const Home = props => (
