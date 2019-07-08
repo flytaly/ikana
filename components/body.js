@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Flipper, Flipped } from 'react-flip-toolkit';
 import Card from './styled/card-button';
 import CogIcon from '../assets/svg/cog.svg';
+import CardContent from './card-content';
 
 const Container = styled.div`
     display: flex;
@@ -32,21 +33,10 @@ const Card2 = styled(Card)`
     background-color: ${({ theme }) => theme.cardBgColor2};
 `;
 
-const CardContent = styled.div`
-    display: flex;
-    flex: 0 1 50rem;
-    background-color: ${({ theme }) => theme.expandedCardBgColor};
-    max-width: 100%;
-    min-height: 30rem;
-    border: 3px solid ${({ theme, cardId }) => theme[`cardBgColor${cardId}`]};
-    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-    transition: all 0.3s ease-out;
-`;
-
 const cardTypes = ['hiragana', 'katakana', 'settings'];
 
 const Body = () => {
-    const [{ expanded, cardId }, setState] = useState({ expanded: true, cardId: 0 });
+    const [{ expanded, cardId }, setState] = useState({ expanded: false, cardId: 0 });
 
     const makeClickHandler = id => () => {
         setState(prev => ({
@@ -87,7 +77,9 @@ const Body = () => {
                         />
                     </Flipped>
                 </CardContainer>
-                {expanded ? <CardContent cardId={cardId}>{cardTypes[cardId]}</CardContent> : null}
+                {expanded
+                    ? <CardContent cardId={cardId} cardType={cardTypes[cardId]} />
+                    : null}
             </Container>
         </Flipper>
     );

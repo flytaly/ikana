@@ -7,4 +7,6 @@ export default {
     cardBgColor1: '#DD5500',
     cardBgColor2: '#087FA3',
     expandedCardBgColor: '#FAF7ED',
+    kanaTableBorder: '1px solid #99B1B8',
+    kanaTableRowHoverColor: '#DDEAEA',
 };
