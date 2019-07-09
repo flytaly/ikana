@@ -9,4 +9,6 @@ export default {
     expandedCardBgColor: '#FAF7ED',
     kanaTableBorder: '1px solid #99B1B8',
     kanaTableRowHoverColor: '#DDEAEA',
+    kanaTableCellColor: '#000000',
+    kanaTableCellColor2: 'grey',
 };
