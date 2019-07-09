@@ -20,6 +20,7 @@
     },
     "homepage": "https://github.com/flytaly/trainkana#readme",
     "dependencies": {
+        "localforage": "^1.7.3",
         "next": "^9.0.0",
         "next-offline": "^4.0.2",
         "next-react-svg": "^1.1.0",

@@ -1,8 +1,10 @@
-import React, { createContext, useContext, useReducer } from 'react';
+import React, { createContext, useContext, useReducer, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import localforage from 'localforage';
 
 export const types = {
     hiraganaToggleRow: 'hiraganaToggleRow',
+    updateState: 'updateState',
 };
 
 export const initialState = {
@@ -11,12 +13,17 @@ export const initialState = {
     },
 };
 
+const saveState = state => localforage.setItem('state', state).catch(e => console.error(e));
+
 export const reducer = (state, action) => {
     const { type, payload } = action;
+
     switch (type) {
+        case types.updateState:
+            return { ...state, ...payload };
         case types.hiraganaToggleRow: {
             const { hiragana, hiragana: { selectedRows } } = state;
-            return {
+            const newState = {
                 ...state,
                 hiragana: {
                     ...hiragana,
@@ -25,6 +32,8 @@ export const reducer = (state, action) => {
                         : [...selectedRows, payload],
                 },
             };
+            saveState(newState);
+            return newState;
         }
         default: return state;
     }
@@ -42,6 +51,21 @@ export const useGlobalState = (property = null) => {
 
 export const StateProvider = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, initialState);
+
+    useEffect(() => {
+        const loadState = async () => {
+            try {
+                const prevState = await localforage.getItem('state');
+                if (prevState) {
+                    dispatch({ type: types.updateState, payload: prevState });
+                }
+            } catch (e) {
+                console.error('Couldn\'t load state\n', e);
+            }
+        };
+
+        loadState();
+    }, []);
     return (
         <dispatchCtx.Provider value={dispatch}>
             <stateCtx.Provider value={state}>
