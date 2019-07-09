@@ -21,11 +21,12 @@
     "homepage": "https://github.com/flytaly/trainkana#readme",
     "dependencies": {
         "next": "^9.0.0",
+        "next-offline": "^4.0.2",
         "next-react-svg": "^1.1.0",
         "prop-types": "^15.7.2",
         "react": "^16.8.6",
         "react-dom": "^16.8.6",
-        "react-flip-toolkit": "^6.6.8",
+        "react-flip-toolkit": "^6.6.9",
         "styled-components": "^4.3.2",
         "styled-normalize": "^8.0.6"
     },

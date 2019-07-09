@@ -1,9 +1,40 @@
+const withOffline = require('next-offline');
 const withReactSvg = require('next-react-svg');
 
-module.exports = withReactSvg({
+
+const withReactSvgConfig = {
     include: `${__dirname}/assets/svg`,
-    target: 'serverless',
     webpack(config) {
         return config;
     },
-});
+};
+
+const withOfflineConfig = {
+    workboxOpts: {
+        swDest: 'static/service-worker.js',
+        runtimeCaching: [
+            {
+                urlPattern: /^https?.*/,
+                handler: 'NetworkFirst',
+                options: {
+                    cacheName: 'https-calls',
+                    networkTimeoutSeconds: 15,
+                    expiration: {
+                        maxEntries: 150,
+                        maxAgeSeconds: 30 * 24 * 60 * 60, // 1 month
+                    },
+                    cacheableResponse: {
+                        statuses: [0, 200],
+                    },
+                },
+            },
+        ],
+    },
+};
+
+
+module.exports = withOffline(withReactSvg({
+    ...withOfflineConfig,
+    ...withReactSvgConfig,
+    target: 'serverless',
+}));
