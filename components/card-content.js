@@ -10,13 +10,13 @@ const StyledContent = styled.div`
     background-color: ${({ theme }) => theme.expandedCardBgColor};
     max-width: 100%;
     min-height: 30rem;
-    border: 3px solid ${({ theme, cardId }) => theme[`cardBgColor${cardId}`]};
+    border: 3px solid ${({ theme, cardNumber }) => theme[`cardBgColor${cardNumber}`]};
     box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
     transition: all 0.3s ease-out;
     padding: 1rem;
 `;
 
-const CardContent = ({ cardId, cardType }) => {
+const CardContent = ({ cardNumber, cardType }) => {
     let content;
     switch (cardType) {
         case 'hiragana':
@@ -26,13 +26,13 @@ const CardContent = ({ cardId, cardType }) => {
             content = <span>{cardType}</span>;
     }
     return (
-        <StyledContent cardId={cardId} cardType={cardType}>
+        <StyledContent cardNumber={cardNumber} cardType={cardType}>
             {content}
         </StyledContent>);
 };
 
 CardContent.propTypes = {
-    cardId: PropTypes.number.isRequired,
+    cardNumber: PropTypes.number.isRequired,
     cardType: PropTypes.string.isRequired,
 };
 

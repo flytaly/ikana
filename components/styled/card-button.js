@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { Flipped } from 'react-flip-toolkit';
 
 const BaseCard = styled.div.attrs({
     role: 'button',
@@ -49,18 +50,15 @@ const Status = styled.div`
     font-weight: normal;
 `;
 
-
 const CardButton = ({
-    onClick, isBig, name, shortName, statusLine, IconSvg, ...rest
-}) => {
-    const clickHandler = (event) => {
-        onClick();
-        event.target.blur();
-    };
-
-    return (
+    clickHandler, isBig, name, shortName, statusLine, IconSvg, cardId, ...rest
+}) => (
+    <Flipped flipId={cardId}>
         <BaseCard
-            onClick={clickHandler}
+            onClick={(event) => {
+                clickHandler({ event, id: cardId });
+                event.target.blur();
+            }}
             onKeyDown={(e) => {
                 if (e.keyCode === 13 || e.keyCode === 32) {
                     clickHandler(e);
@@ -70,25 +68,30 @@ const CardButton = ({
             {...rest}
         >
             {isBig ? <Name>{name}</Name> : null}
-            <Icon>{IconSvg ? <IconSvg /> : <span>{shortName}</span>}</Icon>
+            <Flipped inverseFlipId={cardId} scale>
+                <Icon>{IconSvg ? <IconSvg /> : <span>{shortName}</span>}</Icon>
+            </Flipped>
             {isBig ? <Status>{statusLine || <span>&nbsp;</span>}</Status> : null }
-        </BaseCard>);
-};
+        </BaseCard>
+    </Flipped>);
 
 CardButton.propTypes = {
-    onClick: PropTypes.func,
+    cardId: PropTypes.string.isRequired,
+    clickHandler: PropTypes.func,
     isBig: PropTypes.bool,
     name: PropTypes.string,
     shortName: PropTypes.string,
     statusLine: PropTypes.string,
+    IconSvg: PropTypes.func,
 };
 
 CardButton.defaultProps = {
-    onClick: () => {},
+    clickHandler: () => {},
     isBig: true,
     name: '',
     shortName: '',
     statusLine: '',
+    IconSvg: null,
 };
 
 export default CardButton;

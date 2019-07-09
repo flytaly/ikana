@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
-import Table, { CellContent, StyledRow } from './styled/kana-table';
+import Table, { CellContent } from './styled/kana-table';
 import { hiraganaRows, hiraganaToRomaji } from '../data/hiragana';
 import { useGlobalState, useDispatch, types } from './state';
 
@@ -14,7 +14,6 @@ const TablesContainer = styled.div`
         margin: 0 1rem;
     }
 `;
-
 
 const Hiragana = () => {
     const hiragana = useGlobalState('hiragana');

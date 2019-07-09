@@ -1,5 +1,7 @@
 import React from 'react';
 import App, { Container } from 'next/app';
+import { Flipper } from 'react-flip-toolkit';
+import Router from 'next/router';
 import Page from '../components/page';
 import { StateProvider } from '../components/state';
 
@@ -15,12 +17,14 @@ class MyApp extends App {
 
     render() {
         const { Component, pageProps } = this.props;
-
+        const route = process.browser ? Router.route : null;
         return (
             <Container>
                 <StateProvider>
                     <Page>
-                        <Component {...pageProps} />
+                        <Flipper flipKey={route}>
+                            <Component {...pageProps} />
+                        </Flipper>
                     </Page>
                 </StateProvider>
             </Container>

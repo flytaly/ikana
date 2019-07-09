@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { Flipper, Flipped } from 'react-flip-toolkit';
+import { useRouter } from 'next/router';
 import Card from './styled/card-button';
 import CogIcon from '../assets/svg/cog.svg';
 import CardContent from './card-content';
@@ -33,55 +33,54 @@ const Card2 = styled(Card)`
     background-color: ${({ theme }) => theme.cardBgColor2};
 `;
 
-const cardTypes = ['hiragana', 'katakana', 'settings'];
+const cardIds = ['hiragana', 'katakana', 'settings'];
 
 const Body = () => {
-    const [{ expanded, cardId }, setState] = useState({ expanded: false, cardId: 0 });
+    const router = useRouter();
+    const route = router.route.slice(1);
+    const cardNumber = cardIds.indexOf(route);
+    const isExpanded = cardNumber !== -1;
 
-    const makeClickHandler = id => () => {
-        setState(prev => ({
-            ...prev,
-            cardId: id,
-            expanded: !prev.expanded || cardId !== id,
-        }));
+    useEffect(() => {
+        cardIds.forEach(id => route !== id && router.prefetch(`/${id}`));
+    }, [route, router]);
+
+    const clickHandler = ({ id }) => {
+        if (id === route) { return router.push('/'); }
+        return router.push(`/${id}`);
     };
 
     return (
-        <Flipper flipKey={expanded}>
-            <Container>
-                <CardContainer expanded={expanded}>
-                    <Flipped flipId="0">
-                        <Card0
-                            onClick={makeClickHandler(0)}
-                            isBig={!expanded}
-                            name="Hiragana"
-                            shortName="あ"
-                            statusLine="status"
-                        />
-                    </Flipped>
-                    <Flipped flipId="1">
-                        <Card1
-                            onClick={makeClickHandler(1)}
-                            isBig={!expanded}
-                            name="Katakana"
-                            shortName="ア"
-                            statusLine="status"
-                        />
-                    </Flipped>
-                    <Flipped flipId="2">
-                        <Card2
-                            onClick={makeClickHandler(2)}
-                            isBig={!expanded}
-                            name="Settings"
-                            IconSvg={CogIcon}
-                        />
-                    </Flipped>
-                </CardContainer>
-                {expanded
-                    ? <CardContent cardId={cardId} cardType={cardTypes[cardId]} />
-                    : null}
-            </Container>
-        </Flipper>
+        <Container>
+            <CardContainer expanded={isExpanded}>
+                <Card0
+                    cardId="hiragana"
+                    clickHandler={clickHandler}
+                    isBig={!isExpanded}
+                    name="Hiragana"
+                    shortName="あ"
+                    statusLine="status"
+                />
+                <Card1
+                    cardId="katakana"
+                    clickHandler={clickHandler}
+                    isBig={!isExpanded}
+                    name="Katakana"
+                    shortName="ア"
+                    statusLine="status"
+                />
+                <Card2
+                    cardId="settings"
+                    clickHandler={clickHandler}
+                    isBig={!isExpanded}
+                    name="Settings"
+                    IconSvg={CogIcon}
+                />
+            </CardContainer>
+            {isExpanded
+                ? <CardContent cardNumber={cardNumber} cardType={route} />
+                : null}
+        </Container>
     );
 };
 
