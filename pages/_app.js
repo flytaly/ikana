@@ -22,7 +22,8 @@ class MyApp extends App {
             <Container>
                 <StateProvider>
                     <Page>
-                        <Flipper flipKey={route}>
+                        {/* Trigger Flipper only if route change to/from root */}
+                        <Flipper flipKey={route === '/'}>
                             <Component {...pageProps} />
                         </Flipper>
                     </Page>
