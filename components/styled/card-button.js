@@ -65,6 +65,7 @@ const CardButton = ({
                 }
             }}
             isBig={isBig}
+            title={name}
             {...rest}
         >
             {isBig ? <Name>{name}</Name> : null}

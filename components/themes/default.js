@@ -12,5 +12,5 @@ export default {
     kanaTableRowSelectedColor: 'hsl(120, 66%, 93%)',
     kanaTableRowHoverSelectedColor: 'hsl(120, 66%, 85%)',
     kanaTableCellColor: '#000000',
-    kanaTableCellColor2: 'grey',
+    kanaTableCellColor2: '#6C6C6C',
 };
