@@ -22,6 +22,9 @@ const Hiragana = () => {
     const onRowClick = useCallback(({ rowIdx }) => {
         dispatch({ type: types.hiraganaToggleRow, payload: rowIdx });
     }, [dispatch]);
+    const onSelectAll = useCallback(() => {
+        dispatch({ type: types.hiraganaToggleAll });
+    }, [dispatch]);
 
     return (
         <>
@@ -29,7 +32,10 @@ const Hiragana = () => {
             <TablesContainer>
                 <Table
                     data={hiraganaRows}
+                    onSelectAll={onSelectAll}
                     onRowClick={onRowClick}
+                    tableHeader="Monographs"
+                    withCheckbox
                     selectedRows={hiragana.selectedRows}
                     cellRenderer={({ cell, columnIdx, rowIdx }) => {
                         const key = `${columnIdx}_${rowIdx}`;

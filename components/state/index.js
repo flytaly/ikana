@@ -1,9 +1,12 @@
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import localforage from 'localforage';
+import { hiraganaRows } from '../../data/hiragana';
+import range from '../../utils/range';
 
 export const types = {
     hiraganaToggleRow: 'hiraganaToggleRow',
+    hiraganaToggleAll: 'hiraganaToggleAll',
     updateState: 'updateState',
 };
 
@@ -30,6 +33,22 @@ export const reducer = (state, action) => {
                     selectedRows: selectedRows.includes(payload)
                         ? selectedRows.filter(el => el !== payload)
                         : [...selectedRows, payload],
+                },
+            };
+            saveState(newState);
+            return newState;
+        }
+        case types.hiraganaToggleAll: {
+            const { hiragana, hiragana: { selectedRows } } = state;
+            const newSelectedRows = [];
+            if (selectedRows.length < hiraganaRows.length) {
+                newSelectedRows.push(...range(hiraganaRows.length));
+            }
+            const newState = {
+                ...state,
+                hiragana: {
+                    ...hiragana,
+                    selectedRows: newSelectedRows,
                 },
             };
             saveState(newState);
