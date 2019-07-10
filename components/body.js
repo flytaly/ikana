@@ -4,6 +4,8 @@ import { useRouter } from 'next/router';
 import Card from './styled/card-button';
 import CogIcon from '../assets/svg/cog.svg';
 import CardContent from './card-content';
+import { useGlobalState } from './state';
+import { hiraganaTotal } from '../data/hiragana';
 
 const Container = styled.div`
     display: flex;
@@ -36,11 +38,11 @@ const Card2 = styled(Card)`
 const cardIds = ['hiragana', 'katakana', 'settings'];
 
 const Body = () => {
+    const appState = useGlobalState();
     const router = useRouter();
     const route = router.route.slice(1);
     const cardNumber = cardIds.indexOf(route);
     const isExpanded = cardNumber !== -1;
-
     useEffect(() => {
         cardIds.forEach(id => route !== id && router.prefetch(`/${id}`));
     }, [route, router]);
@@ -59,7 +61,7 @@ const Body = () => {
                     isBig={!isExpanded}
                     name="Hiragana"
                     shortName="あ"
-                    statusLine="status"
+                    statusLine={`${appState.hiragana.totalSelected}/${hiraganaTotal} selected`}
                 />
                 <Card1
                     cardId="katakana"

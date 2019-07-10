@@ -12,7 +12,19 @@ export const types = {
 
 export const initialState = {
     hiragana: {
-        selectedRows: [],
+        selectedRows: {
+            monographs: [],
+            diacritics: [],
+            digraphs: [],
+            digraphsDiacritics: [],
+        },
+        selectedNumber: {
+            monographs: 0,
+            diacritics: 0,
+            digraphs: 0,
+            digraphsDiacritics: 0,
+        },
+        totalSelected: 0,
     },
 };
 
@@ -21,34 +33,49 @@ const saveState = state => localforage.setItem('state', state).catch(e => consol
 export const reducer = (state, action) => {
     const { type, payload } = action;
 
+    const countSelected = (dataRows, selectedRows) => selectedRows
+        .reduce((acc, curr) => acc + dataRows[curr].filter(k => k).length, 0);
     switch (type) {
         case types.updateState:
             return { ...state, ...payload };
+
         case types.hiraganaToggleRow: {
-            const { hiragana, hiragana: { selectedRows } } = state;
+            const { hiragana, hiragana: { selectedRows, selectedNumber } } = state;
+            const { rowIdx, kanaType } = payload;
+            const kanaRows = selectedRows[kanaType];
+            const updatedRows = kanaRows.includes(rowIdx)
+                ? kanaRows.filter(el => el !== rowIdx)
+                : [...kanaRows, rowIdx];
+            const newSelectedNumber = { ...selectedNumber, [kanaType]: countSelected(hiraganaRows[kanaType], updatedRows) };
             const newState = {
                 ...state,
                 hiragana: {
                     ...hiragana,
-                    selectedRows: selectedRows.includes(payload)
-                        ? selectedRows.filter(el => el !== payload)
-                        : [...selectedRows, payload],
+                    selectedRows: { ...selectedRows, [kanaType]: updatedRows },
+                    selectedNumber: newSelectedNumber,
+                    totalSelected: Object.values(newSelectedNumber).reduce((a, c) => a + c),
                 },
             };
             saveState(newState);
             return newState;
         }
         case types.hiraganaToggleAll: {
-            const { hiragana, hiragana: { selectedRows } } = state;
-            const newSelectedRows = [];
-            if (selectedRows.length < hiraganaRows.length) {
-                newSelectedRows.push(...range(hiraganaRows.length));
+            const { hiragana, hiragana: { selectedRows, selectedNumber } } = state;
+            const { kanaType } = payload;
+            const kanaRows = selectedRows[kanaType];
+            const kanaAllRows = hiraganaRows[kanaType];
+            const kanaNewSelectedRows = [];
+            if (kanaRows.length < kanaAllRows.length) {
+                kanaNewSelectedRows.push(...range(kanaAllRows.length));
             }
+            const newSelectedNumber = { ...selectedNumber, [kanaType]: countSelected(kanaAllRows, kanaNewSelectedRows) };
             const newState = {
                 ...state,
                 hiragana: {
                     ...hiragana,
-                    selectedRows: newSelectedRows,
+                    selectedRows: { ...selectedRows, [kanaType]: kanaNewSelectedRows },
+                    selectedNumber: newSelectedNumber,
+                    totalSelected: Object.values(newSelectedNumber).reduce((a, c) => a + c),
                 },
             };
             saveState(newState);

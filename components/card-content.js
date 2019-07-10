@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import HiraganaTable from './hiragana-table';
+import KatakanaTable from './katakana-table';
+import SettingsPage from './settings-page';
 
 const StyledContent = styled.div`
     display: flex;
@@ -17,14 +19,12 @@ const StyledContent = styled.div`
 `;
 
 const CardContent = ({ cardNumber, cardType }) => {
-    let content;
-    switch (cardType) {
-        case 'hiragana':
-            content = <HiraganaTable />;
-            break;
-        default:
-            content = <span>{cardType}</span>;
-    }
+    const content = ({
+        hiragana: <HiraganaTable />,
+        katakana: <KatakanaTable />,
+        settings: <SettingsPage />,
+    }[cardType]);
+
     return (
         <StyledContent cardNumber={cardNumber} cardType={cardType}>
             {content}
@@ -33,7 +33,7 @@ const CardContent = ({ cardNumber, cardType }) => {
 
 CardContent.propTypes = {
     cardNumber: PropTypes.number.isRequired,
-    cardType: PropTypes.string.isRequired,
+    cardType: PropTypes.oneOf(['hiragana', 'katakana', 'settings']).isRequired,
 };
 
 export default CardContent;

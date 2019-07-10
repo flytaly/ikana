@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import Table, { CellContent } from './styled/kana-table';
-import { hiraganaRows, hiraganaToRomaji } from '../data/hiragana';
+import { hiraganaRows, hiraganaToRomaji, kanaTypes } from '../data/hiragana';
 import { useGlobalState, useDispatch, types } from './state';
 
 const ContentHeader = styled.h3`
@@ -10,8 +10,9 @@ const ContentHeader = styled.h3`
 const TablesContainer = styled.div`
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     > * {
-        margin: 0 1rem;
+        margin: 1rem 1rem;
     }
 `;
 
@@ -19,24 +20,46 @@ const Hiragana = () => {
     const hiragana = useGlobalState('hiragana');
     const dispatch = useDispatch();
 
-    const onRowClick = useCallback(({ rowIdx }) => {
-        dispatch({ type: types.hiraganaToggleRow, payload: rowIdx });
-    }, [dispatch]);
-    const onSelectAll = useCallback(() => {
-        dispatch({ type: types.hiraganaToggleAll });
-    }, [dispatch]);
+    const makeOnRowClick = kanaType => ({ rowIdx }) => {
+        dispatch({ type: types.hiraganaToggleRow, payload: { rowIdx, kanaType } });
+    };
+    const makeOnSelectAll = kanaType => () => {
+        dispatch({ type: types.hiraganaToggleAll, payload: { kanaType } });
+    };
 
     return (
         <>
             <ContentHeader>Hiragana</ContentHeader>
             <TablesContainer>
                 <Table
-                    data={hiraganaRows}
-                    onSelectAll={onSelectAll}
-                    onRowClick={onRowClick}
+                    data={hiraganaRows.monographs}
+                    onSelectAll={makeOnSelectAll(kanaTypes.monographs)}
+                    onRowClick={makeOnRowClick(kanaTypes.monographs)}
                     tableHeader="Monographs"
                     withCheckbox
-                    selectedRows={hiragana.selectedRows}
+                    selectedRows={hiragana.selectedRows.monographs}
+                    cellRenderer={({ cell, columnIdx, rowIdx }) => {
+                        const key = `${columnIdx}_${rowIdx}`;
+                        const romaji = Array.isArray(hiraganaToRomaji[cell])
+                            ? hiraganaToRomaji[cell][0]
+                            : hiraganaToRomaji[cell];
+                        if (!cell) { return <td key={key} />; }
+                        return (
+                            <td key={key}>
+                                <CellContent>
+                                    <div>{cell}</div>
+                                    <div>{romaji}</div>
+                                </CellContent>
+                            </td>);
+                    }}
+                />
+                <Table
+                    data={hiraganaRows.diacritics}
+                    onSelectAll={makeOnSelectAll(kanaTypes.diacritics)}
+                    onRowClick={makeOnRowClick(kanaTypes.diacritics)}
+                    tableHeader="Diacritics"
+                    withCheckbox
+                    selectedRows={hiragana.selectedRows.diacritics}
                     cellRenderer={({ cell, columnIdx, rowIdx }) => {
                         const key = `${columnIdx}_${rowIdx}`;
                         const romaji = Array.isArray(hiraganaToRomaji[cell])
