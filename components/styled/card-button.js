@@ -1,11 +1,9 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { Flipped } from 'react-flip-toolkit';
+import { NoStylesButton } from './common';
 
-const BaseCard = styled.div.attrs({
-    role: 'button',
-    tabIndex: 0,
-})`
+export const BaseCard = styled(NoStylesButton)`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -23,7 +21,7 @@ const BaseCard = styled.div.attrs({
         : '-2px 0px 5px 0px rgba(0,0,0,0.75)')};
     margin: ${({ isBig }) => (isBig ? '1rem' : '0 0 1rem 0')};
     z-index: 20;
-
+    :hover,
     :focus {
         outline: none;
         box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.50);
@@ -58,11 +56,6 @@ const CardButton = ({
             onClick={(event) => {
                 clickHandler({ event, id: cardId });
                 event.target.blur();
-            }}
-            onKeyDown={(e) => {
-                if (e.keyCode === 13 || e.keyCode === 32) {
-                    clickHandler(e);
-                }
             }}
             isBig={isBig}
             title={name}

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Table, { CellContent } from './styled/kana-table';
 import { hiraganaRows, hiraganaToRomaji, kanaTypes } from '../data/hiragana';
@@ -11,6 +11,7 @@ const TablesContainer = styled.div`
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    align-items: flex-start;
     > * {
         margin: 1rem 1rem;
     }

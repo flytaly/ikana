@@ -4,11 +4,12 @@ import PropTypes from 'prop-types';
 import HiraganaTable from './hiragana-table';
 import KatakanaTable from './katakana-table';
 import SettingsPage from './settings-page';
+import PracticePage from './practice-page';
 
 const StyledContent = styled.div`
     display: flex;
     flex-direction: column;
-    flex: 0 1 50rem;
+    flex: 0 1 68rem;
     background-color: ${({ theme }) => theme.expandedCardBgColor};
     max-width: 100%;
     min-height: 30rem;
@@ -23,6 +24,7 @@ const CardContent = ({ cardNumber, cardType }) => {
         hiragana: <HiraganaTable />,
         katakana: <KatakanaTable />,
         settings: <SettingsPage />,
+        practice: <PracticePage />,
     }[cardType]);
 
     return (
@@ -33,7 +35,7 @@ const CardContent = ({ cardNumber, cardType }) => {
 
 CardContent.propTypes = {
     cardNumber: PropTypes.number.isRequired,
-    cardType: PropTypes.oneOf(['hiragana', 'katakana', 'settings']).isRequired,
+    cardType: PropTypes.oneOf(['hiragana', 'katakana', 'settings', 'practice']).isRequired,
 };
 
 export default CardContent;

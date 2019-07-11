@@ -1,17 +1,18 @@
 import React, { useEffect } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { useRouter } from 'next/router';
 import Card from './styled/card-button';
 import CogIcon from '../assets/svg/cog.svg';
 import CardContent from './card-content';
 import { useGlobalState } from './state';
 import { hiraganaTotal } from '../data/hiragana';
+import StartButton from './styled/start-button';
 
 const Container = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: center;
-    margin-top: 5rem;
+    margin-top: 2rem;
     width: 100vw;
     max-width: 100vw;
     padding: 1rem;
@@ -25,6 +26,13 @@ const CardContainer = styled.div`
     max-width: 100%;
 `;
 
+const NewLineCard = styled.div`
+    ${props => !props.expanded && css`
+    display: flex;
+    flex: 1 0 100%;
+    justify-content: center;`}
+`;
+
 const Card0 = styled(Card)`
     background-color: ${({ theme }) => theme.cardBgColor0};
 `;
@@ -35,7 +43,7 @@ const Card2 = styled(Card)`
     background-color: ${({ theme }) => theme.cardBgColor2};
 `;
 
-const cardIds = ['hiragana', 'katakana', 'settings'];
+const cardIds = ['hiragana', 'katakana', 'settings', 'practice'];
 
 const Body = () => {
     const appState = useGlobalState();
@@ -78,6 +86,12 @@ const Body = () => {
                     name="Settings"
                     IconSvg={CogIcon}
                 />
+                <NewLineCard expanded={isExpanded}>
+                    <StartButton
+                        clickHandler={() => { clickHandler({ id: 'practice' }); }}
+                        isBig={!isExpanded}
+                    />
+                </NewLineCard>
             </CardContainer>
             {isExpanded
                 ? <CardContent cardNumber={cardNumber} cardType={route} />

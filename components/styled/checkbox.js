@@ -18,12 +18,12 @@ const MyCheckbox = ({ state, onClick, size, ...rest }) => (
 MyCheckbox.propTypes = {
     state: PropTypes.oneOf([false, true, 'indeterminate']),
     onClick: PropTypes.func,
-    size: PropTypes.number,
+    size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 MyCheckbox.defaultProps = {
     state: false,
     onClick: null,
-    size: 15,
+    size: '0.8em',
 };
 
 

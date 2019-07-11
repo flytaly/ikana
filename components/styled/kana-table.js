@@ -24,6 +24,10 @@ export const StyledRow = styled.tr`
 export const RowHeaderCell = styled.th.attrs({ scope: 'row' })`
 `;
 
+export const TableHeaderRow = styled.tr`
+    border: 1px solid rgba(0,0,0,0.40);
+    background-color: rgba(0,0,0,0.05);
+`;
 export const TableSpanHeader = styled.th.attrs({ colSpan: '100%' })`
     font-size: 1.5rem;
 `;
@@ -92,7 +96,7 @@ const KanaTable = ({
         <div>
             <StyledTable>
                 <thead>
-                    <tr>
+                    <TableHeaderRow>
                         {withCheckbox ? (
                             <th>
                                 <Checkbox
@@ -105,7 +109,7 @@ const KanaTable = ({
                                 />
                             </th>) : null}
                         <TableSpanHeader>{tableHeader}</TableSpanHeader>
-                    </tr>
+                    </TableHeaderRow>
                 </thead>
                 <tbody>
                     {data.map((rowData, rowIdx) => rowRenderer({
