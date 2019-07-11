@@ -13,6 +13,7 @@ export const BaseCard = styled(NoStylesButton)`
     padding: ${({ isBig }) => (isBig ? '2rem 1.5rem 1rem 1.5rem' : '1rem')};
     cursor: default;
     color: ${({ theme }) => theme.cardTextColor};
+    background-color: ${({ theme, bgColor }) => theme[bgColor]};
     font-size: 3rem;
     font-weight: bold;
     text-shadow: 0px 0px 5px rgba(0,0,0,0.75);

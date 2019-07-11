@@ -34,15 +34,6 @@ const NewLineCard = styled.div`
     justify-content: center;`}
 `;
 
-const Card0 = styled(Card)`
-    background-color: ${({ theme }) => theme.cardBgColor0};
-`;
-const Card1 = styled(Card)`
-    background-color: ${({ theme }) => theme.cardBgColor1};
-`;
-const Card2 = styled(Card)`
-    background-color: ${({ theme }) => theme.cardBgColor2};
-`;
 
 const Body = () => {
     const appState = useGlobalState();
@@ -62,28 +53,31 @@ const Body = () => {
     return (
         <Container>
             <CardContainer expanded={isExpanded}>
-                <Card0
+                <Card
                     cardId="hiragana"
                     clickHandler={clickHandler}
                     isBig={!isExpanded}
                     name="Hiragana"
                     shortName="あ"
                     statusLine={`${appState.hiragana.totalSelected}/${hiraganaTotal} selected`}
+                    bgColor="cardBgColor0"
                 />
-                <Card1
+                <Card
                     cardId="katakana"
                     clickHandler={clickHandler}
                     isBig={!isExpanded}
                     name="Katakana"
                     shortName="ア"
                     statusLine="status"
+                    bgColor="cardBgColor1"
                 />
-                <Card2
+                <Card
                     cardId="settings"
                     clickHandler={clickHandler}
                     isBig={!isExpanded}
                     name="Settings"
                     IconSvg={CogIcon}
+                    bgColor="cardBgColor2"
                 />
                 <NewLineCard expanded={isExpanded}>
                     <StartButton
