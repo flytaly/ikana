@@ -7,6 +7,7 @@ import CardContent from './card-content';
 import { useGlobalState } from './state';
 import { hiraganaTotal } from '../data/hiragana';
 import StartButton from './styled/start-button';
+import routes from './routes';
 
 const Container = styled.div`
     display: flex;
@@ -43,16 +44,14 @@ const Card2 = styled(Card)`
     background-color: ${({ theme }) => theme.cardBgColor2};
 `;
 
-const cardIds = ['hiragana', 'katakana', 'settings', 'practice'];
-
 const Body = () => {
     const appState = useGlobalState();
     const router = useRouter();
     const route = router.route.slice(1);
-    const cardNumber = cardIds.indexOf(route);
+    const cardNumber = routes.indexOf(route);
     const isExpanded = cardNumber !== -1;
     useEffect(() => {
-        cardIds.forEach(id => route !== id && router.prefetch(`/${id}`));
+        routes.forEach(id => route !== id && router.prefetch(`/${id}`));
     }, [route, router]);
 
     const clickHandler = ({ id }) => {

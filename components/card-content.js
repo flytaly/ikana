@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import HiraganaTable from './hiragana-table';
-import KatakanaTable from './katakana-table';
-import SettingsPage from './settings-page';
-import PracticePage from './practice-page';
+import HiraganaTable from './content-pages/hiragana-table';
+import KatakanaTable from './content-pages/katakana-table';
+import SettingsPage from './content-pages/settings-page';
+import PracticePage from './content-pages/practice-page';
+import routes from './routes';
 
 const StyledContent = styled.div`
     display: flex;
@@ -35,7 +36,7 @@ const CardContent = ({ cardNumber, cardType }) => {
 
 CardContent.propTypes = {
     cardNumber: PropTypes.number.isRequired,
-    cardType: PropTypes.oneOf(['hiragana', 'katakana', 'settings', 'practice']).isRequired,
+    cardType: PropTypes.oneOf(routes).isRequired,
 };
 
 export default CardContent;

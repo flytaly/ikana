@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import Table, { CellContent } from './styled/kana-table';
-import { hiraganaRows, hiraganaToRomaji, kanaTypes } from '../data/hiragana';
-import { useGlobalState, useDispatch, types } from './state';
+import Table, { CellContent } from '../styled/kana-table';
+import { hiraganaRows, hiraganaToRomaji, kanaTypes } from '../../data/hiragana';
+import { useGlobalState, useDispatch, types } from '../state';
 
 const ContentHeader = styled.h3`
     align-self: center;
