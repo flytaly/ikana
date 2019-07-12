@@ -8,13 +8,15 @@ const PickMode = styled.div`
     display: flex;
     align-items: center;
     font-size: 1.3rem;
-    line-height: 2.3rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
     > * {
         margin-right: 1rem;
     }
     > b {
         font-weight: bold;
         font-size: 1.4rem;
+        padding: 0.5rem;
     }
 `;
 
@@ -23,7 +25,7 @@ const PickModeBtn = styled(NoStylesButton)`
     color: ${({ theme, active }) => (active ? theme.pickModeBtnActiveColor : theme.pickModeBtnColor)};
     background-color: ${({ theme, active }) => (active ? theme.pickModeBtnActiveBgColor : theme.pickModeBtnBgColor)};
     border-radius: 5px;
-    padding: 0 0.7rem;
+    padding: 0.5rem;
     :hover,
     :focus {
         outline: none;
@@ -39,7 +41,7 @@ const PracticePage = () => {
     return (
         <>
             <PickMode>
-                <b>Practice Mode:</b>
+                <b>Practice mode:</b>
                 <PickModeBtn
                     active={mode === MODES.KANA_TO_ROMAJI}
                     onClick={() => { setMode(MODES.KANA_TO_ROMAJI); }}
