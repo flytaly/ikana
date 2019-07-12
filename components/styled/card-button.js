@@ -13,7 +13,7 @@ export const BaseCard = styled(NoStylesButton)`
     padding: ${({ isBig }) => (isBig ? '2rem 1.5rem 1rem 1.5rem' : '1rem')};
     cursor: default;
     color: ${({ theme }) => theme.cardTextColor};
-    background-color: ${({ theme, bgColor }) => theme[bgColor]};
+    background-color: ${({ theme, bgColor }) => bgColor && theme[bgColor]};
     font-size: 3rem;
     font-weight: bold;
     text-shadow: 0px 0px 5px rgba(0,0,0,0.75);
@@ -50,7 +50,7 @@ const Status = styled.div`
 `;
 
 const CardButton = ({
-    clickHandler, isBig, name, shortName, statusLine, IconSvg, cardId, ...rest
+    clickHandler, isBig, name, shortName, statusLine, IconSvg, cardId, bgColor, ...rest
 }) => (
     <Flipped flipId={cardId}>
         <BaseCard
@@ -60,6 +60,7 @@ const CardButton = ({
             }}
             isBig={isBig}
             title={name}
+            bgColor={bgColor}
             {...rest}
         >
             {isBig ? <Name>{name}</Name> : null}
@@ -78,6 +79,7 @@ CardButton.propTypes = {
     shortName: PropTypes.string,
     statusLine: PropTypes.string,
     IconSvg: PropTypes.func,
+    bgColor: PropTypes.string,
 };
 
 CardButton.defaultProps = {
@@ -87,6 +89,7 @@ CardButton.defaultProps = {
     shortName: '',
     statusLine: '',
     IconSvg: null,
+    bgColor: '',
 };
 
 export default CardButton;
