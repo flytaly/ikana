@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 import styled from 'styled-components';
 
-export const NoStylesButton = styled.button`
+export const NoStylesButton = styled.button.attrs({ type: 'button' })`
     background: none;
     color: inherit;
     border: none;

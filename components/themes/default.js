@@ -15,4 +15,9 @@ export default {
     kanaTableRowHoverSelectedColor: 'hsl(120, 66%, 85%)',
     kanaTableCellColor: '#000000',
     kanaTableCellColor2: '#6C6C6C',
+
+    pickModeBtnColor: '#6C6C6C',
+    pickModeBtnActiveColor: '#087FA3',
+    pickModeBtnBgColor: 'transparent',
+    pickModeBtnActiveBgColor: 'rgba(3.1%, 49.8%, 63.9%, 5%)',
 };
