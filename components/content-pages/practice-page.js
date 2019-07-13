@@ -6,6 +6,7 @@ import RomajiToKana from '../practice/romaji-to-kana';
 import { NoStylesButton } from '../styled/common';
 import { useGlobalState } from '../state';
 import { hiraganaRows } from '../../data/hiragana';
+import { katakanaRows } from '../../data/katakana';
 import getSelectedKana from '../../utils/getSelectedKana';
 
 
@@ -43,9 +44,10 @@ const MODES = { KANA_TO_ROMAJI: 'KANA_TO_ROMAJI', ROMAJI_TO_KANA: 'ROMAJI_TO_KAN
 
 const PracticePage = () => {
     const [mode, setMode] = useState(MODES.KANA_TO_ROMAJI);
-    const { hiragana } = useGlobalState();
+    const { hiragana, katakana } = useGlobalState();
     const hiraganaToLearn = useMemo(() => getSelectedKana(hiraganaRows, hiragana.selectedRows), [hiragana.selectedRows]);
-    const shuffledChars = shuffle(hiraganaToLearn);
+    const katakanaToLearn = useMemo(() => getSelectedKana(katakanaRows, katakana.selectedRows), [katakana.selectedRows]);
+    const shuffledChars = shuffle([...hiraganaToLearn, ...katakanaToLearn]);
     return (
         <>
             <PickMode>

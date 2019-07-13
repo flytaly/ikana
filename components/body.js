@@ -6,6 +6,7 @@ import CogIcon from '../assets/svg/cog.svg';
 import CardContent from './card-content';
 import { useGlobalState } from './state';
 import { hiraganaTotal } from '../data/hiragana';
+import { katakanaTotal } from '../data/katakana';
 import StartButton from './styled/start-button';
 import routes from './routes';
 
@@ -68,7 +69,7 @@ const Body = () => {
                     isBig={!isExpanded}
                     name="Katakana"
                     shortName="ア"
-                    statusLine="status"
+                    statusLine={`${appState.katakana.totalSelected}/${katakanaTotal} selected`}
                     bgColor="cardBgColor1"
                 />
                 <Card

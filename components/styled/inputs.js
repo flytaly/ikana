@@ -6,6 +6,7 @@ export const PracticeModeTextInput = styled.input.attrs({
 })`
         display: block;
         width: 100%;
+        height: 3rem;
         border: none;
         border-bottom: 1px solid rgba(0, 0, 0, 0.25);
         border-radius: 5px;

@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
-/* eslint-disable react/no-array-index-key */
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import Checkbox from './checkbox';
+import kanaToRomaji from '../../data/kana-to-romaji';
 
 const StyledTable = styled.table`
     font-size: 2rem;
@@ -47,8 +47,19 @@ export const CellContent = styled.div`
         }
 `;
 
-const defaultCellRenderer = ({ cell, columnIdx, rowIdx }) => (
-    <td key={`${rowIdx}_${columnIdx}`}>{cell}</td>);
+const kanaRomajiCellRenderer = ({ cell, columnIdx, rowIdx }) => {
+    const key = `${columnIdx}_${rowIdx}`;
+    if (!cell) { return <td key={key} />; }
+    const romaji = kanaToRomaji[cell] && kanaToRomaji[cell][0];
+    return (
+        <td key={key}>
+            <CellContent>
+                <div>{cell}</div>
+                <div>{romaji}</div>
+            </CellContent>
+        </td>);
+};
+
 
 const defaultRowRenderer = ({
     rowData, rowIdx, cellRenderer, onRowClick, selectedRows, rowHeaderCell,
@@ -131,7 +142,7 @@ KanaTable.propTypes = {
     withCheckbox: PropTypes.bool,
 };
 KanaTable.defaultProps = {
-    cellRenderer: defaultCellRenderer,
+    cellRenderer: kanaRomajiCellRenderer,
     onRowClick: () => {},
     onSelectAll: () => {},
     rowRenderer: defaultRowRenderer,

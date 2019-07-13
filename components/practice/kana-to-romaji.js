@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import { Flipped, Flipper } from 'react-flip-toolkit';
 import { PracticeModeTextInput } from '../styled/inputs';
-import { hiraganaToRomaji } from '../../data/hiragana';
+import kanaToRomaji from '../../data/kana-to-romaji';
 import { SlideInLeft, SlideOutLeft } from '../styled/animations';
 
 const Container = styled.div`
@@ -20,7 +20,7 @@ const KanaView = styled.div`
     height: 11rem;
     div {
         /* outline: 1px solid lightcoral; */
-        min-width: 5rem;
+        min-width: 8rem;
         text-align: center;
     }
     ${SlideInLeft}
@@ -36,8 +36,9 @@ const Kana = styled.div`
         // Current character
         if (column === 1) {
             return css`
+                word-break: keep-all;
                 font-size: 7rem;
-                width: 8rem;`;
+                min-width: 14rem;`;
         }
         // Next character
         return css`color: grey;`;
@@ -74,7 +75,7 @@ const KanaToRomaji = ({ kanaChars }) => {
     const nextChar = kanaChars[shift + 1];
     const changeHandler = (e) => {
         const value = e.target.value.trim().toLowerCase();
-        if (value && hiraganaToRomaji[currentChar] && hiraganaToRomaji[currentChar].includes(value)) {
+        if (value && kanaToRomaji[currentChar] && kanaToRomaji[currentChar].includes(value)) {
             return setState(state => ({ shift: state.shift + 1, inputValue: '' }));
         }
         return setState(state => ({ ...state, inputValue: value }));
