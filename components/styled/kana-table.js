@@ -96,7 +96,7 @@ const KanaTable = ({
         <div>
             <StyledTable>
                 <thead>
-                    <TableHeaderRow>
+                    <TableHeaderRow onClick={onSelectAll}>
                         {withCheckbox ? (
                             <th>
                                 <Checkbox

@@ -9,13 +9,37 @@ const ContentHeader = styled.h3`
 `;
 const TablesContainer = styled.div`
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     flex-wrap: wrap;
     align-items: flex-start;
     > * {
-        margin: 1rem 1rem;
+        margin: 1rem;
     }
 `;
+const TableInColumn = styled.div`
+    display: flex;
+    flex-direction: column;
+    > *:not(:last-child) {
+        margin-bottom: 2.5rem;
+    }
+`;
+
+// eslint-disable-next-line react/prop-types
+const cellRenderer = ({ cell, columnIdx, rowIdx }) => {
+    const key = `${columnIdx}_${rowIdx}`;
+    const romaji = Array.isArray(hiraganaToRomaji[cell])
+        ? hiraganaToRomaji[cell][0]
+        : hiraganaToRomaji[cell];
+    if (!cell) { return <td key={key} />; }
+    return (
+        <td key={key}>
+            <CellContent>
+                <div>{cell}</div>
+                <div>{romaji}</div>
+            </CellContent>
+        </td>);
+};
+
 
 const Hiragana = () => {
     const hiragana = useGlobalState('hiragana');
@@ -37,43 +61,40 @@ const Hiragana = () => {
                     onSelectAll={makeOnSelectAll(kanaTypes.monographs)}
                     onRowClick={makeOnRowClick(kanaTypes.monographs)}
                     tableHeader="Monographs"
-                    withCheckbox
                     selectedRows={hiragana.selectedRows.monographs}
-                    cellRenderer={({ cell, columnIdx, rowIdx }) => {
-                        const key = `${columnIdx}_${rowIdx}`;
-                        const romaji = hiraganaToRomaji[cell] && hiraganaToRomaji[cell][0];
-                        if (!cell) { return <td key={key} />; }
-                        return (
-                            <td key={key}>
-                                <CellContent>
-                                    <div>{cell}</div>
-                                    <div>{romaji}</div>
-                                </CellContent>
-                            </td>);
-                    }}
-                />
-                <Table
-                    data={hiraganaRows.diacritics}
-                    onSelectAll={makeOnSelectAll(kanaTypes.diacritics)}
-                    onRowClick={makeOnRowClick(kanaTypes.diacritics)}
-                    tableHeader="Diacritics"
+                    cellRenderer={cellRenderer}
                     withCheckbox
-                    selectedRows={hiragana.selectedRows.diacritics}
-                    cellRenderer={({ cell, columnIdx, rowIdx }) => {
-                        const key = `${columnIdx}_${rowIdx}`;
-                        const romaji = Array.isArray(hiraganaToRomaji[cell])
-                            ? hiraganaToRomaji[cell][0]
-                            : hiraganaToRomaji[cell];
-                        if (!cell) { return <td key={key} />; }
-                        return (
-                            <td key={key}>
-                                <CellContent>
-                                    <div>{cell}</div>
-                                    <div>{romaji}</div>
-                                </CellContent>
-                            </td>);
-                    }}
                 />
+                <TableInColumn>
+                    <Table
+                        data={hiraganaRows.diacritics}
+                        onSelectAll={makeOnSelectAll(kanaTypes.diacritics)}
+                        onRowClick={makeOnRowClick(kanaTypes.diacritics)}
+                        tableHeader="with Diacritics"
+                        selectedRows={hiragana.selectedRows.diacritics}
+                        cellRenderer={cellRenderer}
+                        withCheckbox
+                    />
+                    <Table
+                        data={hiraganaRows.digraphsDiacritics}
+                        onSelectAll={makeOnSelectAll(kanaTypes.digraphsDiacritics)}
+                        onRowClick={makeOnRowClick(kanaTypes.digraphsDiacritics)}
+                        tableHeader="with Diacritics"
+                        selectedRows={hiragana.selectedRows.digraphsDiacritics}
+                        cellRenderer={cellRenderer}
+                        withCheckbox
+                    />
+                </TableInColumn>
+                <Table
+                    data={hiraganaRows.digraphs}
+                    onSelectAll={makeOnSelectAll(kanaTypes.digraphs)}
+                    onRowClick={makeOnRowClick(kanaTypes.digraphs)}
+                    tableHeader="Digraphs"
+                    selectedRows={hiragana.selectedRows.digraphs}
+                    cellRenderer={cellRenderer}
+                    withCheckbox
+                />
+
             </TablesContainer>
         </>);
 };
