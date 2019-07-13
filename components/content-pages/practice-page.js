@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import styled from 'styled-components';
+import shuffle from 'lodash.shuffle';
 import KanaToRomaji from '../practice/kana-to-romaji';
 import RomajiToKana from '../practice/romaji-to-kana';
 import { NoStylesButton } from '../styled/common';
+import { useGlobalState } from '../state';
+import { hiraganaRows } from '../../data/hiragana';
+import getSelectedKana from '../../utils/getSelectedKana';
+
 
 const PickMode = styled.div`
     display: flex;
@@ -38,6 +43,9 @@ const MODES = { KANA_TO_ROMAJI: 'KANA_TO_ROMAJI', ROMAJI_TO_KANA: 'ROMAJI_TO_KAN
 
 const PracticePage = () => {
     const [mode, setMode] = useState(MODES.KANA_TO_ROMAJI);
+    const { hiragana } = useGlobalState();
+    const hiraganaToLearn = useMemo(() => getSelectedKana(hiraganaRows, hiragana.selectedRows), [hiragana.selectedRows]);
+    const shuffledChars = shuffle(hiraganaToLearn);
     return (
         <>
             <PickMode>
@@ -56,7 +64,7 @@ const PracticePage = () => {
                 </PickModeBtn>
             </PickMode>
             {{
-                [MODES.KANA_TO_ROMAJI]: <KanaToRomaji />,
+                [MODES.KANA_TO_ROMAJI]: <KanaToRomaji kanaChars={shuffledChars} />,
                 [MODES.ROMAJI_TO_KANA]: <RomajiToKana />,
             }[mode]}
         </>);
