@@ -68,15 +68,18 @@ const onExit = (el, i, exit) => {
 };
 
 const KanaToRomaji = ({ kanaChars }) => {
-    const [shift, setShift] = useState(0);
-    const [inputValue, setInputValue] = useState('');
+    const [{ shift, inputValue }, setState] = useState({ shift: 0, inputValue: '' });
     const prevChar = kanaChars[shift - 1];
     const currentChar = kanaChars[shift];
     const nextChar = kanaChars[shift + 1];
-    if (hiraganaToRomaji[currentChar] && hiraganaToRomaji[currentChar].includes(inputValue)) {
-        setInputValue('');
-        setShift(state => state + 1);
-    }
+    const changeHandler = (e) => {
+        const value = e.target.value.trim().toLowerCase();
+        if (value && hiraganaToRomaji[currentChar] && hiraganaToRomaji[currentChar].includes(value)) {
+            return setState(state => ({ shift: state.shift + 1, inputValue: '' }));
+        }
+        return setState(state => ({ ...state, inputValue: value }));
+    };
+
     return (
         <Container>
             <Flipper
@@ -98,7 +101,8 @@ const KanaToRomaji = ({ kanaChars }) => {
             <UserInputContainer>
                 <PracticeModeTextInput
                     value={inputValue}
-                    onChange={(e => setInputValue(e.target.value.trim().toLowerCase()))}
+                    onChange={changeHandler}
+                    autoFocus
                 />
             </UserInputContainer>
         </Container>);
