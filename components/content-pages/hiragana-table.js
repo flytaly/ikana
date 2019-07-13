@@ -41,9 +41,7 @@ const Hiragana = () => {
                     selectedRows={hiragana.selectedRows.monographs}
                     cellRenderer={({ cell, columnIdx, rowIdx }) => {
                         const key = `${columnIdx}_${rowIdx}`;
-                        const romaji = Array.isArray(hiraganaToRomaji[cell])
-                            ? hiraganaToRomaji[cell][0]
-                            : hiraganaToRomaji[cell];
+                        const romaji = hiraganaToRomaji[cell] && hiraganaToRomaji[cell][0];
                         if (!cell) { return <td key={key} />; }
                         return (
                             <td key={key}>
