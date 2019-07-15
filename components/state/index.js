@@ -24,7 +24,7 @@ export const StateProvider = ({ children }) => {
             try {
                 const prevState = await getState();
                 if (prevState) {
-                    dispatch({ type: types.updateState, payload: prevState });
+                    dispatch({ type: types.UPDATE_STATE, payload: prevState });
                 }
             } catch (e) {
                 console.error('Couldn\'t load state\n', e);

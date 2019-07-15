@@ -4,11 +4,12 @@ import range from '../../utils/range';
 import { saveState } from './offline-state';
 
 export const types = {
-    hiraganaToggleRow: 'hiraganaToggleRow',
-    hiraganaToggleAll: 'hiraganaToggleAll',
-    katakanaToggleRow: 'katakanaToggleRow',
-    katakanaToggleAll: 'katakanaToggleAll',
-    updateState: 'updateState',
+    HIRAGANA_TOGGLE_ROW: 'HIRAGANA_TOGGLE_ROW',
+    HIRAGANA_TOGGLE_ALL: 'HIRAGANA_TOGGLE_ALL',
+    KATAKANA_TOGGLE_ROW: 'KATAKANA_TOGGLE_ROW',
+    KATAKANA_TOGGLE_ALL: 'KATAKANA_TOGGLE_ALL',
+    UPDATE_STATE: 'UPDATE_STATE',
+    SET_PRACTICE_MODE: 'SET_PRACTICE_MODE',
 };
 
 const countSelected = (dataRows, selectedRows) => selectedRows
@@ -56,10 +57,10 @@ const reducer = (state, action) => {
     const { type, payload } = action;
 
     switch (type) {
-        case types.updateState:
+        case types.UPDATE_STATE:
             return { ...state, ...payload };
 
-        case types.hiraganaToggleRow: {
+        case types.HIRAGANA_TOGGLE_ROW: {
             const { hiragana, hiragana: { selectedRows, selectedNumber } } = state;
             const { rowIdx, kanaType } = payload;
             const newState = {
@@ -75,7 +76,7 @@ const reducer = (state, action) => {
             return newState;
         }
 
-        case types.hiraganaToggleAll: {
+        case types.HIRAGANA_TOGGLE_ALL: {
             const { hiragana, hiragana: { selectedRows, selectedNumber } } = state;
             const { kanaType } = payload;
             const newState = {
@@ -89,7 +90,7 @@ const reducer = (state, action) => {
             return newState;
         }
 
-        case types.katakanaToggleRow: {
+        case types.KATAKANA_TOGGLE_ROW: {
             const { katakana, katakana: { selectedRows, selectedNumber } } = state;
             const { rowIdx, kanaType } = payload;
 
@@ -106,7 +107,7 @@ const reducer = (state, action) => {
             return newState;
         }
 
-        case types.katakanaToggleAll: {
+        case types.KATAKANA_TOGGLE_ALL: {
             const { katakana, katakana: { selectedRows, selectedNumber } } = state;
             const { kanaType } = payload;
             const newState = {
@@ -116,6 +117,12 @@ const reducer = (state, action) => {
                     ...kanaToggleAll({ kanaRows: hiraganaRows[kanaType], kanaType, selectedRows, selectedNumber }),
                 },
             };
+            saveState(newState);
+            return newState;
+        }
+
+        case types.SET_PRACTICE_MODE: {
+            const newState = { ...state, practiceMode: payload };
             saveState(newState);
             return newState;
         }

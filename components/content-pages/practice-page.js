@@ -1,13 +1,14 @@
-import React, { useState, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import shuffle from 'lodash.shuffle';
 import KanaToRomaji from '../practice/kana-to-romaji';
 import RomajiToKana from '../practice/romaji-to-kana';
 import { NoStylesButton } from '../styled/common';
-import { useGlobalState } from '../state';
+import { useGlobalState, useDispatch, types } from '../state';
 import { hiraganaRows } from '../../data/hiragana';
 import { katakanaRows } from '../../data/katakana';
 import getSelectedKana from '../../utils/get-selected-kana';
+import MODES from '../practice/modes';
 
 
 const PickMode = styled.div`
@@ -40,13 +41,15 @@ const PickModeBtn = styled(NoStylesButton)`
 `;
 
 
-const MODES = { KANA_TO_ROMAJI: 'KANA_TO_ROMAJI', ROMAJI_TO_KANA: 'ROMAJI_TO_KANA' };
-
 const PracticePage = () => {
-    const [mode, setMode] = useState(MODES.KANA_TO_ROMAJI);
-    const { hiragana, katakana } = useGlobalState();
-    const hiraganaToLearn = useMemo(() => getSelectedKana(hiraganaRows, hiragana.selectedRows), [hiragana.selectedRows]);
-    const katakanaToLearn = useMemo(() => getSelectedKana(katakanaRows, katakana.selectedRows), [katakana.selectedRows]);
+    const { hiragana, katakana, practiceMode: mode } = useGlobalState();
+    const dispatch = useDispatch();
+    const hiraganaToLearn = useMemo(
+        () => getSelectedKana(hiraganaRows, hiragana.selectedRows), [hiragana.selectedRows],
+    );
+    const katakanaToLearn = useMemo(
+        () => getSelectedKana(katakanaRows, katakana.selectedRows), [katakana.selectedRows],
+    );
     const shuffledChars = shuffle([...hiraganaToLearn, ...katakanaToLearn]);
     return (
         <>
@@ -54,20 +57,20 @@ const PracticePage = () => {
                 <b>Practice mode:</b>
                 <PickModeBtn
                     active={mode === MODES.KANA_TO_ROMAJI}
-                    onClick={() => { setMode(MODES.KANA_TO_ROMAJI); }}
+                    onClick={() => { dispatch({ type: types.SET_PRACTICE_MODE, payload: MODES.KANA_TO_ROMAJI }); }}
                 >
                         Kana to Romaji
                 </PickModeBtn>
                 <PickModeBtn
                     active={mode === MODES.ROMAJI_TO_KANA}
-                    onClick={() => { setMode(MODES.ROMAJI_TO_KANA); }}
+                    onClick={() => { dispatch({ type: types.SET_PRACTICE_MODE, payload: MODES.ROMAJI_TO_KANA }); }}
                 >
                         Romaji to Kana
                 </PickModeBtn>
             </PickMode>
             {{
                 [MODES.KANA_TO_ROMAJI]: <KanaToRomaji kanaChars={shuffledChars} />,
-                [MODES.ROMAJI_TO_KANA]: <RomajiToKana />,
+                [MODES.ROMAJI_TO_KANA]: <RomajiToKana kanaChars={shuffledChars} />,
             }[mode]}
         </>);
 };

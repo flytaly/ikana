@@ -14,10 +14,10 @@ const Hiragana = () => {
     const dispatch = useDispatch();
 
     const makeClickHandler = kanaType => ({ rowIdx }) => {
-        dispatch({ type: types.hiraganaToggleRow, payload: { rowIdx, kanaType } });
+        dispatch({ type: types.HIRAGANA_TOGGLE_ROW, payload: { rowIdx, kanaType } });
     };
     const makeSelectAllHandler = kanaType => () => {
-        dispatch({ type: types.hiraganaToggleAll, payload: { kanaType } });
+        dispatch({ type: types.HIRAGANA_TOGGLE_ALL, payload: { kanaType } });
     };
 
     return (
