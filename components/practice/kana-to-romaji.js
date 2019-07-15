@@ -11,10 +11,10 @@ const InitialState = {
     wrongChars: new Set([]),
 };
 
-const isCorrectTranslit = (kanaChar, claimant) => {
+const isCorrectTranslit = (kanaChar, claim) => {
     for (const translit of kanaToRomaji[kanaChar]) {
-        if (translit === claimant) return true;
-        if (translit.startsWith(claimant)) return 'beginning';
+        if (translit === claim) return true;
+        if (translit.startsWith(claim)) return 'beginning';
     }
     return false;
 };

@@ -20,4 +20,7 @@ export default {
     pickModeBtnActiveColor: '#087FA3',
     pickModeBtnBgColor: 'transparent',
     pickModeBtnActiveBgColor: 'rgba(3.1%, 49.8%, 63.9%, 5%)',
+
+    quizChoiceBorder: '1px solid #6C6C6C',
+    quizChoiceHoverColor: 'hsl(46, 57%, 91%)',
 };
