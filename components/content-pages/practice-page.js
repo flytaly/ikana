@@ -7,7 +7,7 @@ import { NoStylesButton } from '../styled/common';
 import { useGlobalState } from '../state';
 import { hiraganaRows } from '../../data/hiragana';
 import { katakanaRows } from '../../data/katakana';
-import getSelectedKana from '../../utils/getSelectedKana';
+import getSelectedKana from '../../utils/get-selected-kana';
 
 
 const PickMode = styled.div`
