@@ -27,6 +27,10 @@ const ChoicesBlock = styled.div`
     flex-wrap: wrap;
     justify-content: space-between;
     font-size: 4rem;
+    width: 100%;
+    @media screen and (min-width: 30em){
+        width: 35rem;
+    }
 `;
 
 const Choice = styled(NoStylesButton)`
