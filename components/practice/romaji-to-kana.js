@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import shuffle from 'lodash.shuffle';
 import Quiz from './kana-quiz';
@@ -28,9 +28,14 @@ const RomajiToKana = ({ kanaChars }) => {
     const [{ shift, correct, wrong, disabledAnswers }, setState] = useState(InitialState);
     const currentChar = kanaChars[shift];
 
-    const clickHandler = ((answerId) => {
+    const clickHandler = useCallback((answerId) => {
         if (currentChar === answerId) {
-            return setState(state => ({ ...state, shift: state.shift + 1, correct: correct + 1, disabledAnswers: [] }));
+            return setState(state => ({
+                ...state,
+                shift: state.shift + 1,
+                correct: state.correct + 1,
+                disabledAnswers: [],
+            }));
         }
         return setState(state => ({
             ...state,
@@ -38,15 +43,30 @@ const RomajiToKana = ({ kanaChars }) => {
             wrong: state.wrongChars.size,
             disabledAnswers: [...state.disabledAnswers, answerId],
         }));
-    });
-    const createRandKanaList = useMemo(() => (currentChar ? shuffle([
+    }, [currentChar]);
+
+    const randKanaList = useMemo(() => (currentChar ? shuffle([
         currentChar,
         ...pickRandomKana(getKanaType(currentChar) === 'hiragana' ? hiraganaToRomaji : katakanaToRomaji, currentChar, 3),
     ]) : []), [currentChar]);
 
-    const answers = createRandKanaList.map(k => (
+    const answers = randKanaList.map(k => (
         { value: k, id: k, disabled: disabledAnswers.includes(k) }
     ));
+
+    useEffect(() => {
+        const keysListener = (e) => {
+            const KEYS = ['1', '2', '3', '4'];
+            if (KEYS.includes(e.key)) {
+                clickHandler(randKanaList[e.key - 1]);
+            }
+        };
+        document.addEventListener('keydown', keysListener);
+        return () => {
+            document.removeEventListener('keydown', keysListener);
+        };
+    }, [randKanaList, clickHandler]);
+
 
     return shift < kanaChars.length
         ? <Quiz
@@ -56,8 +76,7 @@ const RomajiToKana = ({ kanaChars }) => {
             correct={correct}
             wrong={wrong}
             left={kanaChars.length - shift}
-        />
-        : <div>That&apos;s all</div>;
+        /> : <div>That&apos;s all</div>;
 };
 
 RomajiToKana.propTypes = {

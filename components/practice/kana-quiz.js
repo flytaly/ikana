@@ -27,12 +27,12 @@ const ChoicesBlock = styled.div`
     flex-wrap: wrap;
     justify-content: space-between;
     font-size: 4rem;
-
 `;
 
 const Choice = styled(NoStylesButton)`
+    position: relative;
     padding: 1rem;
-    width: calc(${({ width }) => width} - 0.5rem);
+    width: calc(${({ choiceWidth }) => choiceWidth} - 0.5rem);
     min-width: 6rem;
     border: ${({ theme }) => theme.quizChoiceBorder};
     border-radius: 4px;
@@ -44,6 +44,14 @@ const Choice = styled(NoStylesButton)`
     }
     &[disabled] {
         opacity: 0.25;
+    }
+    &::before {
+        content: "${({ choiceNumber }) => choiceNumber}";
+        position: absolute;
+        top: 0.5rem;
+        left: 0.5rem;
+        font-size: 1.1rem;
+        color: ${({ theme }) => theme.quizChoiceNumberFontColor};
     }
 `;
 
@@ -67,10 +75,11 @@ const Quiz = ({
         </StatsBlock>
         <QuestionBlock>{question}</QuestionBlock>
         <ChoicesBlock>
-            {answers.map(({ value, disabled, id }) => (
+            {answers.map(({ value, disabled, id }, idx) => (
                 <Choice
                     key={id}
-                    width={`${100 / columns}%`}
+                    choiceWidth={`${100 / columns}%`}
+                    choiceNumber={idx + 1}
                     disabled={disabled}
                     onClick={() => clickHandler(id)}
                 >

@@ -23,4 +23,6 @@ export default {
 
     quizChoiceBorder: '1px solid #6C6C6C',
     quizChoiceHoverColor: 'hsl(46, 57%, 91%)',
+    quizChoiceFontColor: 'inherit',
+    quizChoiceNumberFontColor: '#6C6C6C',
 };
