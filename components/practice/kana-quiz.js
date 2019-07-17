@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { NoStylesButton } from '../styled/common';
 import InlineStats from './inline-stats';
+import { ShakeOnError } from '../styled/animations';
 
 const Container = styled.div`
     display: flex;
@@ -17,6 +18,8 @@ const Container = styled.div`
 const QuestionBlock = styled.div`
     margin: 0 0 3rem;
     font-size: 5rem;
+
+    ${({ shake }) => shake && ShakeOnError}
 `;
 
 const ChoicesBlock = styled.div`
@@ -54,11 +57,11 @@ const Choice = styled(NoStylesButton)`
 `;
 
 const Quiz = ({
-    question, answers, clickHandler, columns, wrong, total,
+    question, answers, clickHandler, columns, wrong, total, shakeIt,
 }) => (
     <Container>
         <InlineStats wrong={wrong} total={total} />
-        <QuestionBlock>{question}</QuestionBlock>
+        <QuestionBlock shake={shakeIt}>{question}</QuestionBlock>
         <ChoicesBlock>
             {answers.map(({ value, disabled, id }, idx) => (
                 <Choice
@@ -80,12 +83,14 @@ Quiz.propTypes = {
     clickHandler: PropTypes.func.isRequired,
     wrong: PropTypes.number,
     total: PropTypes.string,
+    shakeIt: PropTypes.bool,
 };
 
 Quiz.defaultProps = {
     columns: 2,
     wrong: 0,
     total: '',
+    shakeIt: false,
 };
 
 

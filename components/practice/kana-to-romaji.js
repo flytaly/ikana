@@ -10,6 +10,7 @@ const InitialState = {
     correct: 0,
     wrong: 0,
     wrongChars: new Set([]),
+    isMistake: false,
 };
 
 const isCorrectTranslit = (kanaChar, claim) => {
@@ -21,7 +22,10 @@ const isCorrectTranslit = (kanaChar, claim) => {
 };
 
 const KanaToRomaji = ({ kanaChars }) => {
-    const [{ shift, inputValue, wrong, correct, wrongChars }, setState] = useState(InitialState);
+    const [{
+        shift, inputValue, wrong, correct, wrongChars, isMistake,
+    }, setState] = useState(InitialState);
+
     const prevChar = kanaChars[shift - 1];
     const currentChar = kanaChars[shift];
     const nextChar = kanaChars[shift + 1];
@@ -32,6 +36,7 @@ const KanaToRomaji = ({ kanaChars }) => {
         if (translit === true) {
             return setState(state => ({
                 ...state,
+                isMistake: false,
                 shift: state.shift + 1,
                 inputValue: '',
                 correct: state.correct + 1,
@@ -40,12 +45,13 @@ const KanaToRomaji = ({ kanaChars }) => {
         if (translit === false) {
             return setState(state => ({
                 ...state,
+                isMistake: true,
                 wrongChars: state.wrongChars.add(currentChar),
                 inputValue: value,
                 wrong: state.wrongChars.size,
             }));
         }
-        return setState(state => ({ ...state, inputValue: value }));
+        return setState(state => ({ ...state, isMistake: false, inputValue: value }));
     };
 
     if (!kanaChars || !kanaChars.length) return <div>No kana selected</div>;
@@ -58,6 +64,7 @@ const KanaToRomaji = ({ kanaChars }) => {
         prevChar={prevChar}
         wrong={wrong}
         total={`${shift + 1}/${kanaChars.length}`}
+        shakeIt={isMistake}
     /> : <FinalStatsBlock wrongChars={[...wrongChars]} total={shift} correct={correct} wrong={wrong} />;
 };
 

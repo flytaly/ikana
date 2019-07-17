@@ -11,6 +11,7 @@ const InitialState = {
     wrong: 0,
     wrongChars: new Set([]),
     disabledAnswers: [],
+    isMistake: false,
 };
 
 const pickRandomKana = (kanaData, takenKana, number) => {
@@ -26,13 +27,16 @@ const pickRandomKana = (kanaData, takenKana, number) => {
 };
 
 const RomajiToKana = ({ kanaChars }) => {
-    const [{ shift, wrong, disabledAnswers, correct, wrongChars }, setState] = useState(InitialState);
+    const [{
+        shift, wrong, disabledAnswers, correct, wrongChars, isMistake,
+    }, setState] = useState(InitialState);
     const currentChar = kanaChars[shift];
 
     const clickHandler = useCallback((answerId) => {
         if (currentChar === answerId) {
             return setState(state => ({
                 ...state,
+                isMistake: false,
                 shift: state.shift + 1,
                 correct: state.correct + 1,
                 disabledAnswers: [],
@@ -40,6 +44,7 @@ const RomajiToKana = ({ kanaChars }) => {
         }
         return setState(state => ({
             ...state,
+            isMistake: true,
             answerId: state.wrongChars.add(currentChar),
             wrong: state.wrongChars.size,
             disabledAnswers: [...state.disabledAnswers, answerId],
@@ -77,6 +82,7 @@ const RomajiToKana = ({ kanaChars }) => {
             clickHandler={clickHandler}
             wrong={wrong}
             total={`${shift + 1}/${kanaChars.length}`}
+            shakeIt={isMistake}
         /> : <FinalStatsBlock wrongChars={[...wrongChars]} total={shift} correct={correct} wrong={wrong} />;
 };
 

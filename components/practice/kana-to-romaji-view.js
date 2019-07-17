@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import { Flipped, Flipper } from 'react-flip-toolkit';
 import PropTypes from 'prop-types';
 import { PracticeModeTextInput } from '../styled/inputs';
-import { SlideInLeft, SlideOutLeft } from '../styled/animations';
+import { SlideInLeft, SlideOutLeft, ShakeOnError } from '../styled/animations';
 import InlineStats from './inline-stats';
 
 
@@ -47,6 +47,8 @@ const Kana = styled.div`
         // Next character
         return css`color: grey;`;
     }}
+
+    ${({ shake }) => shake && ShakeOnError}
 `;
 
 
@@ -61,7 +63,7 @@ const onAppear = (el) => {
     el.style.opacity = 1;
     setTimeout(() => {
         el.classList.remove('slideIn');
-    }, 60);
+    }, 50);
 };
 
 const onExit = (el, i, exit) => {
@@ -80,12 +82,13 @@ const KanaToRomajiView = ({
     prevChar,
     total,
     wrong,
+    shakeIt,
 }) => (
     <Container>
         <InlineStats total={total} wrong={wrong} />
         <Flipper
             flipKey={currentChar}
-            spring={{ stiffness: 2000, damping: 80 }}
+            spring={{ stiffness: 3000, damping: 80 }}
         >
             <KanaView>
                 {[prevChar, currentChar, nextChar].map((ch, idx) => (
@@ -95,7 +98,7 @@ const KanaToRomajiView = ({
                         onExit={onExit}
                         key={ch || idx}
                     >
-                        <Kana column={idx}>{ch}</Kana>
+                        <Kana column={idx} shake={shakeIt}>{ch}</Kana>
                     </Flipped>))}
             </KanaView>
         </Flipper>
@@ -116,6 +119,7 @@ KanaToRomajiView.propTypes = {
     prevChar: PropTypes.string,
     total: PropTypes.string,
     wrong: PropTypes.number,
+    shakeIt: PropTypes.bool,
 };
 
 KanaToRomajiView.defaultProps = {
@@ -126,6 +130,7 @@ KanaToRomajiView.defaultProps = {
     prevChar: '',
     total: '',
     wrong: 0,
+    shakeIt: false,
 };
 
 export default KanaToRomajiView;
