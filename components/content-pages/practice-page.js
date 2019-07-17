@@ -40,6 +40,10 @@ const PickModeBtn = styled(NoStylesButton)`
     }
 `;
 
+const PracticeContainer = styled.div`
+    display: flex;
+    justify-content: center;
+`;
 
 const PracticePage = () => {
     const { hiragana, katakana, practiceMode: mode } = useGlobalState();
@@ -68,10 +72,12 @@ const PracticePage = () => {
                         Romaji to Kana
                 </PickModeBtn>
             </PickMode>
-            {{
-                [MODES.KANA_TO_ROMAJI]: <KanaToRomaji kanaChars={shuffledChars} />,
-                [MODES.ROMAJI_TO_KANA]: <RomajiToKana kanaChars={shuffledChars} />,
-            }[mode]}
+            <PracticeContainer>
+                {{
+                    [MODES.KANA_TO_ROMAJI]: <KanaToRomaji kanaChars={shuffledChars} />,
+                    [MODES.ROMAJI_TO_KANA]: <RomajiToKana kanaChars={shuffledChars} />,
+                }[mode]}
+            </PracticeContainer>
         </>);
 };
 

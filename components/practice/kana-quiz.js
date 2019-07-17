@@ -2,18 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { NoStylesButton } from '../styled/common';
-
+import InlineStats from './inline-stats';
 
 const Container = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
     align-items: center;
-`;
-const StatsBlock = styled.div`
-    display: flex;
-    div:not(:last-child) {
-        margin-right: 1rem;
+    @media screen and (min-width: 30em){
+        width: 35rem;
     }
 `;
 
@@ -28,9 +25,6 @@ const ChoicesBlock = styled.div`
     justify-content: space-between;
     font-size: 4rem;
     width: 100%;
-    @media screen and (min-width: 30em){
-        width: 35rem;
-    }
 `;
 
 const Choice = styled(NoStylesButton)`
@@ -60,23 +54,10 @@ const Choice = styled(NoStylesButton)`
 `;
 
 const Quiz = ({
-    question, answers, clickHandler, columns, correct, wrong, left,
+    question, answers, clickHandler, columns, wrong, total,
 }) => (
     <Container>
-        <StatsBlock>
-            <div>
-                <span>correct:&nbsp;</span>
-                <b>{correct}</b>
-            </div>
-            <div>
-                <span>wrong:&nbsp;</span>
-                <b>{wrong}</b>
-            </div>
-            <div>
-                <span>left:&nbsp;</span>
-                <b>{left}</b>
-            </div>
-        </StatsBlock>
+        <InlineStats wrong={wrong} total={total} />
         <QuestionBlock>{question}</QuestionBlock>
         <ChoicesBlock>
             {answers.map(({ value, disabled, id }, idx) => (
@@ -97,16 +78,14 @@ Quiz.propTypes = {
     question: PropTypes.string.isRequired,
     answers: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
     clickHandler: PropTypes.func.isRequired,
-    correct: PropTypes.number,
     wrong: PropTypes.number,
-    left: PropTypes.number,
+    total: PropTypes.string,
 };
 
 Quiz.defaultProps = {
     columns: 2,
-    correct: 0,
     wrong: 0,
-    left: 0,
+    total: '',
 };
 
 

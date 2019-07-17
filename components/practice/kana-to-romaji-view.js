@@ -1,14 +1,20 @@
 /* eslint-disable react/prop-types */
 import styled, { css } from 'styled-components';
 import { Flipped, Flipper } from 'react-flip-toolkit';
+import PropTypes from 'prop-types';
 import { PracticeModeTextInput } from '../styled/inputs';
 import { SlideInLeft, SlideOutLeft } from '../styled/animations';
+import InlineStats from './inline-stats';
+
 
 const Container = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
     align-items: center;
+    @media screen and (min-width: 30em){
+        width: 35rem;
+    }
 `;
 
 const KanaView = styled.div`
@@ -23,13 +29,6 @@ const KanaView = styled.div`
     }
     ${SlideInLeft}
     ${SlideOutLeft}
-`;
-
-const Stats = styled.div`
-    display: flex;
-    div:not(:last-child) {
-        margin-right: 1rem;
-    }
 `;
 
 const Kana = styled.div`
@@ -75,29 +74,15 @@ const onExit = (el, i, exit) => {
 
 const KanaToRomajiView = ({
     changeHandler,
-    correct,
     currentChar,
     inputValue,
-    left,
     nextChar,
     prevChar,
+    total,
     wrong,
 }) => (
     <Container>
-        <Stats>
-            <div>
-                <span>correct:&nbsp;</span>
-                <b>{correct}</b>
-            </div>
-            <div>
-                <span>wrong:&nbsp;</span>
-                <b>{wrong}</b>
-            </div>
-            <div>
-                <span>left:&nbsp;</span>
-                <b>{left}</b>
-            </div>
-        </Stats>
+        <InlineStats total={total} wrong={wrong} />
         <Flipper
             flipKey={currentChar}
             spring={{ stiffness: 2000, damping: 80 }}
@@ -123,5 +108,24 @@ const KanaToRomajiView = ({
         </UserInputContainer>
     </Container>);
 
+KanaToRomajiView.propTypes = {
+    changeHandler: PropTypes.func,
+    currentChar: PropTypes.string,
+    inputValue: PropTypes.string,
+    nextChar: PropTypes.string,
+    prevChar: PropTypes.string,
+    total: PropTypes.string,
+    wrong: PropTypes.number,
+};
+
+KanaToRomajiView.defaultProps = {
+    changeHandler: () => {},
+    currentChar: '',
+    inputValue: '',
+    nextChar: '',
+    prevChar: '',
+    total: '',
+    wrong: 0,
+};
 
 export default KanaToRomajiView;

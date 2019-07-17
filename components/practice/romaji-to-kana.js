@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import shuffle from 'lodash.shuffle';
 import Quiz from './kana-quiz';
 import kanaToRomaji, { hiraganaToRomaji, katakanaToRomaji, getKanaType } from '../../data/kana-to-romaji';
+import FinalStatsBlock from './final-stats';
 
 const InitialState = {
     shift: 0,
@@ -25,7 +26,7 @@ const pickRandomKana = (kanaData, takenKana, number) => {
 };
 
 const RomajiToKana = ({ kanaChars }) => {
-    const [{ shift, correct, wrong, disabledAnswers }, setState] = useState(InitialState);
+    const [{ shift, wrong, disabledAnswers, correct, wrongChars }, setState] = useState(InitialState);
     const currentChar = kanaChars[shift];
 
     const clickHandler = useCallback((answerId) => {
@@ -67,16 +68,16 @@ const RomajiToKana = ({ kanaChars }) => {
         };
     }, [randKanaList, clickHandler]);
 
+    if (!kanaChars || !kanaChars.length) return <div>No kana selected</div>;
 
     return shift < kanaChars.length
         ? <Quiz
             question={kanaToRomaji[currentChar][0]}
             answers={answers}
             clickHandler={clickHandler}
-            correct={correct}
             wrong={wrong}
-            left={kanaChars.length - shift}
-        /> : <div>That&apos;s all</div>;
+            total={`${shift + 1}/${kanaChars.length}`}
+        /> : <FinalStatsBlock wrongChars={[...wrongChars]} total={shift} correct={correct} wrong={wrong} />;
 };
 
 RomajiToKana.propTypes = {

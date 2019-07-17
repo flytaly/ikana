@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import kanaToRomaji from '../../data/kana-to-romaji';
 import KanaToRomajiView from './kana-to-romaji-view';
+import FinalStatsBlock from './final-stats';
 
 const InitialState = {
     shift: 0,
@@ -20,7 +21,7 @@ const isCorrectTranslit = (kanaChar, claim) => {
 };
 
 const KanaToRomaji = ({ kanaChars }) => {
-    const [{ shift, inputValue, correct, wrong }, setState] = useState(InitialState);
+    const [{ shift, inputValue, wrong, correct, wrongChars }, setState] = useState(InitialState);
     const prevChar = kanaChars[shift - 1];
     const currentChar = kanaChars[shift];
     const nextChar = kanaChars[shift + 1];
@@ -47,16 +48,17 @@ const KanaToRomaji = ({ kanaChars }) => {
         return setState(state => ({ ...state, inputValue: value }));
     };
 
-    return <KanaToRomajiView
+    if (!kanaChars || !kanaChars.length) return <div>No kana selected</div>;
+
+    return shift < kanaChars.length ? <KanaToRomajiView
         changeHandler={changeHandler}
-        correct={correct}
         currentChar={currentChar}
         inputValue={inputValue}
-        left={kanaChars.length - shift}
         nextChar={nextChar}
         prevChar={prevChar}
         wrong={wrong}
-    />;
+        total={`${shift + 1}/${kanaChars.length}`}
+    /> : <FinalStatsBlock wrongChars={[...wrongChars]} total={shift} correct={correct} wrong={wrong} />;
 };
 
 KanaToRomaji.propTypes = {
