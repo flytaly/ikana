@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { PracticeModeTextInput } from '../styled/inputs';
 import { SlideInLeft, SlideOutLeft, ShakeOnError } from '../styled/animations';
 import InlineStats from './inline-stats';
+import { useGlobalState } from '../state';
 
 
 const Container = styled.div`
@@ -83,33 +84,34 @@ const KanaToRomajiView = ({
     total,
     wrong,
     shakeIt,
-}) => (
-    <Container>
-        <InlineStats total={total} wrong={wrong} />
-        <Flipper
-            flipKey={currentChar}
-            spring={{ stiffness: 3000, damping: 80 }}
-        >
-            <KanaView>
-                {[prevChar, currentChar, nextChar].map((ch, idx) => (
-                    <Flipped
-                        flipId={`${ch || idx}`}
-                        onAppear={onAppear}
-                        onExit={onExit}
-                        key={ch || idx}
-                    >
-                        <Kana column={idx} shake={shakeIt}>{ch}</Kana>
-                    </Flipped>))}
-            </KanaView>
-        </Flipper>
-        <UserInputContainer>
-            <PracticeModeTextInput
-                value={inputValue}
-                onChange={changeHandler}
-                autoFocus
-            />
-        </UserInputContainer>
-    </Container>);
+}) => {
+    const { disableAnimations } = useGlobalState('options');
+    return (
+        <Container>
+            <InlineStats total={total} wrong={wrong} />
+            <Flipper flipKey={disableAnimations || currentChar} spring={{ stiffness: 3000, damping: 80 }}>
+                <KanaView>
+                    {[prevChar, currentChar, nextChar].map((ch, idx) => (
+                        <Flipped
+                            flipId={`${ch || idx}`}
+                            onAppear={onAppear}
+                            onExit={onExit}
+                            key={ch || idx}
+                        >
+                            <Kana
+                                column={idx}
+                                shake={!disableAnimations && shakeIt}
+                            >
+                                {ch}
+                            </Kana>
+                        </Flipped>))}
+                </KanaView>
+            </Flipper>
+            <UserInputContainer>
+                <PracticeModeTextInput value={inputValue} onChange={changeHandler} autoFocus />
+            </UserInputContainer>
+        </Container>);
+};
 
 KanaToRomajiView.propTypes = {
     changeHandler: PropTypes.func,

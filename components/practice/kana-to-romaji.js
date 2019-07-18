@@ -57,25 +57,26 @@ const KanaToRomaji = ({ kanaChars }) => {
 
     if (!kanaChars || !kanaChars.length) return <div>No kana selected</div>;
 
-    return shift < kanaChars.length ? <KanaToRomajiView
-        changeHandler={changeHandler}
-        currentChar={currentChar}
-        inputValue={inputValue}
-        nextChar={nextChar}
-        prevChar={prevChar}
-        wrong={wrong}
-        total={`${shift + 1}/${kanaChars.length}`}
-        shakeIt={isMistake}
-    /> : (
-        <>
-            <FinalStatsBlock
-                wrongChars={[...wrongChars]}
-                total={shift}
-                correct={correct}
-                wrong={wrong}
-            />
-            <RepeatButton clickHandler={() => { setState(InitialState); }} />
-        </>);
+    return shift < kanaChars.length
+        ? <KanaToRomajiView
+            changeHandler={changeHandler}
+            currentChar={currentChar}
+            inputValue={inputValue}
+            nextChar={nextChar}
+            prevChar={prevChar}
+            wrong={wrong}
+            total={`${shift + 1}/${kanaChars.length}`}
+            shakeIt={isMistake}
+        /> : (
+            <>
+                <FinalStatsBlock
+                    wrongChars={[...wrongChars]}
+                    total={shift}
+                    correct={correct}
+                    wrong={wrong}
+                />
+                <RepeatButton clickHandler={() => { setState(InitialState); }} />
+            </>);
 };
 
 KanaToRomaji.propTypes = {

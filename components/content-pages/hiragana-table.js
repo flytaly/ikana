@@ -1,13 +1,9 @@
 import React from 'react';
-import styled from 'styled-components';
 import Table from '../styled/kana-table';
 import { hiraganaRows, kanaTypes } from '../../data/hiragana';
 import { useGlobalState, useDispatch, types } from '../state';
 import { TablesContainer, TableInColumn } from '../styled/kana-tables-grid';
-
-const ContentHeader = styled.h3`
-    align-self: center;
-`;
+import ContentHeader from './content-header';
 
 const Hiragana = () => {
     const hiragana = useGlobalState('hiragana');

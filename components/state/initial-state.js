@@ -2,6 +2,9 @@ import MODES from '../practice/modes';
 
 const initialState = {
     practiceMode: MODES.KANA_TO_ROMAJI,
+    options: {
+        disableAnimations: false,
+    },
     hiragana: {
         selectedRows: {
             monographs: [],

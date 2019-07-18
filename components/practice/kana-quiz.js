@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { NoStylesButton } from '../styled/common';
 import InlineStats from './inline-stats';
 import { ShakeOnError } from '../styled/animations';
+import { useGlobalState } from '../state';
 
 const Container = styled.div`
     display: flex;
@@ -58,23 +59,26 @@ const Choice = styled(NoStylesButton)`
 
 const Quiz = ({
     question, answers, clickHandler, columns, wrong, total, shakeIt,
-}) => (
-    <Container>
-        <InlineStats wrong={wrong} total={total} />
-        <QuestionBlock shake={shakeIt}>{question}</QuestionBlock>
-        <ChoicesBlock>
-            {answers.map(({ value, disabled, id }, idx) => (
-                <Choice
-                    key={id}
-                    choiceWidth={`${100 / columns}%`}
-                    choiceNumber={idx + 1}
-                    disabled={disabled}
-                    onClick={() => clickHandler(id)}
-                >
-                    {value}
-                </Choice>))}
-        </ChoicesBlock>
-    </Container>);
+}) => {
+    const { disableAnimations } = useGlobalState('options');
+    return (
+        <Container>
+            <InlineStats wrong={wrong} total={total} />
+            <QuestionBlock shake={!disableAnimations && shakeIt}>{question}</QuestionBlock>
+            <ChoicesBlock>
+                {answers.map(({ value, disabled, id }, idx) => (
+                    <Choice
+                        key={id}
+                        choiceWidth={`${100 / columns}%`}
+                        choiceNumber={idx + 1}
+                        disabled={disabled}
+                        onClick={() => clickHandler(id)}
+                    >
+                        {value}
+                    </Choice>))}
+            </ChoicesBlock>
+        </Container>);
+};
 
 Quiz.propTypes = {
     columns: PropTypes.number,

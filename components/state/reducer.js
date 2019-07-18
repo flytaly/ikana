@@ -10,6 +10,7 @@ export const types = {
     KATAKANA_TOGGLE_ALL: 'KATAKANA_TOGGLE_ALL',
     UPDATE_STATE: 'UPDATE_STATE',
     SET_PRACTICE_MODE: 'SET_PRACTICE_MODE',
+    UPDATE_OPTIONS: 'UPDATE_OPTIONS',
 };
 
 const countSelected = (dataRows, selectedRows) => selectedRows
@@ -123,6 +124,12 @@ const reducer = (state, action) => {
 
         case types.SET_PRACTICE_MODE: {
             const newState = { ...state, practiceMode: payload };
+            saveState(newState);
+            return newState;
+        }
+
+        case types.UPDATE_OPTIONS: {
+            const newState = { ...state, options: payload };
             saveState(newState);
             return newState;
         }
