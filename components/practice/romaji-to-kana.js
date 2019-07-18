@@ -4,6 +4,7 @@ import shuffle from 'lodash.shuffle';
 import Quiz from './kana-quiz';
 import kanaToRomaji, { hiraganaToRomaji, katakanaToRomaji, getKanaType } from '../../data/kana-to-romaji';
 import FinalStatsBlock from './final-stats';
+import RepeatButton from './repeat-button';
 
 const InitialState = {
     shift: 0,
@@ -83,7 +84,16 @@ const RomajiToKana = ({ kanaChars }) => {
             wrong={wrong}
             total={`${shift + 1}/${kanaChars.length}`}
             shakeIt={isMistake}
-        /> : <FinalStatsBlock wrongChars={[...wrongChars]} total={shift} correct={correct} wrong={wrong} />;
+        /> : (
+            <>
+                <FinalStatsBlock
+                    wrongChars={[...wrongChars]}
+                    total={shift}
+                    correct={correct}
+                    wrong={wrong}
+                />
+                <RepeatButton clickHandler={() => { setState(InitialState); }} />
+            </>);
 };
 
 RomajiToKana.propTypes = {

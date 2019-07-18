@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import kanaToRomaji from '../../data/kana-to-romaji';
 import KanaToRomajiView from './kana-to-romaji-view';
 import FinalStatsBlock from './final-stats';
+import RepeatButton from './repeat-button';
 
 const InitialState = {
     shift: 0,
@@ -65,7 +66,16 @@ const KanaToRomaji = ({ kanaChars }) => {
         wrong={wrong}
         total={`${shift + 1}/${kanaChars.length}`}
         shakeIt={isMistake}
-    /> : <FinalStatsBlock wrongChars={[...wrongChars]} total={shift} correct={correct} wrong={wrong} />;
+    /> : (
+        <>
+            <FinalStatsBlock
+                wrongChars={[...wrongChars]}
+                total={shift}
+                correct={correct}
+                wrong={wrong}
+            />
+            <RepeatButton clickHandler={() => { setState(InitialState); }} />
+        </>);
 };
 
 KanaToRomaji.propTypes = {

@@ -42,7 +42,9 @@ const PickModeBtn = styled(NoStylesButton)`
 
 const PracticeContainer = styled.div`
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
 `;
 
 const PracticePage = () => {
