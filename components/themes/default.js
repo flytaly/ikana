@@ -25,4 +25,9 @@ export default {
     quizChoiceHoverColor: 'hsl(46, 57%, 91%)',
     quizChoiceFontColor: 'inherit',
     quizChoiceNumberFontColor: '#6C6C6C',
+
+    optionActiveColor: 'hsl(120, 80%, 30%)',
+    optionActiveFontColor: '#FFFFFF',
+    optionBorder: '1px solid #6C6C6C',
+    optionFocusOutline: '2px solid blue',
 };
