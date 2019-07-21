@@ -5,13 +5,14 @@ import { NoStylesButton } from '../styled/common';
 import InlineStats from './inline-stats';
 import { ShakeOnError } from '../styled/animations';
 import { useGlobalState } from '../state';
+import Media from '../media-queries';
 
 const Container = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
     align-items: center;
-    @media screen and (min-width: 30em){
+    @media ${Media.largeEnough} {
         width: 35rem;
     }
 `;

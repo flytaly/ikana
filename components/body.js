@@ -9,30 +9,41 @@ import { hiraganaTotal } from '../data/hiragana';
 import { katakanaTotal } from '../data/katakana';
 import StartButton from './styled/start-button';
 import routes from './routes';
+import Media from './media-queries';
 
 const Container = styled.div`
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     margin-top: 2rem;
     width: 100vw;
     max-width: 100vw;
     padding: 1rem;
+    @media ${Media.largeEnough}{
+        flex-direction: row;
+    }
 `;
 
 const CardContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
-    flex-direction: ${props => (props.expanded ? 'column' : 'row')};
-    justify-content: ${props => (props.expanded ? 'flex-start' : 'center')};
     max-width: 100%;
+    justify-content: ${props => (props.expanded ? 'flex-start' : 'center')};
+    @media ${Media.largeEnough}{
+        flex-direction: ${props => (props.expanded ? 'column' : 'row')};
+        margin: ${props => (props.expanded ? '0 0 0.5rem 0' : '1rem')}
+    }
 `;
 
 const NewLineCard = styled.div`
     ${props => !props.expanded && css`
-    display: flex;
-    flex: 1 0 100%;
-    justify-content: center;`}
+        display: flex;
+        flex: 1 0 100%;
+        justify-content: center;`}
+    min-width: 6rem;
+    :hover{
+        z-index: 20;
+    }
 `;
 
 

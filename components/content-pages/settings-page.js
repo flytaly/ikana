@@ -9,7 +9,7 @@ const SettingsBlock = styled.div`
     flex-direction: column;
     align-self: center;
     align-items: center;
-    width: 40rem;
+    width: 35rem;
     max-width: 100%;
     h3 {
         font-size: 1.5rem;

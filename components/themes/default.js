@@ -29,5 +29,5 @@ export default {
     optionActiveColor: 'hsl(120, 80%, 30%)',
     optionActiveFontColor: '#FFFFFF',
     optionBorder: '1px solid #6C6C6C',
-    optionFocusOutline: '2px solid blue',
+    optionFocusOutline: '3px solid #99B1B8',
 };
