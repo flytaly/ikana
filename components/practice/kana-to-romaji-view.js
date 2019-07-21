@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
+import React, { useRef, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import { Flipped, Flipper } from 'react-flip-toolkit';
 import PropTypes from 'prop-types';
-import { PracticeModeTextInput } from '../styled/inputs';
+import { PracticeModeTextInput, PracticeModeCheckBtn } from '../styled/inputs';
 import { SlideInLeft, SlideOutLeft, ShakeOnError } from '../styled/animations';
 import InlineStats from './inline-stats';
 import { useGlobalState } from '../state';
@@ -54,8 +55,9 @@ const Kana = styled.div`
 
 
 const UserInputContainer = styled.div`
+    display:flex;
     max-width: 100%;
-    width: 15rem;
+    width: 18rem;
 `;
 
 const onAppear = (el) => {
@@ -76,7 +78,7 @@ const onExit = (el, i, exit) => {
 };
 
 const KanaToRomajiView = ({
-    changeHandler,
+    inputHandler,
     currentChar,
     inputValue,
     nextChar,
@@ -85,7 +87,19 @@ const KanaToRomajiView = ({
     wrong,
     shakeIt,
 }) => {
-    const { disableAnimations } = useGlobalState('options');
+    const { disableAnimations, disableAutoInputCheck } = useGlobalState('options');
+    const inputRef = useRef('');
+    useEffect(() => {
+        const listener = (e) => {
+            if (e.code === 'Enter') {
+                inputHandler(inputRef.current.value);
+            }
+        };
+        const input = inputRef.current;
+        input.addEventListener('keydown', listener);
+        return () => { input.removeEventListener('keydown', listener); };
+    }, [inputHandler]);
+
     return (
         <Container>
             <InlineStats total={total} wrong={wrong} />
@@ -108,13 +122,27 @@ const KanaToRomajiView = ({
                 </KanaView>
             </Flipper>
             <UserInputContainer>
-                <PracticeModeTextInput value={inputValue} onChange={changeHandler} autoFocus />
+                <PracticeModeTextInput
+                    value={inputValue}
+                    onChange={({ target }) => inputHandler(target.value, !disableAutoInputCheck)}
+                    ref={inputRef}
+                    autoFocus
+                />
+                <PracticeModeCheckBtn
+                    onClick={() => {
+                        const { value } = inputRef.current;
+                        inputHandler(value);
+                        inputRef.current.focus();
+                    }}
+                >
+                check
+                </PracticeModeCheckBtn>
             </UserInputContainer>
         </Container>);
 };
 
 KanaToRomajiView.propTypes = {
-    changeHandler: PropTypes.func,
+    inputHandler: PropTypes.func,
     currentChar: PropTypes.string,
     inputValue: PropTypes.string,
     nextChar: PropTypes.string,
@@ -125,7 +153,7 @@ KanaToRomajiView.propTypes = {
 };
 
 KanaToRomajiView.defaultProps = {
-    changeHandler: () => {},
+    inputHandler: () => {},
     currentChar: '',
     inputValue: '',
     nextChar: '',

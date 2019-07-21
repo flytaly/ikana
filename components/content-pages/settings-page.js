@@ -31,7 +31,7 @@ const Setting = styled.div`
 const Settings = () => {
     const options = useGlobalState('options');
     const dispatch = useDispatch();
-    const { disableAnimations } = options;
+    const { disableAnimations, disableAutoInputCheck } = options;
 
     return (
         <>
@@ -49,6 +49,21 @@ const Settings = () => {
                             payload: {
                                 ...options,
                                 disableAnimations: target.value === 'off' || false,
+                            },
+                        })}
+                    />
+                </Setting>
+                <Setting>
+                    <span title="Automatically check input and don't wait for Enter or submit button to be pressed">Check input in real time</span>
+                    <OptionGroup
+                        ariaLabel="input auto checking"
+                        options={[{ title: 'On', id: 'on' }, { title: 'Off', id: 'off' }]}
+                        current={disableAutoInputCheck ? 'off' : 'on'}
+                        changeHandler={({ target }) => dispatch({
+                            type: types.UPDATE_OPTIONS,
+                            payload: {
+                                ...options,
+                                disableAutoInputCheck: target.value === 'off' || false,
                             },
                         })}
                     />

@@ -40,7 +40,7 @@ const NewLineCard = styled.div`
         display: flex;
         flex: 1 0 100%;
         justify-content: center;`}
-    min-width: 6rem;
+    min-width: 5rem;
     :hover{
         z-index: 20;
     }

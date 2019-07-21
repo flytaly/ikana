@@ -4,6 +4,7 @@ import kanaToRomaji from '../../data/kana-to-romaji';
 import KanaToRomajiView from './kana-to-romaji-view';
 import FinalStatsBlock from './final-stats';
 import RepeatButton from './repeat-button';
+import { useGlobalState } from '../state';
 
 const InitialState = {
     shift: 0,
@@ -26,14 +27,17 @@ const KanaToRomaji = ({ kanaChars }) => {
     const [{
         shift, inputValue, wrong, correct, wrongChars, isMistake,
     }, setState] = useState(InitialState);
-
     const prevChar = kanaChars[shift - 1];
     const currentChar = kanaChars[shift];
     const nextChar = kanaChars[shift + 1];
 
-    const changeHandler = (e) => {
-        const value = e.target.value.trim().toLowerCase();
+    // isFinalValue - if false save value without checking if this is a correct answer or not
+    const inputHandler = (rawValue, isFinalValue = true) => {
+        const value = rawValue.trim().toLowerCase();
         const translit = isCorrectTranslit(currentChar, value);
+
+        if (!isFinalValue) return setState(state => ({ ...state, inputValue: value }));
+
         if (translit === true) {
             return setState(state => ({
                 ...state,
@@ -59,7 +63,7 @@ const KanaToRomaji = ({ kanaChars }) => {
 
     return shift < kanaChars.length
         ? <KanaToRomajiView
-            changeHandler={changeHandler}
+            inputHandler={inputHandler}
             currentChar={currentChar}
             inputValue={inputValue}
             nextChar={nextChar}

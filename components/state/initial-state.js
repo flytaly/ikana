@@ -4,6 +4,7 @@ const initialState = {
     practiceMode: MODES.KANA_TO_ROMAJI,
     options: {
         disableAnimations: false,
+        disableAutoInputCheck: false,
     },
     hiragana: {
         selectedRows: {
