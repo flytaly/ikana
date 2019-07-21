@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import styled from 'styled-components';
 import shuffle from 'lodash.shuffle';
 import KanaToRomaji from '../practice/kana-to-romaji';
@@ -49,6 +49,7 @@ const PracticeContainer = styled.div`
 
 const PracticePage = () => {
     const { hiragana, katakana, practiceMode: mode } = useGlobalState();
+    const [, setPracticeCount] = useState(1); // Currently the only use case is forcing component rerendering for reshuffle
     const dispatch = useDispatch();
     const hiraganaToLearn = useMemo(
         () => getSelectedKana(hiraganaRows, hiragana.selectedRows), [hiragana.selectedRows],
@@ -76,8 +77,8 @@ const PracticePage = () => {
             </PickMode>
             <PracticeContainer>
                 {{
-                    [MODES.KANA_TO_ROMAJI]: <KanaToRomaji kanaChars={shuffledChars} />,
-                    [MODES.ROMAJI_TO_KANA]: <RomajiToKana kanaChars={shuffledChars} />,
+                    [MODES.KANA_TO_ROMAJI]: <KanaToRomaji kanaChars={shuffledChars} onRestart={() => setPracticeCount(state => state + 1)} />,
+                    [MODES.ROMAJI_TO_KANA]: <RomajiToKana kanaChars={shuffledChars} onRestart={() => setPracticeCount(state => state + 1)} />,
                 }[mode]}
             </PracticeContainer>
         </>);

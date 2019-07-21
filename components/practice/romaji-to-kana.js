@@ -38,7 +38,7 @@ const useKeyDownListener = (keysListener) => {
     }, [keysListener]);
 };
 
-const RomajiToKana = ({ kanaChars }) => {
+const RomajiToKana = ({ kanaChars, onRestart }) => {
     const [{
         shift, wrong, disabledAnswers, correct, wrongChars, isMistake, isStarted,
     }, setState] = useState(InitialState);
@@ -102,12 +102,18 @@ const RomajiToKana = ({ kanaChars }) => {
                     wrong={wrong}
                     seconds={seconds}
                 />
-                <RepeatButton clickHandler={() => { setState(InitialState); setSeconds(0); }} />
+                <RepeatButton clickHandler={() => { setState(InitialState); setSeconds(0); onRestart(); }} />
             </>);
 };
 
 RomajiToKana.propTypes = {
     kanaChars: PropTypes.arrayOf(PropTypes.string).isRequired,
+    onRestart: PropTypes.func,
 };
+
+RomajiToKana.defaultProps = {
+    onRestart: () => {},
+};
+
 
 export default RomajiToKana;

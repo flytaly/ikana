@@ -25,7 +25,7 @@ const isCorrectTranslit = (kanaChar, claim) => {
     return false;
 };
 
-const KanaToRomaji = ({ kanaChars }) => {
+const KanaToRomaji = ({ kanaChars, onRestart }) => {
     const [{
         shift, inputValue, wrong, correct, wrongChars, isMistake, answer, isStarted,
     }, setState] = useState(InitialState);
@@ -97,12 +97,16 @@ const KanaToRomaji = ({ kanaChars }) => {
                     wrong={wrong}
                     seconds={seconds}
                 />
-                <RepeatButton clickHandler={() => { setState(InitialState); setSeconds(0); }} />
+                <RepeatButton clickHandler={() => { setState(InitialState); setSeconds(0); onRestart(); }} />
             </>);
 };
 
 KanaToRomaji.propTypes = {
     kanaChars: PropTypes.arrayOf(PropTypes.string).isRequired,
+    onRestart: PropTypes.func,
+};
+KanaToRomaji.defaultProps = {
+    onRestart: () => {},
 };
 
 export default KanaToRomaji;
