@@ -4,7 +4,7 @@ import kanaToRomaji from '../../data/kana-to-romaji';
 import KanaToRomajiView from './kana-to-romaji-view';
 import FinalStatsBlock from './final-stats';
 import RepeatButton from './repeat-button';
-import { useGlobalState } from '../state';
+import { useCallbackOnKey } from '../../utils/hooks';
 
 const InitialState = {
     shift: 0,
@@ -13,6 +13,7 @@ const InitialState = {
     wrong: 0,
     wrongChars: new Set([]),
     isMistake: false,
+    answer: '',
 };
 
 const isCorrectTranslit = (kanaChar, claim) => {
@@ -25,11 +26,20 @@ const isCorrectTranslit = (kanaChar, claim) => {
 
 const KanaToRomaji = ({ kanaChars }) => {
     const [{
-        shift, inputValue, wrong, correct, wrongChars, isMistake,
+        shift, inputValue, wrong, correct, wrongChars, isMistake, answer,
     }, setState] = useState(InitialState);
     const prevChar = kanaChars[shift - 1];
     const currentChar = kanaChars[shift];
     const nextChar = kanaChars[shift + 1];
+
+    useCallbackOnKey('Space', () => {
+        setState(state => ({
+            ...state,
+            wrongChars: state.wrongChars.add(currentChar),
+            wrong: state.wrongChars.size,
+            answer: kanaToRomaji[currentChar][0],
+        }));
+    });
 
     // isFinalValue - if false save value without checking if this is a correct answer or not
     const inputHandler = (rawValue, isFinalValue = true) => {
@@ -45,6 +55,7 @@ const KanaToRomaji = ({ kanaChars }) => {
                 shift: state.shift + 1,
                 inputValue: '',
                 correct: state.correct + 1,
+                answer: '',
             }));
         }
         if (translit === false) {
@@ -71,6 +82,7 @@ const KanaToRomaji = ({ kanaChars }) => {
             wrong={wrong}
             total={`${shift + 1}/${kanaChars.length}`}
             shakeIt={isMistake}
+            answer={answer}
         /> : (
             <>
                 <FinalStatsBlock

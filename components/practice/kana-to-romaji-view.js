@@ -34,6 +34,7 @@ const KanaView = styled.div`
 `;
 
 const Kana = styled.div`
+    position: relative;
     font-size: 3rem;
     color: inherit;
     ${({ column }) => {
@@ -51,6 +52,16 @@ const Kana = styled.div`
     }}
 
     ${({ shake }) => shake && ShakeOnError}
+
+    &::after{
+        content: "${props => props.answer}";
+        position: absolute;
+        top: 100%;
+        left: 0%;
+        width: 100%;
+        text-align: center;
+        font-size: 2rem;
+    }
 `;
 
 
@@ -86,9 +97,11 @@ const KanaToRomajiView = ({
     total,
     wrong,
     shakeIt,
+    answer,
 }) => {
     const { disableAnimations, disableAutoInputCheck } = useGlobalState('options');
     const inputRef = useRef('');
+
     useEffect(() => {
         const listener = (e) => {
             if (e.code === 'Enter') {
@@ -115,6 +128,7 @@ const KanaToRomajiView = ({
                             <Kana
                                 column={idx}
                                 shake={!disableAnimations && shakeIt}
+                                answer={idx === 1 ? answer : ''}
                             >
                                 {ch}
                             </Kana>
@@ -150,6 +164,7 @@ KanaToRomajiView.propTypes = {
     total: PropTypes.string,
     wrong: PropTypes.number,
     shakeIt: PropTypes.bool,
+    answer: PropTypes.string,
 };
 
 KanaToRomajiView.defaultProps = {
@@ -161,6 +176,7 @@ KanaToRomajiView.defaultProps = {
     total: '',
     wrong: 0,
     shakeIt: false,
+    answer: '',
 };
 
 export default KanaToRomajiView;
