@@ -57,10 +57,8 @@ const Body = () => {
         routes.forEach(id => route !== id && router.prefetch(`/${id}`));
     }, [route, router]);
 
-    const clickHandler = ({ id }) => {
-        if (id === route) { return router.push('/'); }
-        return router.push(`/${id}`);
-    };
+    // if (id === route) { return router.push('/'); }
+    const clickHandler = ({ id }) => router.push(`/${id}`);
 
     return (
         <Container>
