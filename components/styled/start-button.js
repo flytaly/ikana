@@ -25,14 +25,15 @@ const StyledStart = styled(BaseCard)`
     @media ${Media.largeEnough}{
        /* Yeah, it's a code duplication, but it's important for css specificity
         so parent component won't overwrite it. */
-       padding: 1rem;
-       ${({ isBig }) => (isBig ? css`
-        min-height: 0;
-        min-width: 0;
-    ` : css`
-        height: 100%;
-        width: 100%;
-    `)};
+        margin: ${({ isBig }) => (isBig ? '1rem' : '0')};
+        padding: 1rem;
+        ${({ isBig }) => (isBig ? css`
+            min-height: 0;
+            min-width: 0;
+        ` : css`
+            height: 100%;
+            width: 100%;
+        `)};
     }
 `;
 const StartButton = ({ isBig, clickHandler }) => (
