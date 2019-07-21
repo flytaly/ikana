@@ -4,7 +4,7 @@ import kanaToRomaji from '../../data/kana-to-romaji';
 import KanaToRomajiView from './kana-to-romaji-view';
 import FinalStatsBlock from './final-stats';
 import RepeatButton from './repeat-button';
-import { useCallbackOnKey } from '../../utils/hooks';
+import { useCallbackOnKey, useTimer } from '../../utils/hooks';
 
 const InitialState = {
     shift: 0,
@@ -14,6 +14,7 @@ const InitialState = {
     wrongChars: new Set([]),
     isMistake: false,
     answer: '',
+    isStarted: false,
 };
 
 const isCorrectTranslit = (kanaChar, claim) => {
@@ -26,12 +27,14 @@ const isCorrectTranslit = (kanaChar, claim) => {
 
 const KanaToRomaji = ({ kanaChars }) => {
     const [{
-        shift, inputValue, wrong, correct, wrongChars, isMistake, answer,
+        shift, inputValue, wrong, correct, wrongChars, isMistake, answer, isStarted,
     }, setState] = useState(InitialState);
+    const [seconds, setSeconds] = useState(0);
     const prevChar = kanaChars[shift - 1];
     const currentChar = kanaChars[shift];
     const nextChar = kanaChars[shift + 1];
 
+    useTimer(setSeconds, isStarted);
     useCallbackOnKey('Space', () => {
         setState(state => ({
             ...state,
@@ -56,6 +59,7 @@ const KanaToRomaji = ({ kanaChars }) => {
                 inputValue: '',
                 correct: state.correct + 1,
                 answer: '',
+                isStarted: state.shift + 1 < kanaChars.length,
             }));
         }
         if (translit === false) {
@@ -65,24 +69,25 @@ const KanaToRomaji = ({ kanaChars }) => {
                 wrongChars: state.wrongChars.add(currentChar),
                 inputValue: value,
                 wrong: state.wrongChars.size,
+                isStarted: true,
             }));
         }
-        return setState(state => ({ ...state, isMistake: false, inputValue: value }));
+        return setState(state => ({ ...state, isMistake: false, inputValue: value, isStarted: true }));
     };
 
     if (!kanaChars || !kanaChars.length) return <div>No kana selected</div>;
 
-    return shift < kanaChars.length
+    return !shift || isStarted
         ? <KanaToRomajiView
             inputHandler={inputHandler}
             currentChar={currentChar}
             inputValue={inputValue}
             nextChar={nextChar}
             prevChar={prevChar}
-            wrong={wrong}
-            total={`${shift + 1}/${kanaChars.length}`}
             shakeIt={isMistake}
+            stats={{ wrong, total: `${shift + 1}/${kanaChars.length}`, seconds }}
             answer={answer}
+            seconds={seconds}
         /> : (
             <>
                 <FinalStatsBlock
@@ -90,8 +95,9 @@ const KanaToRomaji = ({ kanaChars }) => {
                     total={shift}
                     correct={correct}
                     wrong={wrong}
+                    seconds={seconds}
                 />
-                <RepeatButton clickHandler={() => { setState(InitialState); }} />
+                <RepeatButton clickHandler={() => { setState(InitialState); setSeconds(0); }} />
             </>);
 };
 

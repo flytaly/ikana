@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import KanaToRomaji from '../../data/kana-to-romaji';
+import { secondsToString } from '../../utils/seconds-to-string';
 
 const StatsBlock = styled.div`
     display: flex;
@@ -37,7 +38,14 @@ const WrongCharsBlock = styled.div`
     }
 `;
 
-const FinalStatsBlock = ({ wrongChars, total, correct, wrong }) => (
+const countCPM = (secondsSpent, totalChars) => {
+    //  Don't count first symbol because it's shown before timer starts
+    const chars = totalChars > 1 ? totalChars - 1 : totalChars;
+    const seconds = secondsSpent || 1;
+    return Math.round(chars / seconds * 60);
+};
+
+const FinalStatsBlock = ({ wrongChars, total, correct, wrong, seconds }) => (
     <StatsBlock>
         <h2>Results:</h2>
         <StatLine>
@@ -52,6 +60,15 @@ const FinalStatsBlock = ({ wrongChars, total, correct, wrong }) => (
             <b>Incorrect:</b>
             <span>{wrong}</span>
         </StatLine>
+        <StatLine>
+            <b>Time spent:</b>
+            <span>{secondsToString(seconds)}</span>
+        </StatLine>
+        <StatLine>
+            <b>Characters per minute:</b>
+            <span>{`≈${countCPM(seconds, total)}`}</span>
+        </StatLine>
+
         {wrongChars && wrongChars.length ? (
             <>
                 <h3>Incorrect symbols:</h3>
@@ -60,14 +77,14 @@ const FinalStatsBlock = ({ wrongChars, total, correct, wrong }) => (
                 </WrongCharsBlock>
             </>)
             : null}
-    </StatsBlock>
-);
+    </StatsBlock>);
 
 FinalStatsBlock.propTypes = {
     wrongChars: PropTypes.arrayOf(PropTypes.string),
     total: PropTypes.number,
     correct: PropTypes.number,
     wrong: PropTypes.number,
+    seconds: PropTypes.number,
 };
 
 FinalStatsBlock.defaultProps = {
@@ -75,6 +92,7 @@ FinalStatsBlock.defaultProps = {
     total: null,
     correct: null,
     wrong: null,
+    seconds: null,
 };
 
 export default FinalStatsBlock;

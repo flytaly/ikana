@@ -1,4 +1,4 @@
-/* eslint-disable import/prefer-default-export */
+/* eslint-disable consistent-return */
 import { useEffect } from 'react';
 
 export const useCallbackOnKey = (keyCode, callback) => {
@@ -13,4 +13,18 @@ export const useCallbackOnKey = (keyCode, callback) => {
             document.removeEventListener('keypress', listener);
         };
     }, [callback, keyCode]);
+};
+
+export const useTimer = (runEverySecond, started) => {
+    useEffect(() => {
+        if (!started) return;
+        let seconds = 0;
+        const id = setInterval(() => {
+            seconds += 1;
+            runEverySecond(seconds);
+        }, 1000);
+        return () => {
+            clearInterval(id);
+        };
+    }, [runEverySecond, started]);
 };

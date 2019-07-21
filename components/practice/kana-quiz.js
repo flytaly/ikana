@@ -59,12 +59,12 @@ const Choice = styled(NoStylesButton)`
 `;
 
 const Quiz = ({
-    question, answers, clickHandler, columns, wrong, total, shakeIt,
+    question, answers, clickHandler, columns, shakeIt, stats,
 }) => {
     const { disableAnimations } = useGlobalState('options');
     return (
         <Container>
-            <InlineStats wrong={wrong} total={total} />
+            <InlineStats {...stats} />
             <QuestionBlock shake={!disableAnimations && shakeIt}>{question}</QuestionBlock>
             <ChoicesBlock>
                 {answers.map(({ value, disabled, id }, idx) => (
@@ -89,6 +89,7 @@ Quiz.propTypes = {
     wrong: PropTypes.number,
     total: PropTypes.string,
     shakeIt: PropTypes.bool,
+    stats: PropTypes.shape({}),
 };
 
 Quiz.defaultProps = {
@@ -96,6 +97,7 @@ Quiz.defaultProps = {
     wrong: 0,
     total: '',
     shakeIt: false,
+    stats: {},
 };
 
 

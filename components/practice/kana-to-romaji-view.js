@@ -94,8 +94,7 @@ const KanaToRomajiView = ({
     inputValue,
     nextChar,
     prevChar,
-    total,
-    wrong,
+    stats,
     shakeIt,
     answer,
 }) => {
@@ -115,7 +114,7 @@ const KanaToRomajiView = ({
 
     return (
         <Container>
-            <InlineStats total={total} wrong={wrong} />
+            <InlineStats {...stats} />
             <Flipper flipKey={disableAnimations || currentChar} spring={{ stiffness: 3000, damping: 80 }}>
                 <KanaView>
                     {[prevChar, currentChar, nextChar].map((ch, idx) => (
@@ -161,9 +160,8 @@ KanaToRomajiView.propTypes = {
     inputValue: PropTypes.string,
     nextChar: PropTypes.string,
     prevChar: PropTypes.string,
-    total: PropTypes.string,
-    wrong: PropTypes.number,
     shakeIt: PropTypes.bool,
+    stats: PropTypes.shape({}),
     answer: PropTypes.string,
 };
 
@@ -173,9 +171,8 @@ KanaToRomajiView.defaultProps = {
     inputValue: '',
     nextChar: '',
     prevChar: '',
-    total: '',
-    wrong: 0,
     shakeIt: false,
+    stats: {},
     answer: '',
 };
 

@@ -5,6 +5,7 @@ import Quiz from './kana-quiz';
 import kanaToRomaji, { hiraganaToRomaji, katakanaToRomaji, getKanaType } from '../../data/kana-to-romaji';
 import FinalStatsBlock from './final-stats';
 import RepeatButton from './repeat-button';
+import { useTimer } from '../../utils/hooks';
 
 const InitialState = {
     shift: 0,
@@ -13,6 +14,7 @@ const InitialState = {
     wrongChars: new Set([]),
     disabledAnswers: [],
     isMistake: false,
+    isStarted: false,
 };
 
 const pickRandomKana = (kanaData, takenKana, number) => {
@@ -27,11 +29,23 @@ const pickRandomKana = (kanaData, takenKana, number) => {
     return shuffle(filtered).slice(0, number);
 };
 
+const useKeyDownListener = (keysListener) => {
+    useEffect(() => {
+        document.addEventListener('keydown', keysListener);
+        return () => {
+            document.removeEventListener('keydown', keysListener);
+        };
+    }, [keysListener]);
+};
+
 const RomajiToKana = ({ kanaChars }) => {
     const [{
-        shift, wrong, disabledAnswers, correct, wrongChars, isMistake,
+        shift, wrong, disabledAnswers, correct, wrongChars, isMistake, isStarted,
     }, setState] = useState(InitialState);
+    const [seconds, setSeconds] = useState(0);
     const currentChar = kanaChars[shift];
+
+    useTimer(setSeconds, isStarted);
 
     const clickHandler = useCallback((answerId) => {
         if (currentChar === answerId) {
@@ -41,6 +55,7 @@ const RomajiToKana = ({ kanaChars }) => {
                 shift: state.shift + 1,
                 correct: state.correct + 1,
                 disabledAnswers: [],
+                isStarted: state.shift + 1 < kanaChars.length,
             }));
         }
         return setState(state => ({
@@ -49,8 +64,9 @@ const RomajiToKana = ({ kanaChars }) => {
             answerId: state.wrongChars.add(currentChar),
             wrong: state.wrongChars.size,
             disabledAnswers: [...state.disabledAnswers, answerId],
+            isStarted: true,
         }));
-    }, [currentChar]);
+    }, [currentChar, kanaChars.length]);
 
     const randKanaList = useMemo(() => (currentChar ? shuffle([
         currentChar,
@@ -61,29 +77,22 @@ const RomajiToKana = ({ kanaChars }) => {
         { value: k, id: k, disabled: disabledAnswers.includes(k) }
     ));
 
-    useEffect(() => {
-        const keysListener = (e) => {
-            const KEYS = ['1', '2', '3', '4'];
-            if (KEYS.includes(e.key)) {
-                clickHandler(randKanaList[e.key - 1]);
-            }
-        };
-        document.addEventListener('keydown', keysListener);
-        return () => {
-            document.removeEventListener('keydown', keysListener);
-        };
-    }, [randKanaList, clickHandler]);
+    useKeyDownListener(useCallback((e) => {
+        const KEYS = ['1', '2', '3', '4'];
+        if (KEYS.includes(e.key)) {
+            clickHandler(randKanaList[e.key - 1]);
+        }
+    }, [clickHandler, randKanaList]));
 
     if (!kanaChars || !kanaChars.length) return <div>No kana selected</div>;
 
-    return shift < kanaChars.length
+    return !shift || isStarted
         ? <Quiz
-            question={kanaToRomaji[currentChar][0]}
+            question={currentChar && kanaToRomaji[currentChar][0]}
             answers={answers}
             clickHandler={clickHandler}
-            wrong={wrong}
-            total={`${shift + 1}/${kanaChars.length}`}
             shakeIt={isMistake}
+            stats={{ wrong, total: `${shift + 1}/${kanaChars.length}`, seconds }}
         /> : (
             <>
                 <FinalStatsBlock
@@ -91,8 +100,9 @@ const RomajiToKana = ({ kanaChars }) => {
                     total={shift}
                     correct={correct}
                     wrong={wrong}
+                    seconds={seconds}
                 />
-                <RepeatButton clickHandler={() => { setState(InitialState); }} />
+                <RepeatButton clickHandler={() => { setState(InitialState); setSeconds(0); }} />
             </>);
 };
 
