@@ -50,7 +50,7 @@ const StartButton = ({ isBig, clickHandler }) => (
                     <span>Start</span>
                 </Flipped>) : null}
             <Flipped inverseFlipId="startButton" scale>
-                <Play size="1em" />
+                <Play size="1.2em" />
             </Flipped>
         </StyledStart>
     </Flipped>
