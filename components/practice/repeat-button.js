@@ -15,7 +15,7 @@ const Button = styled.button`
 
 const RepeatButton = ({ clickHandler }) => (
     <Button onClick={clickHandler}>
-        <Repeat size="1.4rem" />
+        <Repeat size="1em" />
         <span>Repeat</span>
     </Button>
 );
