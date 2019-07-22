@@ -2,11 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
 
-const StyledHeaderLink = styled.h1`
+const StyledSiteHeader = styled.header`
+    font-size: 2.8rem;
+    margin: 2rem;
     text-transform: uppercase;
     color: ${props => props.theme.headerColor};
-    text-shadow: 0px 0px 2px rgba(0,0,0,0.25);
     text-align: center;
+    text-shadow: 0px 0px 2px rgba(0,0,0,0.25);
     a:active,
     a:hover,
     a:visited,
@@ -18,9 +20,9 @@ const StyledHeaderLink = styled.h1`
 `;
 
 const Header = () => (
-    <StyledHeaderLink>
+    <StyledSiteHeader>
         <Link href="/"><a href="/">KANA TRAINER</a></Link>
-    </StyledHeaderLink>
+    </StyledSiteHeader>
 );
 
 export default Header;

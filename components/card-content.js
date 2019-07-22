@@ -5,10 +5,11 @@ import HiraganaTable from './content-pages/hiragana-table';
 import KatakanaTable from './content-pages/katakana-table';
 import SettingsPage from './content-pages/settings-page';
 import PracticePage from './content-pages/practice-page';
+import AboutPage from './content-pages/about-page';
 import routes from './routes';
 import Media from './media-queries';
 
-const StyledContent = styled.div`
+const StyledContent = styled.main`
     display: flex;
     flex-direction: column;
     background-color: ${({ theme }) => theme.expandedCardBgColor};
@@ -29,6 +30,7 @@ const CardContent = ({ cardNumber, cardType }) => {
         katakana: <KatakanaTable />,
         settings: <SettingsPage />,
         practice: <PracticePage />,
+        about: <AboutPage />,
     }[cardType]);
 
     return (

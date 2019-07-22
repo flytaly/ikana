@@ -4,20 +4,20 @@ import ContentHeader from './content-header';
 import OptionGroup from '../styled/radio-option-group';
 import { useDispatch, useGlobalState, types } from '../state';
 
-const SettingsBlock = styled.div`
+const SettingsBlock = styled.section`
     display: flex;
     flex-direction: column;
     align-self: center;
     align-items: center;
     width: 35rem;
     max-width: 100%;
-    h3 {
+    h2 {
         font-size: 1.5rem;
         align-self: flex-start;
     }
 `;
 
-const Setting = styled.div`
+const Setting = styled.article`
     display: flex;
     margin-bottom: 1rem;
     justify-content: space-between;
@@ -37,7 +37,7 @@ const Settings = () => {
         <>
             <ContentHeader>Settings</ContentHeader>
             <SettingsBlock>
-                <h3>Practice options</h3>
+                <h2>Practice options</h2>
                 <Setting>
                     <span title="Enable animations in practice modes?">Animations</span>
                     <OptionGroup

@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import { useRouter } from 'next/router';
 import Card from './styled/card-button';
 import CogIcon from '../assets/svg/cog.svg';
+import QuestionCircle from '../assets/svg/question-circle.svg';
 import CardContent from './card-content';
 import { useGlobalState } from './state';
 import { hiraganaTotal } from '../data/hiragana';
@@ -24,7 +25,7 @@ const Container = styled.div`
     }
 `;
 
-const CardContainer = styled.div`
+const CardContainer = styled.aside`
     display: flex;
     flex-wrap: wrap;
     max-width: 100%;
@@ -88,6 +89,14 @@ const Body = () => {
                     name="Settings"
                     IconSvg={CogIcon}
                     bgColor="cardBgColor2"
+                />
+                <Card
+                    cardId="about"
+                    clickHandler={clickHandler}
+                    isBig={!isExpanded}
+                    name="About"
+                    IconSvg={QuestionCircle}
+                    bgColor="cardBgColor4"
                 />
                 <NewLineCard expanded={isExpanded}>
                     <StartButton

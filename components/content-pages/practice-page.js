@@ -9,7 +9,7 @@ import { hiraganaRows } from '../../data/hiragana';
 import { katakanaRows } from '../../data/katakana';
 import getSelectedKana from '../../utils/get-selected-kana';
 import MODES from '../practice/modes';
-
+import ContentHeader from './content-header';
 
 const PickMode = styled.div`
     display: flex;
@@ -61,8 +61,9 @@ const PracticePage = () => {
     const shuffledChars = shuffle([...hiraganaToLearn, ...katakanaToLearn]);
     return (
         <>
+            <ContentHeader>Practice</ContentHeader>
             <PickMode>
-                <b>Practice mode:</b>
+                <b>Mode:</b>
                 <PickModeBtn
                     active={mode === MODES.KANA_TO_ROMAJI}
                     onClick={() => { dispatch({ type: types.SET_PRACTICE_MODE, payload: MODES.KANA_TO_ROMAJI }); }}
