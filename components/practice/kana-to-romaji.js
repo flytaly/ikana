@@ -26,11 +26,7 @@ const KanaToRomaji = ({ kanaChars, onRestart }) => {
     const nextChar = charsQueue[1];
 
     useEffect(() => {
-        /*
-            ! For some reasons after page reload or first access the reducer
-            ! isn't initialized with correct init values but stays with empty charsQueue.
-            ! This is just a temporal workaround.
-        */
+        // Force  state initializing after new kanaChars were passed.
         dispatch({ type: actions.INIT, payload: { charsQueue: kanaChars } });
     }, [kanaChars]);
 
@@ -82,7 +78,7 @@ const KanaToRomaji = ({ kanaChars, onRestart }) => {
                 <FinalStatsBlock
                     wrongChars={[...state.wrongChars]}
                     total={charsCount}
-                    uniqueCount={kanaChars.length}
+                    uniqueCount={charsCount !== kanaChars.length ? kanaChars.length : null}
                     wrong={wrongCount}
                     seconds={seconds}
                 />

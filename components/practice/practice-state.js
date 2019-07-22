@@ -13,7 +13,11 @@ export const initialState = {
     wrongCount: 0,
 };
 
-export const initReducer = initState => ({ ...initialState, ...initState });
+export const initReducer = initState => ({
+    ...initialState,
+    wrongChars: new Set([]),
+    ...initState,
+});
 
 export const actions = {
     NEXT_CHAR: 'NEXT_CHAR',
@@ -49,7 +53,8 @@ export function reducer(state, action) {
         case actions.MISTAKE: {
             const { charsQueue, wrongChars } = state;
             const currentChar = charsQueue[0];
-            const updatedQueue = (payload && payload.repeatWrongChars) && (!wrongChars.has(currentChar) || !state.isMistake)
+            const updatedQueue = (payload && payload.repeatWrongChars)
+            && (!wrongChars.has(currentChar) || !state.isMistake)
                 ? mixUpInQueue(charsQueue, currentChar)
                 : charsQueue;
             const answer = payload && payload.showAnswer && kanaToRomaji[currentChar] && kanaToRomaji[currentChar][0];

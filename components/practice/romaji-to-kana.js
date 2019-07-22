@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect, useCallback } from 'react';
+import React, { useState, useMemo, useEffect, useCallback, useReducer } from 'react';
 import PropTypes from 'prop-types';
 import shuffle from 'lodash.shuffle';
 import Quiz from './kana-quiz';
@@ -6,16 +6,8 @@ import kanaToRomaji, { hiraganaToRomaji, katakanaToRomaji, getKanaType } from '.
 import FinalStatsBlock from './final-stats';
 import RepeatButton from './repeat-button';
 import { useTimer } from '../../utils/hooks';
-
-const InitialState = {
-    shift: 0,
-    correct: 0,
-    wrong: 0,
-    wrongChars: new Set([]),
-    disabledAnswers: [],
-    isMistake: false,
-    isStarted: false,
-};
+import { reducer, initReducer, actions } from './practice-state';
+import { useGlobalState } from '../state';
 
 const pickRandomKana = (kanaData, takenKana, number) => {
     const filtered = Object.keys(kanaData).filter((kana) => {
@@ -39,34 +31,28 @@ const useKeyDownListener = (keysListener) => {
 };
 
 const RomajiToKana = ({ kanaChars, onRestart }) => {
-    const [{
-        shift, wrong, disabledAnswers, correct, wrongChars, isMistake, isStarted,
-    }, setState] = useState(InitialState);
+    const [state, dispatch] = useReducer(reducer, { charsQueue: kanaChars }, initReducer);
+    const { charsQueue, isPracticeActive, charsCount, wrongCount } = state;
+    const { repeatWrongChars } = useGlobalState('options');
     const [seconds, setSeconds] = useState(0);
-    const currentChar = kanaChars[shift];
+    const [disabledAnswers, setDisabledAnswers] = useState([]);
+    const currentChar = charsQueue[0];
 
-    useTimer(setSeconds, isStarted);
+    useEffect(() => {
+        dispatch({ type: actions.INIT, payload: { charsQueue: kanaChars } });
+    }, [kanaChars]);
+
+    useTimer(setSeconds, isPracticeActive);
 
     const clickHandler = useCallback((answerId) => {
         if (currentChar === answerId) {
-            return setState(state => ({
-                ...state,
-                isMistake: false,
-                shift: state.shift + 1,
-                correct: state.correct + 1,
-                disabledAnswers: [],
-                isStarted: state.shift + 1 < kanaChars.length,
-            }));
+            dispatch({ type: actions.NEXT_CHAR });
+            setDisabledAnswers([]);
+            return;
         }
-        return setState(state => ({
-            ...state,
-            isMistake: true,
-            answerId: state.wrongChars.add(currentChar),
-            wrong: state.wrongChars.size,
-            disabledAnswers: [...state.disabledAnswers, answerId],
-            isStarted: true,
-        }));
-    }, [currentChar, kanaChars.length]);
+        dispatch({ type: actions.MISTAKE, payload: { repeatWrongChars } });
+        setDisabledAnswers([...disabledAnswers, answerId]);
+    }, [currentChar, disabledAnswers, repeatWrongChars]);
 
     const randKanaList = useMemo(() => (currentChar ? shuffle([
         currentChar,
@@ -86,23 +72,27 @@ const RomajiToKana = ({ kanaChars, onRestart }) => {
 
     if (!kanaChars || !kanaChars.length) return <div>No kana selected</div>;
 
-    return !shift || isStarted
+    return !charsCount || isPracticeActive
         ? <Quiz
             question={currentChar && kanaToRomaji[currentChar][0]}
             answers={answers}
             clickHandler={clickHandler}
-            shakeIt={isMistake}
-            stats={{ wrong, total: `${shift + 1}/${kanaChars.length}`, seconds }}
+            shakeIt={state.isMistake}
+            stats={{
+                wrong: wrongCount,
+                total: `${charsCount + 1}/${charsCount + charsQueue.length}`,
+                seconds,
+            }}
         /> : (
             <>
                 <FinalStatsBlock
-                    wrongChars={[...wrongChars]}
-                    total={shift}
-                    correct={correct}
-                    wrong={wrong}
+                    wrongChars={[...state.wrongChars]}
+                    total={charsCount}
+                    uniqueCount={charsCount !== kanaChars.length ? kanaChars.length : null}
+                    wrong={wrongCount}
                     seconds={seconds}
                 />
-                <RepeatButton clickHandler={() => { setState(InitialState); setSeconds(0); onRestart(); }} />
+                <RepeatButton clickHandler={() => { onRestart(); }} />
             </>);
 };
 
