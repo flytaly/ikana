@@ -9,7 +9,7 @@ const initialState = {
     },
     hiragana: {
         selectedRows: {
-            monographs: [],
+            monographs: [0], // Select first hiragana row as a default value
             diacritics: [],
             digraphs: [],
             digraphsDiacritics: [],
@@ -20,7 +20,7 @@ const initialState = {
             digraphs: 0,
             digraphsDiacritics: 0,
         },
-        totalSelected: 0,
+        totalSelected: 5, // 5 chars in hiragana first row
     },
     katakana: {
         selectedRows: {
