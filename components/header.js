@@ -19,7 +19,7 @@ const StyledHeaderLink = styled.h1`
 
 const Header = () => (
     <StyledHeaderLink>
-        <Link href="/"><a href="/">TRAIN KANA</a></Link>
+        <Link href="/"><a href="/">KANA TRAINER</a></Link>
     </StyledHeaderLink>
 );
 
