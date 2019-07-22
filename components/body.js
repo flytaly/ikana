@@ -15,7 +15,7 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-top: 2rem;
+    margin-top: 1rem;
     width: 100vw;
     max-width: 100vw;
     padding: 1rem;

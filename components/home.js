@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useRouter } from 'next/router';
 import Header from './header';
 import Body from './body';
+import Greeting from './greeting';
 
 const PageContainer = styled.div`
     display: flex;
@@ -9,11 +11,15 @@ const PageContainer = styled.div`
     align-items: center;
 `;
 
-const Home = props => (
-    <PageContainer>
-        <Header />
-        <Body {...props} />
-    </PageContainer>
-);
+const Home = (props) => {
+    const router = useRouter();
+    return (
+        <PageContainer>
+            <Header />
+            {router.route === '/' ? <Greeting>Hello</Greeting> : null}
+            <Body {...props} />
+        </PageContainer>
+    );
+};
 
 export default Home;
