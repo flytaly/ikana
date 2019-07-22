@@ -5,6 +5,7 @@ const initialState = {
     options: {
         disableAnimations: false,
         disableAutoInputCheck: false,
+        repeatWrongChars: false,
     },
     hiragana: {
         selectedRows: {

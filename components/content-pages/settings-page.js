@@ -31,7 +31,7 @@ const Setting = styled.div`
 const Settings = () => {
     const options = useGlobalState('options');
     const dispatch = useDispatch();
-    const { disableAnimations, disableAutoInputCheck } = options;
+    const { disableAnimations, disableAutoInputCheck, repeatWrongChars } = options;
 
     return (
         <>
@@ -64,6 +64,21 @@ const Settings = () => {
                             payload: {
                                 ...options,
                                 disableAutoInputCheck: target.value === 'off' || false,
+                            },
+                        })}
+                    />
+                </Setting>
+                <Setting>
+                    <span title="Show mistaken syllables again">Repeat mistaken syllables</span>
+                    <OptionGroup
+                        ariaLabel="repeat mistaken syllables"
+                        options={[{ title: 'On', id: 'on' }, { title: 'Off', id: 'off' }]}
+                        current={repeatWrongChars ? 'on' : 'off'}
+                        changeHandler={({ target }) => dispatch({
+                            type: types.UPDATE_OPTIONS,
+                            payload: {
+                                ...options,
+                                repeatWrongChars: target.value === 'on' || false,
                             },
                         })}
                     />

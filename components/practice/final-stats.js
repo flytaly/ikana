@@ -45,25 +45,40 @@ const countCPM = (secondsSpent, totalChars) => {
     return Math.round(chars / seconds * 60);
 };
 
-const FinalStatsBlock = ({ wrongChars, total, correct, wrong, seconds }) => (
+const FinalStatsBlock = ({
+    wrongChars, total, uniqueCount, correct, wrong, seconds,
+}) => (
     <StatsBlock>
         <h2>Results:</h2>
         <StatLine>
             <b>Shown:</b>
             <span>{total}</span>
         </StatLine>
-        <StatLine>
-            <b>Correct:</b>
-            <span>{correct}</span>
-        </StatLine>
+
+        {correct ? (
+            <StatLine>
+                <b>Correct:</b>
+                <span>{correct}</span>
+            </StatLine>)
+            : null}
+
+        {uniqueCount ? (
+            <StatLine>
+                <b>Shown unique:</b>
+                <span>{uniqueCount}</span>
+            </StatLine>)
+            : null}
+
         <StatLine>
             <b>Incorrect:</b>
             <span>{wrong}</span>
         </StatLine>
+
         <StatLine>
             <b>Time spent:</b>
             <span>{secondsToString(seconds)}</span>
         </StatLine>
+
         <StatLine>
             <b>Characters per minute:</b>
             <span>{`≈${countCPM(seconds, total)}`}</span>
@@ -71,7 +86,7 @@ const FinalStatsBlock = ({ wrongChars, total, correct, wrong, seconds }) => (
 
         {wrongChars && wrongChars.length ? (
             <>
-                <h3>Incorrect symbols:</h3>
+                <h3>Incorrect syllables:</h3>
                 <WrongCharsBlock>
                     {wrongChars.map(c => <span key={c}>{`${c} [${KanaToRomaji[c][0]}]`}</span>)}
                 </WrongCharsBlock>
@@ -85,6 +100,7 @@ FinalStatsBlock.propTypes = {
     correct: PropTypes.number,
     wrong: PropTypes.number,
     seconds: PropTypes.number,
+    uniqueCount: PropTypes.number,
 };
 
 FinalStatsBlock.defaultProps = {
@@ -93,6 +109,7 @@ FinalStatsBlock.defaultProps = {
     correct: null,
     wrong: null,
     seconds: null,
+    uniqueCount: null,
 };
 
 export default FinalStatsBlock;

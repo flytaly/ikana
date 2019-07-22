@@ -97,6 +97,7 @@ const KanaToRomajiView = ({
     stats,
     shakeIt,
     answer,
+    charsCount,
 }) => {
     const { disableAnimations, disableAutoInputCheck } = useGlobalState('options');
     const inputRef = useRef('');
@@ -119,10 +120,10 @@ const KanaToRomajiView = ({
                 <KanaView>
                     {[prevChar, currentChar, nextChar].map((ch, idx) => (
                         <Flipped
-                            flipId={`${ch || idx}`}
+                            flipId={`${charsCount + idx - 1}`}
                             onAppear={onAppear}
                             onExit={onExit}
-                            key={ch || idx}
+                            key={`${charsCount + idx - 1}`}
                         >
                             <Kana
                                 column={idx}
@@ -163,6 +164,7 @@ KanaToRomajiView.propTypes = {
     shakeIt: PropTypes.bool,
     stats: PropTypes.shape({}),
     answer: PropTypes.string,
+    charsCount: PropTypes.number,
 };
 
 KanaToRomajiView.defaultProps = {
@@ -174,6 +176,7 @@ KanaToRomajiView.defaultProps = {
     shakeIt: false,
     stats: {},
     answer: '',
+    charsCount: 0,
 };
 
 export default KanaToRomajiView;
