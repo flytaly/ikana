@@ -2,24 +2,28 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
-    /* border: 1px solid lightgrey; */
-    /* border-radius: 4px; */
-    /* background-color: ${({ theme }) => theme.expandedCardBgColor}; */
-    padding: 0.5rem;
+    padding: 1rem;
+    font-size: 1.5rem;
     max-width: 100%;
     text-align: center;
-    box-shadow: 0px 0px 3px 1px #087FA3;
-    > p {
-        margin: 1rem;
+    box-shadow: 0px 0px 3px 1px ${({ theme }) => theme.headerColor};
+    p {
+        margin: 0;
+    }
+    > p:not(:first-child) {
+        margin-top: 1rem;
+    }
+    h1 {
+        font-size: 1em;
+        margin: 0;
     }
 `;
 
 const Greeting = () => (
     <Container>
-        <b>Practice japanese syllables</b>
+        <p><h1>Practice japanese syllables</h1></p>
         <p>
-            <span>Pick Hiragana and Katakana syllables and press "start"</span>
-            <br />
+            <span>Pick Hiragana or Katakana syllables and click start</span>
         </p>
     </Container>
 );
