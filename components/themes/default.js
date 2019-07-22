@@ -30,4 +30,7 @@ export default {
     optionActiveFontColor: '#FFFFFF',
     optionBorder: '1px solid #6C6C6C',
     optionFocusOutline: '3px solid #99B1B8',
+
+    footerFontColor: '#6C6C6C',
+    footerHoverLinkColor: '#000000',
 };
