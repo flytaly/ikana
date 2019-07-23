@@ -5,7 +5,7 @@ import HiraganaTable from './content-pages/hiragana-table';
 import KatakanaTable from './content-pages/katakana-table';
 import SettingsPage from './content-pages/settings-page';
 import PracticePage from './content-pages/practice-page';
-import AboutPage from './content-pages/about-page';
+import HelpPage from './content-pages/help-page';
 import routes from './routes';
 import Media from './media-queries';
 
@@ -30,7 +30,7 @@ const CardContent = ({ cardNumber, cardType }) => {
         katakana: <KatakanaTable />,
         settings: <SettingsPage />,
         practice: <PracticePage />,
-        about: <AboutPage />,
+        help: <HelpPage />,
     }[cardType]);
 
     return (

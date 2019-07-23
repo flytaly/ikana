@@ -1,3 +1,3 @@
-const routes = ['hiragana', 'katakana', 'settings', 'practice', 'about'];
+const routes = ['hiragana', 'katakana', 'settings', 'practice', 'help'];
 
 export default routes;

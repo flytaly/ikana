@@ -11,6 +11,7 @@ const SettingsBlock = styled.section`
     align-items: center;
     width: 35rem;
     max-width: 100%;
+    line-height: normal;
     h2 {
         font-size: 1.5rem;
         align-self: flex-start;

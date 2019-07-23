@@ -91,10 +91,10 @@ const Body = () => {
                     bgColor="cardBgColor2"
                 />
                 <Card
-                    cardId="about"
+                    cardId="help"
                     clickHandler={clickHandler}
                     isBig={!isExpanded}
-                    name="About"
+                    name="Help"
                     IconSvg={QuestionCircle}
                     bgColor="cardBgColor4"
                 />
