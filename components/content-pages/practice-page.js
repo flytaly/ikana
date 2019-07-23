@@ -19,6 +19,7 @@ const PickMode = styled.div`
     flex-wrap: wrap;
     > * {
         margin-right: 1rem;
+        margin-bottom: 0.5rem;
     }
     > b {
         font-weight: bold;
