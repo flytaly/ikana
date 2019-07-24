@@ -2,9 +2,10 @@ import React from 'react';
 import App, { Container } from 'next/app';
 import { Flipper } from 'react-flip-toolkit';
 import Router from 'next/router';
+import { I18nextProvider } from 'react-i18next';
 import Page from '../components/page';
 import { StateProvider } from '../components/state';
-import getLanguage from '../utils/get-language';
+import withI18n from '../lib/with-i18n';
 
 class MyApp extends App {
     static async getInitialProps({ Component, ctx }) {
@@ -14,28 +15,28 @@ class MyApp extends App {
         }
         pageProps.query = ctx.query;
 
-        const lang = getLanguage(ctx.req);
-        ctx.lang = lang;
-
-        return { pageProps, lang };
+        return { pageProps };
     }
 
     render() {
-        const { Component, pageProps, lang } = this.props;
+        const { Component, pageProps, i18n } = this.props;
         const route = process.browser ? Router.route : null;
+
         return (
             <Container>
-                <StateProvider>
-                    <Page lang={lang}>
-                        {/* Trigger Flipper only if route changes to/from root */}
-                        <Flipper flipKey={route === '/'}>
-                            <Component {...pageProps} />
-                        </Flipper>
-                    </Page>
-                </StateProvider>
+                <I18nextProvider i18n={i18n}>
+                    <StateProvider>
+                        <Page>
+                            {/* Trigger Flipper only if route changes to/from root */}
+                            <Flipper flipKey={route === '/'}>
+                                <Component {...pageProps} />
+                            </Flipper>
+                        </Page>
+                    </StateProvider>
+                </I18nextProvider>
             </Container>
         );
     }
 }
 
-export default MyApp;
+export default withI18n(MyApp);
