@@ -48,7 +48,7 @@
         "mode": "Mode",
         "kanaToRomaji": "Kana to Romaji",
         "romajiToKana": "Romaji to Kana",
-        "wrong": "wrong",
+        "wrong": "wrong:",
         "btnCheck": "check",
         "btnCheck_title": "This button is needed only if you disable input auto checking in settings"
     },

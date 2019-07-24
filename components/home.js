@@ -5,6 +5,7 @@ import Header from './header';
 import Body from './body';
 import Greeting from './greeting';
 import Footer from './footer';
+import LangSelector from './lang-selector';
 
 const PageContainer = styled.div`
     display: flex;
@@ -21,9 +22,10 @@ const Home = (props) => {
     return (
         <PageContainer>
             <Header />
-            {router.route === '/' ? <Greeting>Hello</Greeting> : null}
+            {router.route === '/' ? <Greeting /> : null}
             <Body {...props} />
             <PushToBottom />
+            <LangSelector />
             <Footer />
         </PageContainer>
     );

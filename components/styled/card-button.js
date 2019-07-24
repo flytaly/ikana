@@ -34,7 +34,7 @@ export const BaseCard = styled(NoStylesButton)`
         min-height: ${({ isBig }) => (isBig ? '20rem' : '6rem')};
         min-width: ${({ isBig }) => (isBig ? '20rem' : '5rem')};
         padding: ${({ isBig }) => (isBig ? '2rem 1.5rem 1rem 1.5rem' : '1rem')};
-        font-size: 3rem;
+        font-size: 2.7rem;
     }
 `;
 

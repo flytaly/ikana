@@ -20,6 +20,7 @@
     },
     "homepage": "https://github.com/flytaly/trainkana#readme",
     "dependencies": {
+        "cookie": "^0.4.0",
         "i18next": "^17.0.6",
         "i18next-browser-languagedetector": "^3.0.1",
         "localforage": "^1.7.3",
