@@ -20,8 +20,11 @@
     },
     "homepage": "https://github.com/flytaly/trainkana#readme",
     "dependencies": {
+        "i18next": "^17.0.6",
+        "i18next-browser-languagedetector": "^3.0.1",
         "localforage": "^1.7.3",
         "lodash.shuffle": "^4.2.0",
+        "negotiator": "^0.6.2",
         "next": "^9.0.2",
         "next-offline": "^4.0.2",
         "next-react-svg": "^1.1.0",
@@ -30,6 +33,7 @@
         "react-dom": "^16.8.6",
         "react-feather": "^2.0.3",
         "react-flip-toolkit": "^6.6.9",
+        "react-i18next": "^10.11.4",
         "reakit": "^1.0.0-beta.4",
         "styled-components": "^4.3.2",
         "styled-normalize": "^8.0.6"

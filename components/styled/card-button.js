@@ -66,7 +66,7 @@ const Status = styled.div`
 `;
 
 const CardButton = ({
-    clickHandler, isBig, name, shortName, statusLine, IconSvg, cardId, bgColor, ...rest
+    clickHandler, isBig, name, title, shortName, statusLine, IconSvg, cardId, bgColor, ...rest
 }) => (
     <Flipped flipId={cardId}>
         <BaseCard
@@ -75,7 +75,7 @@ const CardButton = ({
                 event.target.blur();
             }}
             isBig={isBig}
-            title={name}
+            title={title}
             bgColor={bgColor}
             {...rest}
         >
@@ -92,6 +92,7 @@ CardButton.propTypes = {
     clickHandler: PropTypes.func,
     isBig: PropTypes.bool,
     name: PropTypes.string,
+    title: PropTypes.string,
     shortName: PropTypes.string,
     statusLine: PropTypes.string,
     IconSvg: PropTypes.func,
@@ -102,6 +103,7 @@ CardButton.defaultProps = {
     clickHandler: () => {},
     isBig: true,
     name: '',
+    title: '',
     shortName: '',
     statusLine: '',
     IconSvg: null,

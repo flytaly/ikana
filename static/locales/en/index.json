@@ -1,0 +1,80 @@
+{
+    "meta": {
+        "title": "Kana Trainer",
+        "description": "Learn and practice japanese syllabaries: Katakana and Hiragana"
+    },
+    "rootPageMessages": {
+        "header": "Practice japanese syllables",
+        "description": "Pick Hiragana or Katakana syllables and click Start"
+    },
+    "selected": "selected",
+    "kanaTable": {
+        "monographs": "Monographs",
+        "diacritics": "with Diacritics",
+        "digraphsDiacritics": "with Diacritics",
+        "digraphs": "Digraphs"
+    },
+    "hiragana": {
+        "btn_label": "Hiragana",
+        "btn_title": "Pick Hiragana syllables",
+        "pageHeader": "Hiragana"
+    },
+    "katakana": {
+        "btn_label": "Katakana",
+        "btn_title": "Pick Katakana syllables",
+        "pageHeader": "Katakana"
+    },
+    "settings": {
+        "btn_label": "Settings",
+        "btn_title": "Settings page",
+        "pageHeader": "Settings",
+        "On": "On",
+        "Off": "Off",
+        "optGroup_practice": "Practice options",
+
+        "opt_animations": "Animations",
+        "opt_animations_title": "Enable animations in practice modes",
+
+        "opt_checkInput": "Automatically check input",
+        "opt_checkInput_title": "Automatically check input and don't wait for Enter or submit button to be pressed",
+
+        "opt_repeatMistakes": "Repeat mistaken syllables",
+        "opt_repeatMistakes_title": "Show mistaken syllables again"
+    },
+    "practice": {
+        "btn_label": "Start",
+        "btn_title": "Start practice",
+        "pageHeader": "Practice",
+        "mode": "Mode",
+        "kanaToRomaji": "Kana to Romaji",
+        "romajiToKana": "Romaji to Kana",
+        "wrong": "wrong",
+        "btnCheck": "check",
+        "btnCheck_title": "This button is needed only if you disable input auto checking in settings"
+    },
+    "stats": {
+        "results": "Results:",
+        "shown": "Shown",
+        "correct": "Correct:",
+        "unique": "Shown unique:",
+        "incorrect": "Incorrect:",
+        "time": "Time spent:",
+        "cpm": "Characters per minute:",
+        "incorrectList": "Incorrect syllables:"
+    },
+    "help": {
+        "btn_label": "Help",
+        "btn_title": "Help page",
+        "pageHeader": "Help",
+        "q1": {
+            "header": "What are Hiragana and Katakana?",
+            "wikiLink": "https://en.wikipedia.org/wiki/Kana",
+            "body": "These are Japanese syllabaries, part of Japanese writing system. Each kana character represents one sound in the Japanese language. See more information in <1>Wikipedia article</1> for more information."
+        },
+        "q2": {
+            "header": "How to use the site?",
+            "body": "Select rows of kana characters that you want to learn by clicking on corresponding rows in the <1>hiragana</1> and <3>katakana</3> tables. Then go to <5>practice</5> page and choose a practice mode."
+        },
+        "contacts": "Contacts"
+    }
+}

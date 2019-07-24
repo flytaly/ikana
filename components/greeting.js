@@ -1,31 +1,30 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 
 const Container = styled.div`
     padding: 1rem;
     font-size: 1.5rem;
+    width: 50rem;
     max-width: 100%;
     text-align: center;
     box-shadow: 0px 0px 3px 1px ${({ theme }) => theme.headerColor};
-    p {
-        margin: 0;
-    }
-    > p:not(:first-child) {
-        margin-top: 1rem;
-    }
+    line-height: normal;
     h1 {
         font-size: 1em;
-        margin: 0;
+        margin: 0 0 1rem 0;
     }
 `;
 
-const Greeting = () => (
-    <Container>
-        <p><h1>Practice japanese syllables</h1></p>
-        <p>
-            <span>Pick Hiragana or Katakana syllables and click start</span>
-        </p>
-    </Container>
-);
+const Greeting = () => {
+    const { t } = useTranslation();
+    return (
+        <Container>
+            <h1>{t('rootPageMessages.header')}</h1>
+            <div>
+                <span>{t('rootPageMessages.description')}</span>
+            </div>
+        </Container>);
+};
 
 export default Greeting;

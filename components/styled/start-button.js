@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import { Flipped } from 'react-flip-toolkit';
 import { Play } from 'react-feather';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import { BaseCard } from './card-button';
 import Media from '../media-queries';
 
@@ -36,26 +37,28 @@ const StyledStart = styled(BaseCard)`
         `)};
     }
 `;
-const StartButton = ({ isBig, clickHandler }) => (
-    <Flipped flipId="startButton">
-        <StyledStart
-            isBig={isBig}
-            title="Start practice"
-            onClick={(event) => {
-                clickHandler(event);
-                event.target.blur();
-            }}
-        >
-            {isBig ? (
-                <Flipped inverseFlipId="startButton">
-                    <span>Start</span>
-                </Flipped>) : null}
-            <Flipped inverseFlipId="startButton" scale>
-                <Play size="1.2em" />
-            </Flipped>
-        </StyledStart>
-    </Flipped>
-);
+const StartButton = ({ isBig, clickHandler }) => {
+    const { t } = useTranslation();
+    return (
+        <Flipped flipId="startButton">
+            <StyledStart
+                isBig={isBig}
+                title={t('practice.btn_title')}
+                onClick={(event) => {
+                    clickHandler(event);
+                    event.target.blur();
+                }}
+            >
+                {isBig ? (
+                    <Flipped inverseFlipId="startButton">
+                        <span>{t('practice.btn_label')}</span>
+                    </Flipped>) : null}
+                <Flipped inverseFlipId="startButton" scale>
+                    <Play size="1.2em" />
+                </Flipped>
+            </StyledStart>
+        </Flipped>);
+};
 
 StartButton.propTypes = {
     isBig: PropTypes.bool.isRequired,

@@ -3,11 +3,13 @@ import React, { useRef, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import { Flipped, Flipper } from 'react-flip-toolkit';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import { PracticeModeTextInput, PracticeModeCheckBtn } from '../styled/inputs';
 import { SlideInLeft, SlideOutLeft, ShakeOnError } from '../styled/animations';
 import InlineStats from './inline-stats';
 import { useGlobalState } from '../state';
 import Media from '../media-queries';
+
 
 const Container = styled.div`
     display: flex;
@@ -101,6 +103,7 @@ const KanaToRomajiView = ({
 }) => {
     const { disableAnimations, disableAutoInputCheck } = useGlobalState('options');
     const inputRef = useRef('');
+    const { t } = useTranslation();
 
     useEffect(() => {
         const listener = (e) => {
@@ -148,8 +151,9 @@ const KanaToRomajiView = ({
                         inputHandler(value);
                         inputRef.current.focus();
                     }}
+                    title={t('practice.btnCheck_title')}
                 >
-                check
+                    {t('practice.btnCheck')}
                 </PracticeModeCheckBtn>
             </UserInputContainer>
         </Container>);

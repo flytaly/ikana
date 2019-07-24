@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import KanaToRomaji from '../../data/kana-to-romaji';
 import { secondsToString } from '../../utils/seconds-to-string';
 
@@ -47,52 +48,57 @@ const countCPM = (secondsSpent, totalChars) => {
 
 const FinalStatsBlock = ({
     wrongChars, total, uniqueCount, correct, wrong, seconds,
-}) => (
-    <StatsBlock>
-        <h2>Results:</h2>
-        <StatLine>
-            <b>Shown:</b>
-            <span>{total}</span>
-        </StatLine>
+}) => {
+    const { t } = useTranslation();
 
-        {correct ? (
+    return (
+        <StatsBlock>
+            <h2>{t('stats.results')}</h2>
             <StatLine>
-                <b>Correct:</b>
-                <span>{correct}</span>
-            </StatLine>)
-            : null}
+                <b>{t('stats.shown')}</b>
+                <span>{total}</span>
+            </StatLine>
 
-        {uniqueCount ? (
+            {uniqueCount ? (
+                <StatLine>
+                    <b>{t('stats.unique')}</b>
+                    <span>{uniqueCount}</span>
+                </StatLine>)
+                : null}
+
+            {correct ? (
+                <StatLine>
+                    <b>{t('stats.correct')}</b>
+                    <span>{correct}</span>
+                </StatLine>)
+                : null}
+
+
             <StatLine>
-                <b>Shown unique:</b>
-                <span>{uniqueCount}</span>
-            </StatLine>)
-            : null}
+                <b>{t('stats.incorrect')}</b>
+                <span>{wrong}</span>
+            </StatLine>
 
-        <StatLine>
-            <b>Incorrect:</b>
-            <span>{wrong}</span>
-        </StatLine>
+            <StatLine>
+                <b>{t('stats.time')}</b>
+                <span>{secondsToString(seconds)}</span>
+            </StatLine>
 
-        <StatLine>
-            <b>Time spent:</b>
-            <span>{secondsToString(seconds)}</span>
-        </StatLine>
+            <StatLine>
+                <b>{t('stats.cpm')}</b>
+                <span>{`≈${countCPM(seconds, total)}`}</span>
+            </StatLine>
 
-        <StatLine>
-            <b>Characters per minute:</b>
-            <span>{`≈${countCPM(seconds, total)}`}</span>
-        </StatLine>
-
-        {wrongChars && wrongChars.length ? (
-            <>
-                <h3>Incorrect syllables:</h3>
-                <WrongCharsBlock>
-                    {wrongChars.map(c => <span key={c}>{`${c} [${KanaToRomaji[c][0]}]`}</span>)}
-                </WrongCharsBlock>
-            </>)
-            : null}
-    </StatsBlock>);
+            {wrongChars && wrongChars.length ? (
+                <>
+                    <h3>{t('stats.incorrectList')}</h3>
+                    <WrongCharsBlock>
+                        {wrongChars.map(c => <span key={c}>{`${c} [${KanaToRomaji[c][0]}]`}</span>)}
+                    </WrongCharsBlock>
+                </>)
+                : null}
+        </StatsBlock>);
+};
 
 FinalStatsBlock.propTypes = {
     wrongChars: PropTypes.arrayOf(PropTypes.string),

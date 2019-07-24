@@ -8,13 +8,12 @@ export default class MyDocument extends Document {
     static async getInitialProps(ctx) {
         const sheet = new ServerStyleSheet();
         const originalRenderPage = ctx.renderPage;
-
         try {
             ctx.renderPage = () => originalRenderPage({
                 enhanceApp: App => props => sheet.collectStyles(<App {...props} />),
             });
 
-            const initialProps = await Document.getInitialProps(ctx);
+            const initialProps = await Document.getInitialProps(ctx, 'test');
             return {
                 ...initialProps,
                 styles: (
@@ -23,6 +22,7 @@ export default class MyDocument extends Document {
                         {sheet.getStyleElement()}
                     </>
                 ),
+                lang: ctx.lang,
             };
         } finally {
             sheet.seal();
@@ -31,7 +31,7 @@ export default class MyDocument extends Document {
 
     render() {
         return (
-            <Html lang="en">
+            <Html lang={this.props.lang || 'en'}>
                 <Head />
                 <body>
                     <Main />

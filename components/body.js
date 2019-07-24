@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import { useRouter } from 'next/router';
+import { useTranslation } from 'react-i18next';
 import Card from './styled/card-button';
 import CogIcon from '../assets/svg/cog.svg';
 import QuestionCircle from '../assets/svg/question-circle.svg';
@@ -49,6 +50,7 @@ const NewLineCard = styled.div`
 
 
 const Body = () => {
+    const { t } = useTranslation();
     const appState = useGlobalState();
     const router = useRouter();
     const route = router.route.slice(1);
@@ -68,25 +70,28 @@ const Body = () => {
                     cardId="hiragana"
                     clickHandler={clickHandler}
                     isBig={!isExpanded}
-                    name="Hiragana"
+                    name={t('hiragana.btn_label')}
+                    title={t('hiragana.btn_title')}
                     shortName="あ"
-                    statusLine={`${appState.hiragana.totalSelected}/${hiraganaTotal} selected`}
+                    statusLine={`${appState.hiragana.totalSelected}/${hiraganaTotal} ${t('selected')}`}
                     bgColor="cardBgColor0"
                 />
                 <Card
                     cardId="katakana"
                     clickHandler={clickHandler}
                     isBig={!isExpanded}
-                    name="Katakana"
+                    name={t('katakana.btn_label')}
+                    title={t('katakana.btn_title')}
                     shortName="ア"
-                    statusLine={`${appState.katakana.totalSelected}/${katakanaTotal} selected`}
+                    statusLine={`${appState.katakana.totalSelected}/${katakanaTotal} ${t('selected')}`}
                     bgColor="cardBgColor1"
                 />
                 <Card
                     cardId="settings"
                     clickHandler={clickHandler}
                     isBig={!isExpanded}
-                    name="Settings"
+                    name={t('settings.btn_label')}
+                    title={t('settings.btn_title')}
                     IconSvg={CogIcon}
                     bgColor="cardBgColor2"
                 />
@@ -94,7 +99,8 @@ const Body = () => {
                     cardId="help"
                     clickHandler={clickHandler}
                     isBig={!isExpanded}
-                    name="Help"
+                    name={t('help.btn_label')}
+                    title={t('help.btn_title')}
                     IconSvg={QuestionCircle}
                     bgColor="cardBgColor4"
                 />

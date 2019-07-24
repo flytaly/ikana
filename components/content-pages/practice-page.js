@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import styled from 'styled-components';
 import shuffle from 'lodash.shuffle';
+import { useTranslation } from 'react-i18next';
 import KanaToRomaji from '../practice/kana-to-romaji';
 import RomajiToKana from '../practice/romaji-to-kana';
 import { NoStylesButton } from '../styled/common';
@@ -10,6 +11,7 @@ import { katakanaRows } from '../../data/katakana';
 import getSelectedKana from '../../utils/get-selected-kana';
 import MODES from '../practice/modes';
 import ContentHeader from './content-header';
+
 
 const PickMode = styled.div`
     display: flex;
@@ -53,6 +55,8 @@ const PracticePage = () => {
     // Currently the only use case is forcing component to rerender for reshuffle
     const [, setPracticeCount] = useState(1);
     const dispatch = useDispatch();
+    const { t } = useTranslation();
+
     const hiraganaToLearn = useMemo(
         () => getSelectedKana(hiraganaRows, hiragana.selectedRows), [hiragana.selectedRows],
     );
@@ -62,20 +66,20 @@ const PracticePage = () => {
     const shuffledChars = shuffle([...hiraganaToLearn, ...katakanaToLearn]);
     return (
         <>
-            <ContentHeader>Practice</ContentHeader>
+            <ContentHeader>{t('practice.pageHeader')}</ContentHeader>
             <PickMode>
-                <b>Mode:</b>
+                <b>{t('practice.mode')}</b>
                 <PickModeBtn
                     active={mode === MODES.KANA_TO_ROMAJI}
                     onClick={() => { dispatch({ type: types.SET_PRACTICE_MODE, payload: MODES.KANA_TO_ROMAJI }); }}
                 >
-                        Kana to Romaji
+                    {t('practice.kanaToRomaji')}
                 </PickModeBtn>
                 <PickModeBtn
                     active={mode === MODES.ROMAJI_TO_KANA}
                     onClick={() => { dispatch({ type: types.SET_PRACTICE_MODE, payload: MODES.ROMAJI_TO_KANA }); }}
                 >
-                        Romaji to Kana
+                    {t('practice.romajiToKana')}
                 </PickModeBtn>
             </PickMode>
             <PracticeContainer>

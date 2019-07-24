@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
 import { GitHub, Mail } from 'react-feather';
+import { useTranslation, Trans } from 'react-i18next';
 import ContentHeader from './content-header';
 
 const InfoBlock = styled.section`
@@ -37,47 +38,52 @@ const Contacts = styled.div`
     }
 `;
 
-const About = () => (
-    <>
-        <ContentHeader>Help</ContentHeader>
-        <InfoBlock>
-            <StyledArticle>
-                <h3>What are Hiragana and Katakana?</h3>
-                <div>
-                        They are Japanese syllabaries, part of Japanese writing system.
-                        Each kana character represents one sound in the Japanese language.
-                        See more information in
-                    {' '}
-                    <a href="https://en.wikipedia.org/wiki/Kana">Wikipedia article</a>
-                    {'.'}
-                </div>
-            </StyledArticle>
-            <StyledArticle>
-                <h3>How to use the site?</h3>
-                <div>
-                    {'Select rows of kana characters that you want to learn by clicking on corresponding rows in the '}
-                    <Link href="/hiragana"><a>hiragana</a></Link>
-                    {' and '}
-                    <Link href="/katakana"><a>katakana</a></Link>
-                    {' tables. Then go to '}
-                    <Link href="/practice"><a>practice</a></Link>
-                    {' page and choose mode.'}
-                </div>
-            </StyledArticle>
-            <StyledArticle>
-                <h3>Contacts</h3>
-                <Contacts>
-                    <a href="mailto:flytaly@gmail.com">
-                        <Mail size="1.2em" />
-                        flytaly@gmail.com
-                    </a>
-                    <a href="https://github.com/flytaly/trainkana">
-                        <GitHub size="1.2em" />
+const About = () => {
+    const { t } = useTranslation();
+    // eslint-disable-next-line react/prop-types
+    const LinkWithA = ({ href, children }) => <Link href={href}><a>{children}</a></Link>;
+
+    return (
+        <>
+            <ContentHeader>{t('help.pageHeader')}</ContentHeader>
+            <InfoBlock>
+                <StyledArticle>
+                    <h3>{t('help.q1.header')}</h3>
+                    <Trans i18nKey="help.q1.body">
+                        {`These are Japanese syllabaries, part of Japanese writing system.
+                        a character represents one sound in the Japanese language.
+                        Check `}
+                        <a href={t('help.q1.wikiLink')}>Wikipedia article</a>
+                        {' for more information.'}
+                    </Trans>
+                </StyledArticle>
+                <StyledArticle>
+                    <h3>{t('help.q2.header')}</h3>
+                    <Trans i18nKey="help.q2.body">
+                        {'Select rows of kana characters that you want to learn by clicking on corresponding rows in the '}
+                        <LinkWithA href="/hiragana">hiragana</LinkWithA>
+                        {' and '}
+                        <LinkWithA href="/katakana">katakana</LinkWithA>
+                        {' tables. Then go to '}
+                        <LinkWithA href="/practice">practice</LinkWithA>
+                        {' page and choose a practice mode.'}
+                    </Trans>
+                </StyledArticle>
+                <StyledArticle>
+                    <h3>{t('help.contacts')}</h3>
+                    <Contacts>
+                        <a href="mailto:flytaly@gmail.com">
+                            <Mail size="1.2em" />
+                        flytaly @gmail.com
+                        </a>
+                        <a href="https://github.com/flytaly/trainkana">
+                            <GitHub size="1.2em" />
                         GitHub
-                    </a>
-                </Contacts>
-            </StyledArticle>
-        </InfoBlock>
-    </>);
+                        </a>
+                    </Contacts>
+                </StyledArticle>
+            </InfoBlock>
+        </>);
+};
 
 export default About;

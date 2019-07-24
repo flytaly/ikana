@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import ContentHeader from './content-header';
 import OptionGroup from '../styled/radio-option-group';
 import { useDispatch, useGlobalState, types } from '../state';
@@ -33,17 +34,25 @@ const Settings = () => {
     const options = useGlobalState('options');
     const dispatch = useDispatch();
     const { disableAnimations, disableAutoInputCheck, repeatWrongChars } = options;
+    const { t } = useTranslation();
+
+    const defaultOnOff = [
+        { title: t('settings.On'), id: 'on' },
+        { title: t('settings.Off'), id: 'off' },
+    ];
 
     return (
         <>
-            <ContentHeader>Settings</ContentHeader>
+            <ContentHeader>{t('settings.pageHeader')}</ContentHeader>
             <SettingsBlock>
-                <h2>Practice options</h2>
+                <h2>{t('settings.optGroup_practice')}</h2>
                 <Setting>
-                    <span title="Enable animations in practice modes?">Animations</span>
+                    <span title={t('settings.opt_animations_title')}>
+                        {t('settings.opt_animations')}
+                    </span>
                     <OptionGroup
-                        ariaLabel="animations"
-                        options={[{ title: 'On', id: 'on' }, { title: 'Off', id: 'off' }]}
+                        ariaLabel={t('settings.opt_animations')}
+                        options={defaultOnOff}
                         current={disableAnimations ? 'off' : 'on'}
                         changeHandler={({ target }) => dispatch({
                             type: types.UPDATE_OPTIONS,
@@ -55,10 +64,12 @@ const Settings = () => {
                     />
                 </Setting>
                 <Setting>
-                    <span title="Automatically check input and don't wait for Enter or submit button to be pressed">Check input in real time</span>
+                    <span title={t('settings.opt_checkInput_title')}>
+                        {t('settings.opt_checkInput')}
+                    </span>
                     <OptionGroup
-                        ariaLabel="input auto checking"
-                        options={[{ title: 'On', id: 'on' }, { title: 'Off', id: 'off' }]}
+                        ariaLabel={t('settings.opt_checkInput')}
+                        options={defaultOnOff}
                         current={disableAutoInputCheck ? 'off' : 'on'}
                         changeHandler={({ target }) => dispatch({
                             type: types.UPDATE_OPTIONS,
@@ -70,10 +81,12 @@ const Settings = () => {
                     />
                 </Setting>
                 <Setting>
-                    <span title="Show mistaken syllables again">Repeat mistaken syllables</span>
+                    <span title={t('settings.opt_repeatMistakes_title')}>
+                        {t('settings.opt_repeatMistakes')}
+                    </span>
                     <OptionGroup
-                        ariaLabel="repeat mistaken syllables"
-                        options={[{ title: 'On', id: 'on' }, { title: 'Off', id: 'off' }]}
+                        ariaLabel={t('settings.opt_repeatMistakes')}
+                        options={defaultOnOff}
                         current={repeatWrongChars ? 'on' : 'off'}
                         changeHandler={({ target }) => dispatch({
                             type: types.UPDATE_OPTIONS,
