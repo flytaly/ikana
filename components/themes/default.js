@@ -1,6 +1,6 @@
 export default {
     pageBackground: '#f0f0f0',
-    mainFont: '"Noto Sans JP", "Noto Sans", sans-serif',
+    mainFont: '"Noto Sans JP", "Noto Sans", Helvetica, Arial, sans-serif',
     headerColor: '#087FA3',
     cardTextColor: '#FFFFFF',
     cardBgColor0: '#F09600',

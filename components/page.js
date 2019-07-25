@@ -12,6 +12,18 @@ const StyledPage = styled.div`
 const GlobalStyle = createGlobalStyle`
   ${normalize}
 
+  @font-face {
+    /* Only Hiragana and Katakana characters */
+    font-family: 'Noto Sans JP';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: local('Noto Sans Japanese Regular'), local('NotoSansJapanese-Regular'),
+        url('/static/fonts/noto-sans-jp-regular-kana-only.woff2') format('woff2'),
+        url('/static/fonts/noto-sans-jp-regular-kana-only.woff') format('woff');
+    unicode-range: U+3041-30FE;
+  }
+
   *, *:before, *:after {
     box-sizing: border-box;
   }
