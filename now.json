@@ -16,6 +16,14 @@
                 "cache-control": "public, s-maxage=31536000, max-age=31536000, immutable"
             },
             "dest": "/static/fonts/$1"
+        },
+        {
+            "src": "/robot.txt",
+            "dest": "/static/search/robot.txt"
+        },
+        {
+            "src": "/sitemap.xml",
+            "dest": "/static/search/sitemap.xml"
         }
     ],
     "builds": [
