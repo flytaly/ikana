@@ -9,6 +9,13 @@
                 "cache-control": "public, max-age=43200, immutable",
                 "Service-Worker-Allowed": "/"
             }
+        },
+        {
+            "src": "/static/fonts/(.*)",
+            "headers": {
+                "cache-control": "public, s-maxage=31536000, max-age=31536000, immutable"
+            },
+            "dest": "/static/fonts/$1"
         }
     ],
     "builds": [
