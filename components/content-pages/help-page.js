@@ -10,8 +10,7 @@ const InfoBlock = styled.section`
     flex-direction: column;
     align-self: center;
     align-items: flex-start;
-    width: 55rem;
-    max-width: 100%;
+    max-width: 96%;
     line-height: normal;
 `;
 

@@ -94,7 +94,7 @@ const Body = () => {
                 />
                 <TileLink
                     cardId="help"
-                    href="/settings"
+                    href="/help"
                     isBig={!isExpanded}
                     name={t('help.btn_label')}
                     title={t('help.btn_title')}
