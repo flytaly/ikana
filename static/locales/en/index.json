@@ -5,7 +5,7 @@
     },
     "rootPageMessages": {
         "header": "Practice japanese syllables",
-        "description": "Pick Hiragana or Katakana syllables and click Start"
+        "description": "Pick Hiragana or Katakana syllables and click Practice"
     },
     "selected": "selected",
     "kanaTable": {
@@ -42,8 +42,8 @@
         "opt_repeatMistakes_title": "Show mistaken syllables again"
     },
     "practice": {
-        "btn_label": "Start",
-        "btn_title": "Start practice",
+        "btn_label": "Practice",
+        "btn_title": "Start practice kana",
         "pageHeader": "Practice",
         "mode": "Mode",
         "kanaToRomaji": "Kana to Romaji",

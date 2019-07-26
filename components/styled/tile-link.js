@@ -1,10 +1,11 @@
+import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { Flipped } from 'react-flip-toolkit';
-import { NoStylesButton } from './common';
+import { useRouter } from 'next/router';
 import Media from '../media-queries';
 
-export const BaseCard = styled(NoStylesButton)`
+export const BaseTileLink = styled.a`
     display: flex;
     flex-direction: column;
     justify-content: ${({ isBig }) => (isBig ? 'space-between' : 'center')};
@@ -22,10 +23,10 @@ export const BaseCard = styled(NoStylesButton)`
         ? '0px 0px 5px 0px rgba(0,0,0,0.75)'
         : '-2px 0px 5px 0px rgba(0,0,0,0.75)')};
     margin: ${({ isBig }) => (isBig ? '1rem' : '0 0.5rem 0 0')};
+    text-decoration: none;
 
     :hover,
     :focus {
-        outline: none;
         box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.50);
         z-index: 20;
     }
@@ -65,49 +66,52 @@ const Status = styled.div`
     font-weight: normal;
 `;
 
-const CardButton = ({
-    clickHandler, isBig, name, title, shortName, statusLine, IconSvg, cardId, bgColor, ...rest
-}) => (
-    <Flipped flipId={cardId}>
-        <BaseCard
-            onClick={(event) => {
-                clickHandler({ event, id: cardId });
-                event.target.blur();
-            }}
-            isBig={isBig}
-            title={title}
-            bgColor={bgColor}
-            {...rest}
-        >
-            {isBig ? <Name>{name}</Name> : null}
-            <Flipped inverseFlipId={cardId} scale>
-                <Icon>{IconSvg ? <IconSvg /> : <span>{shortName}</span>}</Icon>
-            </Flipped>
-            {isBig ? <Status>{statusLine || <span>&nbsp;</span>}</Status> : null }
-        </BaseCard>
-    </Flipped>);
+const TileLink = ({
+    isBig, name, title, shortName, statusLine, IconSvg, cardId, bgColor, href, ...rest
+}) => {
+    const router = useRouter();
+    return (
+        <Flipped flipId={cardId}>
+            <BaseTileLink
+                onClick={((e) => {
+                    e.preventDefault();
+                    router.push(href);
+                })}
+                isBig={isBig}
+                title={title}
+                bgColor={bgColor}
+                href={href}
+                {...rest}
+            >
+                {isBig ? <Name>{name}</Name> : null}
+                <Flipped inverseFlipId={cardId} scale>
+                    <Icon>{IconSvg ? <IconSvg /> : <span>{shortName}</span>}</Icon>
+                </Flipped>
+                {isBig ? <Status>{statusLine || <span>&nbsp;</span>}</Status> : null}
+            </BaseTileLink>
+        </Flipped>);
+};
 
-CardButton.propTypes = {
+TileLink.propTypes = {
+    bgColor: PropTypes.string,
     cardId: PropTypes.string.isRequired,
-    clickHandler: PropTypes.func,
+    href: PropTypes.string.isRequired,
+    IconSvg: PropTypes.func,
     isBig: PropTypes.bool,
     name: PropTypes.string,
-    title: PropTypes.string,
     shortName: PropTypes.string,
     statusLine: PropTypes.string,
-    IconSvg: PropTypes.func,
-    bgColor: PropTypes.string,
+    title: PropTypes.string,
 };
 
-CardButton.defaultProps = {
-    clickHandler: () => {},
+TileLink.defaultProps = {
+    bgColor: '',
+    IconSvg: null,
     isBig: true,
     name: '',
-    title: '',
     shortName: '',
     statusLine: '',
-    IconSvg: null,
-    bgColor: '',
+    title: '',
 };
 
-export default CardButton;
+export default TileLink;

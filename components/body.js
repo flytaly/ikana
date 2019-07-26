@@ -2,14 +2,14 @@ import React, { useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'react-i18next';
-import Card from './styled/card-button';
+import TileLink from './styled/tile-link';
 import CogIcon from '../assets/svg/cog.svg';
 import QuestionCircle from '../assets/svg/question-circle.svg';
 import CardContent from './card-content';
 import { useGlobalState } from './state';
 import { hiraganaTotal } from '../data/hiragana';
 import { katakanaTotal } from '../data/katakana';
-import StartButton from './styled/start-button';
+import StartTile from './styled/start-tile';
 import routes from './routes';
 import Media from './media-queries';
 
@@ -60,15 +60,12 @@ const Body = () => {
         routes.forEach(id => route !== id && router.prefetch(`/${id}`));
     }, [route, router]);
 
-    // if (id === route) { return router.push('/'); }
-    const clickHandler = ({ id }) => router.push(`/${id}`);
-
     return (
         <Container>
             <CardContainer expanded={isExpanded}>
-                <Card
+                <TileLink
                     cardId="hiragana"
-                    clickHandler={clickHandler}
+                    href="/hiragana"
                     isBig={!isExpanded}
                     name={t('hiragana.btn_label')}
                     title={t('hiragana.btn_title')}
@@ -76,9 +73,9 @@ const Body = () => {
                     statusLine={`${appState.hiragana.totalSelected}/${hiraganaTotal} ${t('selected')}`}
                     bgColor="cardBgColor0"
                 />
-                <Card
+                <TileLink
                     cardId="katakana"
-                    clickHandler={clickHandler}
+                    href="/katakana"
                     isBig={!isExpanded}
                     name={t('katakana.btn_label')}
                     title={t('katakana.btn_title')}
@@ -86,18 +83,18 @@ const Body = () => {
                     statusLine={`${appState.katakana.totalSelected}/${katakanaTotal} ${t('selected')}`}
                     bgColor="cardBgColor1"
                 />
-                <Card
+                <TileLink
                     cardId="settings"
-                    clickHandler={clickHandler}
+                    href="/settings"
                     isBig={!isExpanded}
                     name={t('settings.btn_label')}
                     title={t('settings.btn_title')}
                     IconSvg={CogIcon}
                     bgColor="cardBgColor2"
                 />
-                <Card
+                <TileLink
                     cardId="help"
-                    clickHandler={clickHandler}
+                    href="/settings"
                     isBig={!isExpanded}
                     name={t('help.btn_label')}
                     title={t('help.btn_title')}
@@ -105,8 +102,8 @@ const Body = () => {
                     bgColor="cardBgColor4"
                 />
                 <NewLineCard expanded={isExpanded}>
-                    <StartButton
-                        clickHandler={() => { clickHandler({ id: 'practice' }); }}
+                    <StartTile
+                        href="/practice"
                         isBig={!isExpanded}
                     />
                 </NewLineCard>

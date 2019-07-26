@@ -4,10 +4,11 @@ import { Flipped } from 'react-flip-toolkit';
 import { Play } from 'react-feather';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import { BaseCard } from './card-button';
+import { useRouter } from 'next/router';
+import { BaseTileLink } from './tile-link';
 import Media from '../media-queries';
 
-const StyledStart = styled(BaseCard)`
+const StyledStart = styled(BaseTileLink)`
     flex-direction: row;
     justify-content: center;
     ${({ isBig }) => (isBig ? css`
@@ -37,16 +38,19 @@ const StyledStart = styled(BaseCard)`
         `)};
     }
 `;
-const StartButton = ({ isBig, clickHandler }) => {
+const StartTile = ({ isBig, href }) => {
     const { t } = useTranslation();
+    const router = useRouter();
     return (
         <Flipped flipId="startButton">
             <StyledStart
                 isBig={isBig}
                 title={t('practice.btn_title')}
-                onClick={(event) => {
-                    clickHandler(event);
-                    event.target.blur();
+                href={href}
+                onClick={(e) => {
+                    e.preventDefault();
+                    router.push(href);
+                    // event.target.blur();
                 }}
             >
                 {isBig ? (
@@ -60,9 +64,9 @@ const StartButton = ({ isBig, clickHandler }) => {
         </Flipped>);
 };
 
-StartButton.propTypes = {
+StartTile.propTypes = {
+    href: PropTypes.string.isRequired,
     isBig: PropTypes.bool.isRequired,
-    clickHandler: PropTypes.func.isRequired,
 };
 
-export default StartButton;
+export default StartTile;
