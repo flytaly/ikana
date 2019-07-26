@@ -37,7 +37,7 @@ const Footer = () => {
                 </a>
             </span>
             <span>
-                <a href="https://github.com/flytaly/trainkana">
+                <a href="https://github.com/flytaly/trainkana" title="source code on github">
                     <GitHub size="1.2em" />
                 </a>
             </span>
