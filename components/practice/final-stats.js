@@ -30,7 +30,7 @@ const StatLine = styled.div`
 const WrongCharsBlock = styled.div`
     display: grid;
     width: 100%;
-    grid-template-columns: repeat(auto-fill, minmax(4rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));
     grid-gap: 1.5rem;
     span {
         white-space: nowrap;
