@@ -132,6 +132,7 @@ const KanaToRomajiView = ({
                                 column={idx}
                                 shake={!disableAnimations && shakeIt}
                                 answer={idx === 1 ? answer : ''}
+                                data-testid={idx === 1 ? 'kana' : null}
                             >
                                 {ch}
                             </Kana>
@@ -143,6 +144,7 @@ const KanaToRomajiView = ({
                     value={inputValue}
                     onChange={({ target }) => inputHandler(target.value, !disableAutoInputCheck)}
                     ref={inputRef}
+                    data-testid="practiceInput"
                     autoFocus
                 />
                 <PracticeModeCheckBtn

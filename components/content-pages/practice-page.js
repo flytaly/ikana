@@ -89,6 +89,7 @@ const PracticePage = () => {
                 <Link href={`${prefix}/kana-to-romaji`}>
                     <PickModeBtn
                         active={mode === MODES.KANA_TO_ROMAJI}
+                        data-testid={mode === MODES.KANA_TO_ROMAJI ? 'activeMode' : null}
                         href={`${prefix}/kana-to-romaji`}
                     >
                         {t('practice.kanaToRomaji')}
@@ -97,6 +98,7 @@ const PracticePage = () => {
                 <Link href={`${prefix}/romaji-to-kana`}>
                     <PickModeBtn
                         active={mode === MODES.ROMAJI_TO_KANA}
+                        data-testid={mode === MODES.ROMAJI_TO_KANA ? 'activeMode' : null}
                         href={`${prefix}/romaji-to-kana`}
                     >
                         {t('practice.romajiToKana')}

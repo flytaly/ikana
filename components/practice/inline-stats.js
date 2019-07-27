@@ -18,11 +18,11 @@ const InlineStats = ({ wrong, total, seconds }) => {
             <div>
                 <span>{t('practice.wrong')}</span>
                 {' '}
-                <b>{wrong}</b>
+                <b data-testid="statsWrong">{wrong}</b>
             </div>
-            <div>{secondsToString(seconds)}</div>
+            <div data-testid="statsTime">{secondsToString(seconds)}</div>
             <div>
-                <b>{total}</b>
+                <b data-testid="statsTotal">{total}</b>
             </div>
         </StatsBlock>);
 };

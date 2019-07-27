@@ -1,7 +1,7 @@
 import Home from '../components/home';
 
 function Index() {
-    return <Home route="/" />;
+    return <Home />;
 }
 
 export default Index;

@@ -5,10 +5,11 @@
         "ecmaVersion": 10,
         "sourceType": "module"
     },
-    "plugins": ["react-hooks"],
+    "plugins": ["react-hooks", "eslint-plugin-cypress"],
     "env": {
         "browser": true,
         "jest": true,
+        "cypress/globals": true
     },
     "rules": {
         "indent": ["error", 4, {

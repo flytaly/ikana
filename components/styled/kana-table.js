@@ -63,18 +63,22 @@ const kanaRomajiCellRenderer = ({ cell, columnIdx, rowIdx }) => {
 
 const defaultRowRenderer = ({
     rowData, rowIdx, cellRenderer, onRowClick, selectedRows, rowHeaderCell,
-}) => (
-    <StyledRow
-        onClick={event => onRowClick({ event, rowIdx })}
-        key={rowIdx}
-        selected={selectedRows.includes(rowIdx)}
-    >
-        {rowHeaderCell && rowHeaderCell({ rowIdx }) }
-        {rowData.map((cell, columnIdx) => (
-            cellRenderer({ cell, rowIdx, columnIdx })
-        ))}
-    </StyledRow>
-);
+}) => {
+    const isSelected = selectedRows.includes(rowIdx);
+    return (
+        <StyledRow
+            onClick={event => onRowClick({ event, rowIdx })}
+            key={rowIdx}
+            selected={isSelected}
+            data-selected={isSelected}
+        >
+            {rowHeaderCell && rowHeaderCell({ rowIdx }) }
+            {rowData.map((cell, columnIdx) => (
+                cellRenderer({ cell, rowIdx, columnIdx })
+            ))}
+        </StyledRow>
+    );
+};
 
 const getSelectAllState = (rows, selectedRows) => {
     if (!selectedRows.length) return false;

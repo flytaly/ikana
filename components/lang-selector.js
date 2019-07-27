@@ -35,7 +35,7 @@ const LangSelector = () => {
 
     return (
         <LanguageBlock>
-            <StyledSelect value={lang} onChange={changeHandler} aria-label="select language">
+            <StyledSelect value={lang} onChange={changeHandler} aria-label="select language" data-testid="langSelector">
                 <option value="en">English</option>
                 <option value="ru">Русский</option>
             </StyledSelect>
