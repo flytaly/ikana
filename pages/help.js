@@ -1,7 +1,7 @@
 import Home from '../components/home';
 
 function Katakana() {
-    return <Home />;
+    return <Home route="help" />;
 }
 
 export default Katakana;

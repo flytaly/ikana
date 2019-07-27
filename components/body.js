@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'react-i18next';
+import PropTypes from 'prop-types';
 import TileLink from './styled/tile-link';
 import CogIcon from '../assets/svg/cog.svg';
 import QuestionCircle from '../assets/svg/question-circle.svg';
@@ -49,11 +50,10 @@ const NewLineCard = styled.div`
 `;
 
 
-const Body = () => {
+const Body = ({ route }) => {
     const { t } = useTranslation();
     const appState = useGlobalState();
     const router = useRouter();
-    const route = router.route.slice(1);
     const cardNumber = routes.indexOf(route);
     const isExpanded = cardNumber !== -1;
     useEffect(() => {
@@ -113,6 +113,14 @@ const Body = () => {
                 : null}
         </Container>
     );
+};
+
+Body.propTypes = {
+    route: PropTypes.string,
+};
+
+Body.defaultProps = {
+    route: '',
 };
 
 export default Body;

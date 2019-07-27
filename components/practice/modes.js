@@ -1,3 +1,3 @@
-const MODES = { KANA_TO_ROMAJI: 'KANA_TO_ROMAJI', ROMAJI_TO_KANA: 'ROMAJI_TO_KANA' };
+const MODES = { KANA_TO_ROMAJI: 'kana-to-romaji', ROMAJI_TO_KANA: 'romaji-to-kana' };
 
 export default MODES;

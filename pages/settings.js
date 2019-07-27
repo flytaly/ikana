@@ -1,7 +1,7 @@
 import Home from '../components/home';
 
 function Settings() {
-    return <Home />;
+    return <Home route="settings" />;
 }
 
 export default Settings;
