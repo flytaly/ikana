@@ -14,13 +14,13 @@ export const types = {
 };
 
 const countSelected = (dataRows, selectedRows) => selectedRows
-    .reduce((acc, curr) => acc + dataRows[curr].filter(k => k).length, 0);
+    .reduce((acc, curr) => acc + dataRows[curr].filter((k) => k).length, 0);
 
 const kanaToggleRow = ({ kanaRows, selectedRows, selectedNumber, rowIdx, kanaType }) => {
     const kanaSelectedRows = selectedRows[kanaType];
 
     const updatedRows = kanaSelectedRows.includes(rowIdx)
-        ? kanaSelectedRows.filter(el => el !== rowIdx)
+        ? kanaSelectedRows.filter((el) => el !== rowIdx)
         : [...kanaSelectedRows, rowIdx];
 
     const newSelectedNumber = {

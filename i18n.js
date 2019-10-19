@@ -1,13 +1,13 @@
 import i18next from 'i18next';
-import en from './static/locales/en';
-import ru from './static/locales/ru';
+import en from './public/static/locales/en';
+import ru from './public/static/locales/ru';
 
 export const resources = {
     en: { translation: en },
     ru: { translation: ru },
 };
 
-export const makeInit = lng => ({
+export const makeInit = (lng) => ({
     resources,
     lng,
     fallbackLng: 'en',

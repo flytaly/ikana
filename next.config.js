@@ -10,7 +10,7 @@ const withReactSvgConfig = {
 };
 
 const withOfflineConfig = {
-    transformManifest: manifest => ['/'].concat(manifest), // add the homepage to the cache
+    transformManifest: (manifest) => ['/'].concat(manifest), // add the homepage to the cache
     workboxOpts: {
         swDest: 'static/service-worker.js',
         runtimeCaching: [

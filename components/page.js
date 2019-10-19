@@ -34,9 +34,9 @@ const GlobalStyle = createGlobalStyle`
   }
   body {
     max-width: 100vw;
-    background: ${props => props.theme.pageBackground};
+    background: ${(props) => props.theme.pageBackground};
     font-size: 1.4rem;
-    font-family: ${props => props.theme.mainFont};
+    font-family: ${(props) => props.theme.mainFont};
   }
 `;
 

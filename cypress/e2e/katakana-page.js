@@ -8,7 +8,7 @@ describe('Katakana page', () => {
     it('should change to /katakana by clicking on the tile', () => {
         cy
             .visit('/')
-            .getByText(/^katakana$/i)
+            .findByText(/^katakana$/i)
             .click()
             .url()
             .should('eq', `${Cypress.config().baseUrl}/katakana`);
@@ -21,7 +21,7 @@ describe('Katakana page', () => {
     });
 
     it('should select "na" row', () => {
-        cy.getByText(/^na$/i)
+        cy.findByText(/^na$/i)
             .click()
             .get('[data-selected="true"]')
             .should('have.length', 1)
@@ -29,7 +29,7 @@ describe('Katakana page', () => {
             .should('exist');
         cy
             .visit('/')
-            .getByText(/5\/.* selected/i)
+            .findByText(/5\/.* selected/i)
             .should('exist');
     });
 });

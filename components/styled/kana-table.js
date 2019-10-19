@@ -12,7 +12,7 @@ const StyledTable = styled.table`
 `;
 
 export const StyledRow = styled.tr`
-    ${props => (props.selected && css`background-color: ${props.theme.kanaTableRowSelectedColor};`)}
+    ${(props) => (props.selected && css`background-color: ${props.theme.kanaTableRowSelectedColor};`)}
     :not(:last-child) {
         border-bottom: ${({ theme }) => theme.kanaTableBorder};
     }
@@ -37,13 +37,13 @@ export const CellContent = styled.div`
         flex-direction: column;
         align-items: center;
         padding: 0.5rem;
-        color: ${props => props.theme.kanaTableCellColor};
+        color: ${(props) => props.theme.kanaTableCellColor};
         > :first-child {
             font-size: 2rem;
         }
         > :not(:first-child) {
             font-size: 1.4rem;
-            color: ${props => props.theme.kanaTableCellColor2};
+            color: ${(props) => props.theme.kanaTableCellColor2};
         }
 `;
 
@@ -67,7 +67,7 @@ const defaultRowRenderer = ({
     const isSelected = selectedRows.includes(rowIdx);
     return (
         <StyledRow
-            onClick={event => onRowClick({ event, rowIdx })}
+            onClick={(event) => onRowClick({ event, rowIdx })}
             key={rowIdx}
             selected={isSelected}
             data-selected={isSelected}

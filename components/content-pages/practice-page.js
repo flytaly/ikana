@@ -109,11 +109,11 @@ const PracticePage = () => {
                 {process.browser ? ({
                     [MODES.KANA_TO_ROMAJI]: <KanaToRomaji
                         kanaChars={shuffledChars}
-                        onRestart={() => setPracticeCount(state => state + 1)}
+                        onRestart={() => setPracticeCount((state) => state + 1)}
                     />,
                     [MODES.ROMAJI_TO_KANA]: <RomajiToKana
                         kanaChars={shuffledChars}
-                        onRestart={() => setPracticeCount(state => state + 1)}
+                        onRestart={() => setPracticeCount((state) => state + 1)}
                     />,
                 }[mode]) : null}
             </PracticeContainer>

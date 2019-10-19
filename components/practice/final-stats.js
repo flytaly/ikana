@@ -43,7 +43,7 @@ const countCPM = (secondsSpent, totalChars) => {
     //  Don't count first symbol because it's shown before timer starts
     const chars = totalChars > 1 ? totalChars - 1 : totalChars;
     const seconds = secondsSpent || 1;
-    return Math.round(chars / seconds * 60);
+    return Math.round((chars / seconds) * 60);
 };
 
 const FinalStatsBlock = ({
@@ -93,7 +93,7 @@ const FinalStatsBlock = ({
                 <>
                     <h3>{t('stats.incorrectList')}</h3>
                     <WrongCharsBlock>
-                        {wrongChars.map(c => <span key={c}>{`${c} [${KanaToRomaji[c][0]}]`}</span>)}
+                        {wrongChars.map((c) => <span key={c}>{`${c} [${KanaToRomaji[c][0]}]`}</span>)}
                     </WrongCharsBlock>
                 </>)
                 : null}

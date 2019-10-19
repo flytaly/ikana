@@ -31,15 +31,15 @@ const CardContainer = styled.aside`
     display: flex;
     flex-wrap: wrap;
     max-width: 100%;
-    justify-content: ${props => (props.expanded ? 'flex-start' : 'center')};
+    justify-content: ${(props) => (props.expanded ? 'flex-start' : 'center')};
     @media ${Media.largeEnough}{
-        flex-direction: ${props => (props.expanded ? 'column' : 'row')};
-        margin: ${props => (props.expanded ? '0 0 0.5rem 0' : '1rem')}
+        flex-direction: ${(props) => (props.expanded ? 'column' : 'row')};
+        margin: ${(props) => (props.expanded ? '0 0 0.5rem 0' : '1rem')}
     }
 `;
 
 const NewLineCard = styled.div`
-    ${props => !props.expanded && css`
+    ${(props) => !props.expanded && css`
         display: flex;
         flex: 1 0 100%;
         justify-content: center;`}
@@ -57,7 +57,7 @@ const Body = ({ route }) => {
     const cardNumber = routes.indexOf(route);
     const isExpanded = cardNumber !== -1;
     useEffect(() => {
-        routes.forEach(id => route !== id && router.prefetch(`/${id}`));
+        routes.forEach((id) => route !== id && router.prefetch(`/${id}`));
     }, [route, router]);
 
     return (

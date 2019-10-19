@@ -4,25 +4,25 @@ describe('Language Selector', () => {
     it('should change languages to Russian and persist after reload', () => {
         cy
             .visit('/')
-            .getByTestId('langSelector')
+            .findByTestId('langSelector')
             .select('ru')
-            .getByText('Хирагана')
+            .findByText('Хирагана')
             .should('exist')
 
             .reload()
-            .getByText('Хирагана')
+            .findByText('Хирагана')
             .should('exist');
     });
 
     it('should change language back to English and persist after reload', () => {
         cy
-            .getByTestId('langSelector')
+            .findByTestId('langSelector')
             .select('en')
-            .getByText(/^hiragana$/i)
+            .findByText(/^hiragana$/i)
             .should('exist')
 
             .reload()
-            .getByText(/^hiragana$/i)
+            .findByText(/^hiragana$/i)
             .should('exist');
     });
 });

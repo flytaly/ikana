@@ -59,7 +59,7 @@ const RomajiToKana = ({ kanaChars, onRestart }) => {
         ...pickRandomKana(getKanaType(currentChar) === 'hiragana' ? hiraganaToRomaji : katakanaToRomaji, currentChar, 3),
     ]) : []), [currentChar]);
 
-    const answers = randKanaList.map(k => (
+    const answers = randKanaList.map((k) => (
         { value: k, id: k, disabled: disabledAnswers.includes(k) }
     ));
 

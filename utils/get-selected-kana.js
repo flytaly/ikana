@@ -7,7 +7,7 @@ const getSelectedKana = (data, selectedRows) => {
         rows.forEach((rowIdx) => {
             const row = dataRows[rowIdx];
             if (row && row.length) {
-                result.push(...row.filter(k => k));
+                result.push(...row.filter((k) => k));
             }
         });
     });

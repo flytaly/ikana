@@ -9,7 +9,7 @@ describe('Practice page', () => {
     it('should change to /practice by clicking on the tile', () => {
         cy
             .visit('/')
-            .getByText(/^practice$/i)
+            .findByText(/^practice$/i)
             .click()
             .url()
             .should('eq', `${Cypress.config().baseUrl}/practice`);
@@ -17,7 +17,7 @@ describe('Practice page', () => {
 
     it('should have correct default mode', () => {
         cy
-            .getByTestId('activeMode')
+            .findByTestId('activeMode')
             .should('exist')
             .should((link) => {
                 expect(link.text()).to.match(/kana to romaji/i);
@@ -26,11 +26,11 @@ describe('Practice page', () => {
 
     it('should change mode', () => {
         cy
-            .getByText(/romaji to kana/i)
+            .findByText(/romaji to kana/i)
             .click()
             .url()
             .should('eq', `${Cypress.config().baseUrl}/practice/romaji-to-kana`)
-            .getByTestId('activeMode')
+            .findByTestId('activeMode')
             .should('exist')
             .should((link) => {
                 expect(link.text()).to.match(/romaji to kana/i);
@@ -39,17 +39,17 @@ describe('Practice page', () => {
 
     it('should show initial stats', () => {
         cy
-            .getByTestId('statsWrong')
+            .findByTestId('statsWrong')
             .should((elem) => {
                 expect(elem.text()).to.match(/^0$/);
             });
         cy
-            .getByTestId('statsTime')
+            .findByTestId('statsTime')
             .should((elem) => {
                 expect(elem.text()).to.match(/^0:00$/);
             });
         cy
-            .getByTestId('statsTotal')
+            .findByTestId('statsTotal')
             .should((elem) => {
                 expect(elem.text()).to.match(/1\/5/);
             });
@@ -61,18 +61,18 @@ describe('kana to romaji', () => {
         cy
             .visit('/practice/kana-to-romaji')
             .wait(200)
-            .getByTestId('kana')
+            .findByTestId('kana')
             .then((kana) => {
                 const kanaValue = kana.get(0).textContent;
                 const correctAnswer = KanaToRomaji[kanaValue][0];
                 return cy
-                    .getByTestId('practiceInput')
+                    .findByTestId('practiceInput')
                     .type(correctAnswer)
-                    .getByTestId('statsWrong')
+                    .findByTestId('statsWrong')
                     .should((elem) => {
                         expect(elem.text()).to.match(/^0$/);
                     })
-                    .getByTestId('statsTotal')
+                    .findByTestId('statsTotal')
                     .should((elem) => {
                         expect(elem.text()).to.match(/2\/5/);
                     });
@@ -83,13 +83,13 @@ describe('kana to romaji', () => {
         cy
             .visit('/practice/kana-to-romaji')
             .wait(200)
-            .getByTestId('practiceInput')
+            .findByTestId('practiceInput')
             .type('xa')
-            .getByTestId('statsWrong')
+            .findByTestId('statsWrong')
             .should((elem) => {
                 expect(elem.text()).to.match(/^1$/);
             })
-            .getByTestId('statsTotal')
+            .findByTestId('statsTotal')
             .should((elem) => {
                 expect(elem.text()).to.match(/1\/5/);
             });

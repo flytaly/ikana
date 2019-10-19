@@ -13,7 +13,7 @@ export const initialState = {
     wrongCount: 0,
 };
 
-export const initReducer = initState => ({
+export const initReducer = (initState) => ({
     ...initialState,
     wrongChars: new Set([]),
     ...initState,

@@ -11,10 +11,10 @@ const Hiragana = () => {
     const dispatch = useDispatch();
     const { t } = useTranslation();
 
-    const makeClickHandler = kanaType => ({ rowIdx }) => {
+    const makeClickHandler = (kanaType) => ({ rowIdx }) => {
         dispatch({ type: types.HIRAGANA_TOGGLE_ROW, payload: { rowIdx, kanaType } });
     };
-    const makeSelectAllHandler = kanaType => () => {
+    const makeSelectAllHandler = (kanaType) => () => {
         dispatch({ type: types.HIRAGANA_TOGGLE_ALL, payload: { kanaType } });
     };
 

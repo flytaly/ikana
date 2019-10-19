@@ -8,7 +8,7 @@ describe('Hiragana page', () => {
     it('should change to /hiragana by clicking on the tile', () => {
         cy
             .visit('/')
-            .getByText(/^hiragana$/i)
+            .findByText(/^hiragana$/i)
             .click()
             .url()
             .should('eq', `${Cypress.config().baseUrl}/hiragana`);
@@ -23,7 +23,7 @@ describe('Hiragana page', () => {
     });
 
     it('should select "ma" row ', () => {
-        cy.getByText(/^ma$/i)
+        cy.findByText(/^ma$/i)
             .click()
             .get('[data-selected="true"]')
             .should((rows) => {
@@ -32,7 +32,7 @@ describe('Hiragana page', () => {
             });
         cy
             .visit('/')
-            .getByText(/10\/.* selected/)
+            .findByText(/10\/.* selected/)
             .should('exist');
     });
 });

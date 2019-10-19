@@ -56,7 +56,7 @@ const Kana = styled.div`
     ${({ shake }) => shake && ShakeOnError}
 
     &::after{
-        content: "${props => props.answer}";
+        content: "${(props) => props.answer}";
         position: absolute;
         top: 100%;
         left: 0%;
