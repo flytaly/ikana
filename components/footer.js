@@ -32,12 +32,12 @@ const Footer = () => {
         <StyledFooter>
             <span>{currentYear}</span>
             <span>
-                <a href="https://github.com/flytaly/trainkana">
+                <a href="https://github.com/flytaly/ikana">
                     <span>Vitaly Yerofeyevsky </span>
                 </a>
             </span>
             <span>
-                <a href="https://github.com/flytaly/trainkana" title="source code on github">
+                <a href="https://github.com/flytaly/ikana" title="source code on github">
                     <GitHub size="1.2em" />
                 </a>
             </span>

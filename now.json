@@ -1,6 +1,6 @@
 {
     "version": 2,
-    "name": "trainkana",
+    "name": "iKana",
     "routes": [
         {
             "src": "^/service-worker.js$",

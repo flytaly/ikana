@@ -5,33 +5,57 @@
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
   <url>
-    <loc>https://trainkana.flytaly.now.sh/</loc>
+    <loc>https://ikana.icu/</loc>
     <changefreq>Monthly</changefreq>
     <priority>1</priority>
-    <lastmod>2019-07-26T16:45:56Z</lastmod>
+    <lastmod>2019-10-19T17:37:52Z</lastmod>
   </url>
   <url>
-    <loc>https://trainkana.flytaly.now.sh/hiragana</loc>
+    <loc>https://ikana.icu/hiragana</loc>
     <changefreq>Monthly</changefreq>
     <priority>1</priority>
-    <lastmod>2019-07-26T16:45:56Z</lastmod>
+    <lastmod>2019-10-19T17:37:52Z</lastmod>
   </url>
   <url>
-    <loc>https://trainkana.flytaly.now.sh/katakana</loc>
+    <loc>https://ikana.icu/katakana</loc>
     <changefreq>Monthly</changefreq>
     <priority>1</priority>
-    <lastmod>2019-07-26T16:45:56Z</lastmod>
+    <lastmod>2019-10-19T17:37:52Z</lastmod>
   </url>
   <url>
-    <loc>https://trainkana.flytaly.now.sh/settings</loc>
+    <loc>https://ikana.icu/settings</loc>
     <changefreq>Monthly</changefreq>
     <priority>1</priority>
-    <lastmod>2019-07-26T16:45:56Z</lastmod>
+    <lastmod>2019-10-19T17:37:52Z</lastmod>
   </url>
   <url>
-    <loc>https://trainkana.flytaly.now.sh/practice</loc>
+    <loc>https://ikana.icu/help</loc>
     <changefreq>Monthly</changefreq>
     <priority>1</priority>
-    <lastmod>2019-07-26T16:45:56Z</lastmod>
+    <lastmod>2019-10-19T17:37:52Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ikana.icu/practice</loc>
+    <changefreq>Monthly</changefreq>
+    <priority>1</priority>
+    <lastmod>2019-10-19T17:37:52Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ikana.icu/practice/kana-to-romaji</loc>
+    <changefreq>Monthly</changefreq>
+    <priority>1</priority>
+    <lastmod>2019-10-19T17:37:52Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ikana.icu/practice/</loc>
+    <changefreq>Monthly</changefreq>
+    <priority>1</priority>
+    <lastmod>2019-10-19T17:37:52Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ikana.icu/practice/romaji-to-kana</loc>
+    <changefreq>Monthly</changefreq>
+    <priority>1</priority>
+    <lastmod>2019-10-19T17:37:52Z</lastmod>
   </url>
 </urlset>

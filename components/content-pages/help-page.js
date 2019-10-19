@@ -75,7 +75,7 @@ const About = () => {
                             <Mail size="1.2em" />
                         flytaly @gmail.com
                         </a>
-                        <a href="https://github.com/flytaly/trainkana">
+                        <a href="https://github.com/flytaly/ikana">
                             <GitHub size="1.2em" />
                         GitHub
                         </a>
