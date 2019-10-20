@@ -33,9 +33,9 @@ const withOfflineConfig = {
     },
 };
 
-
 module.exports = withOffline(withReactSvg({
     ...withOfflineConfig,
     ...withReactSvgConfig,
     target: 'serverless',
+    env: { GA_TRACKING_ID: process.env.GA_TRACKING_ID },
 }));

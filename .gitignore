@@ -7,3 +7,5 @@ coverage/
 .build/
 cypress/videos
 cypress/screenshots
+.env
+.env.build

@@ -4,7 +4,8 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "dev": "next",
+        "dev": "now dev",
+        "dev:next": "next",
         "build": "next build",
         "start": "next start",
         "cy:run": "cypress run",

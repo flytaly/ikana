@@ -1,6 +1,11 @@
 {
     "version": 2,
     "name": "iKana",
+    "build": {
+        "env": {
+            "GA_TRACKING_ID": "@ga_id_ikana"
+        }
+    },
     "routes": [
         {
             "src": "^/service-worker.js$",
