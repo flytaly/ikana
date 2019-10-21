@@ -1,4 +1,3 @@
-# ikana
 [ikana](https://ikana.icu) - japanese kana (hiragana, katakana) trainer with two practice modes
 
 ![](https://i.imgur.com/mY9nuTJ.gif)
