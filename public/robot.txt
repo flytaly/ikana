@@ -1,4 +1,4 @@
-Sitemap: https://ikana.icu/sitemap.xml
-
 User-agent: *
-Disallow:
+Allow: /
+
+Sitemap: https://ikana.icu/sitemap.xml
