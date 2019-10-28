@@ -1,6 +1,6 @@
 {
-    "short_name": "iKana",
-    "name": "iKana Trainer",
+    "short_name": "ikana",
+    "name": "Kana Trainer",
     "icons": [
         {
             "src": "/static/meta/android-icon-36x36.png",

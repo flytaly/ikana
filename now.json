@@ -1,6 +1,6 @@
 {
     "version": 2,
-    "name": "iKana",
+    "name": "ikana",
     "build": {
         "env": {
             "GA_TRACKING_ID": "@ga_id_ikana"
