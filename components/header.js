@@ -21,7 +21,7 @@ const StyledSiteHeader = styled.header`
 
 const Header = () => (
     <StyledSiteHeader>
-        <Link href="/"><a href="/">KANA TRAINER</a></Link>
+        <Link href="/">KANA TRAINER</Link>
     </StyledSiteHeader>
 );
 

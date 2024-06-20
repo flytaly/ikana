@@ -86,7 +86,7 @@ const PracticePage = () => {
             <ContentHeader>{t('practice.pageHeader')}</ContentHeader>
             <PickMode>
                 <b>{t('practice.mode')}</b>
-                <Link href={`${prefix}/kana-to-romaji`}>
+                <Link href={`${prefix}/kana-to-romaji`} legacyBehavior>
                     <PickModeBtn
                         active={mode === MODES.KANA_TO_ROMAJI}
                         data-testid={mode === MODES.KANA_TO_ROMAJI ? 'activeMode' : null}
@@ -95,7 +95,7 @@ const PracticePage = () => {
                         {t('practice.kanaToRomaji')}
                     </PickModeBtn>
                 </Link>
-                <Link href={`${prefix}/romaji-to-kana`}>
+                <Link href={`${prefix}/romaji-to-kana`} legacyBehavior>
                     <PickModeBtn
                         active={mode === MODES.ROMAJI_TO_KANA}
                         data-testid={mode === MODES.ROMAJI_TO_KANA ? 'activeMode' : null}
