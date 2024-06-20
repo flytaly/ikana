@@ -24,7 +24,7 @@ class MyApp extends App {
 
     render() {
         const { Component, pageProps, i18n } = this.props;
-        const route = process.browser ? Router.route : null;
+        const route = typeof window !== 'undefined'? Router.route : null;
 
         return (
             <I18nextProvider i18n={i18n}>

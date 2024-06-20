@@ -55,7 +55,7 @@ const PracticeContainer = styled.div`
 const useModePicker = (prefix, mode) => {
     const dispatch = useDispatch();
     const router = useRouter();
-    const modeRoute = router.route.substr(prefix.length + 1);
+    const modeRoute = router.route.slice(prefix.length + 1);
     const setMode = (m) => { dispatch({ type: types.SET_PRACTICE_MODE, payload: m }); };
     if (modeRoute && modeRoute !== mode) {
         setMode(modeRoute);
@@ -106,7 +106,7 @@ const PracticePage = () => {
                 </Link>
             </PickMode>
             <PracticeContainer>
-                {process.browser ? ({
+                {typeof window !== 'undefined' ? ({
                     [MODES.KANA_TO_ROMAJI]: <KanaToRomaji
                         kanaChars={shuffledChars}
                         onRestart={() => setPracticeCount((state) => state + 1)}
