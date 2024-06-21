@@ -4,9 +4,9 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "dev": "next dev",
+        "dev": "now dev",
+        "dev:next": "next",
         "build": "next build",
-        "lint": "next lint",
         "start": "next start",
         "cy:run": "cypress run",
         "cy:open": "cypress open",
@@ -26,22 +26,31 @@
     },
     "homepage": "https://github.com/flytaly/ikana#readme",
     "dependencies": {
-        "@ariakit/react": "^0.4.7",
-        "cookie": "^0.6.0",
-        "localforage": "^1.10.0",
+        "cookie": "^0.4.0",
+        "i18next": "^17.2.0",
+        "i18next-browser-languagedetector": "^4.0.0",
+        "localforage": "^1.7.3",
         "lodash.shuffle": "^4.2.0",
-        "negotiator": "^0.6.3",
-        "next": "^14.2.4",
-        "prop-types": "^15.8.1",
-        "react": "^18.3.1",
-        "react-dom": "^18.3.1",
-        "react-feather": "^2.0.10",
-        "react-flip-toolkit": "^7.1.0",
-        "react-i18next": "^14.1.2",
-        "styled-components": "^6.1.11",
-        "styled-normalize": "^8.1.1"
+        "negotiator": "^0.6.2",
+        "next": "^9.3.2",
+        "next-offline": "^4.0.6",
+        "next-react-svg": "^1.1.0",
+        "now": "^16.3.1",
+        "prop-types": "^15.7.2",
+        "react": "^16.10.2",
+        "react-dom": "^16.10.2",
+        "react-feather": "^2.0.3",
+        "react-flip-toolkit": "^7.0.6",
+        "react-i18next": "^10.13.1",
+        "reakit": "^1.0.0-beta.9",
+        "styled-components": "^4.4.0",
+        "styled-normalize": "^8.0.6"
     },
     "devDependencies": {
-        "@svgr/webpack": "^8.1.0"
+        "@testing-library/cypress": "^5.0.2",
+        "babel-plugin-styled-components": "^1.10.6",
+        "cypress": "^3.4.1",
+        "eslint-plugin-cypress": "^2.7.0",
+        "start-server-and-test": "^1.10.6"
     }
 }

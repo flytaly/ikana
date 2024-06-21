@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Radio, RadioGroup, useRadioState } from 'reakit';
+import * as Ariakit from "@ariakit/react";
 
-const StyledRadioGroup = styled(RadioGroup)`
+const StyledRadioGroup = styled(Ariakit.RadioGroup)`
     display: flex;
     flex-wrap: nowrap;
     input[type="radio"] {
@@ -32,30 +32,22 @@ const StyledRadioGroup = styled(RadioGroup)`
     label:last-child div {
         border-radius: 0 4px 4px 0;
     }
-
 `;
 
-const OptionGroup = ({ options, current, changeHandler, ariaLabel }) => {
-    const radio = useRadioState();
+function OptionGroup({ options, current, changeHandler, ariaLabel }) {
     return (
-        <StyledRadioGroup
-            as="div"
-            {...radio}
-            onChange={changeHandler}
-            aria-label={ariaLabel}
-        >
-            {options.map(({ title, id }) => (
-                <label key={id}>
-                    <Radio
-                        {...radio}
-                        state={current}
-                        value={id}
-                    />
-                    <div>{title}</div>
-                </label>))}
-        </StyledRadioGroup>
+        <Ariakit.RadioProvider>
+            <StyledRadioGroup render={<div />} onChange={changeHandler} aria-label={ariaLabel}>
+                {options.map(({ title, id }) => (
+                    <label key={id}>
+                        <Ariakit.Radio value={id} checked={id === current}  />
+                        <div>{title}</div>
+                    </label>
+                ))}
+            </StyledRadioGroup>
+        </Ariakit.RadioProvider>
     );
-};
+}
 
 OptionGroup.propTypes = {
     ariaLabel: PropTypes.string,
@@ -63,6 +55,7 @@ OptionGroup.propTypes = {
     current: PropTypes.string.isRequired,
     changeHandler: PropTypes.func.isRequired,
 };
+
 OptionGroup.defaultProps = {
     ariaLabel: '',
 };
