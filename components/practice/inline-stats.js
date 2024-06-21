@@ -11,7 +11,7 @@ const StatsBlock = styled.div`
     margin-bottom: 2rem;
 `;
 
-const InlineStats = ({ wrong, total, seconds }) => {
+const InlineStats = ({ wrong, total, seconds=0 }) => {
     const { t } = useTranslation();
     return (
         <StatsBlock>
@@ -31,10 +31,6 @@ InlineStats.propTypes = {
     wrong: PropTypes.number.isRequired,
     total: PropTypes.string.isRequired,
     seconds: PropTypes.number,
-};
-
-InlineStats.defaultProps = {
-    seconds: 0,
 };
 
 export default InlineStats;

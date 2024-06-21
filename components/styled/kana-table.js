@@ -87,14 +87,14 @@ const getSelectAllState = (rows, selectedRows) => {
 };
 
 const KanaTable = ({
-    cellRenderer,
+    cellRenderer = kanaRomajiCellRenderer,
     data,
-    onRowClick,
-    onSelectAll,
-    rowRenderer,
-    selectedRows,
-    tableHeader,
-    withCheckbox,
+    onRowClick = () => {},
+    onSelectAll = () => {},
+    rowRenderer = defaultRowRenderer,
+    selectedRows = [],
+    tableHeader = '',
+    withCheckbox = false,
 }) => {
     const checkBoxRenderer = ({ rowIdx }) => (
         <RowHeaderCell>
@@ -144,15 +144,6 @@ KanaTable.propTypes = {
     selectedRows: PropTypes.arrayOf(PropTypes.number),
     tableHeader: PropTypes.string,
     withCheckbox: PropTypes.bool,
-};
-KanaTable.defaultProps = {
-    cellRenderer: kanaRomajiCellRenderer,
-    onRowClick: () => {},
-    onSelectAll: () => {},
-    rowRenderer: defaultRowRenderer,
-    selectedRows: [],
-    tableHeader: '',
-    withCheckbox: false,
 };
 
 export default KanaTable;

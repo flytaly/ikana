@@ -30,7 +30,7 @@ const useKeyDownListener = (keysListener) => {
     }, [keysListener]);
 };
 
-const RomajiToKana = ({ kanaChars, onRestart }) => {
+const RomajiToKana = ({ kanaChars, onRestart=()=>{} }) => {
     const [state, dispatch] = useReducer(reducer, { charsQueue: kanaChars }, initReducer);
     const { charsQueue, isPracticeActive, charsCount, wrongCount } = state;
     const { repeatWrongChars } = useGlobalState('options');
@@ -100,10 +100,5 @@ RomajiToKana.propTypes = {
     kanaChars: PropTypes.arrayOf(PropTypes.string).isRequired,
     onRestart: PropTypes.func,
 };
-
-RomajiToKana.defaultProps = {
-    onRestart: () => {},
-};
-
 
 export default RomajiToKana;

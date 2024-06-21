@@ -9,7 +9,7 @@ const PickCheckboxState = (state, params) => {
     return <CheckSquare {...params} />;
 };
 
-const MyCheckbox = ({ state, onClick, size, ...rest }) => (
+const MyCheckbox = ({ state=false, onClick=null, size='0.8em', ...rest }) => (
     <Checkbox render={<div />} state={state} onClick={onClick} {...rest}>
         {PickCheckboxState(state, { size })}
     </Checkbox>
@@ -19,11 +19,6 @@ MyCheckbox.propTypes = {
     state: PropTypes.oneOf([false, true, 'indeterminate']),
     onClick: PropTypes.func,
     size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-};
-MyCheckbox.defaultProps = {
-    state: false,
-    onClick: null,
-    size: '0.8em',
 };
 
 export default MyCheckbox;

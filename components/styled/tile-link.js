@@ -67,7 +67,7 @@ const Status = styled.div`
 `;
 
 const TileLink = ({
-    isBig, name, title, shortName, statusLine, IconSvg, cardId, bgColor, href, ...rest
+    isBig=true, name, title, shortName, statusLine, IconSvg, cardId, bgColor, href, ...rest
 }) => {
     const router = useRouter();
     return (
@@ -102,16 +102,6 @@ TileLink.propTypes = {
     shortName: PropTypes.string,
     statusLine: PropTypes.string,
     title: PropTypes.string,
-};
-
-TileLink.defaultProps = {
-    bgColor: '',
-    IconSvg: null,
-    isBig: true,
-    name: '',
-    shortName: '',
-    statusLine: '',
-    title: '',
 };
 
 export default TileLink;

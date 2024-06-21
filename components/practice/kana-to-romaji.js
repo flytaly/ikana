@@ -16,7 +16,7 @@ const isCorrectTranslit = (kanaChar, claim) => {
     return false;
 };
 
-const KanaToRomaji = ({ kanaChars, onRestart }) => {
+const KanaToRomaji = ({ kanaChars, onRestart = ()=>{} }) => {
     const [state, dispatch] = useReducer(reducer, { charsQueue: kanaChars }, initReducer);
     const { charsQueue, isPracticeActive, charsCount, wrongCount } = state;
     const { repeatWrongChars } = useGlobalState('options');
@@ -89,9 +89,6 @@ const KanaToRomaji = ({ kanaChars, onRestart }) => {
 KanaToRomaji.propTypes = {
     kanaChars: PropTypes.arrayOf(PropTypes.string).isRequired,
     onRestart: PropTypes.func,
-};
-KanaToRomaji.defaultProps = {
-    onRestart: () => {},
 };
 
 export default KanaToRomaji;

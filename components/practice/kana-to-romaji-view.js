@@ -91,15 +91,15 @@ const onExit = (el, i, exit) => {
 };
 
 const KanaToRomajiView = ({
-    inputHandler,
-    currentChar,
-    inputValue,
-    nextChar,
-    prevChar,
-    stats,
-    shakeIt,
-    answer,
-    charsCount,
+    inputHandler= () => {},
+    currentChar = '',
+    inputValue = '',
+    nextChar = '',
+    prevChar = '',
+    stats = {},
+    shakeIt = false,
+    answer = '',
+    charsCount = 0,
 }) => {
     const { disableAnimations, disableAutoInputCheck } = useGlobalState('options');
     const inputRef = useRef('');
@@ -171,18 +171,6 @@ KanaToRomajiView.propTypes = {
     stats: PropTypes.shape({}),
     answer: PropTypes.string,
     charsCount: PropTypes.number,
-};
-
-KanaToRomajiView.defaultProps = {
-    inputHandler: () => {},
-    currentChar: '',
-    inputValue: '',
-    nextChar: '',
-    prevChar: '',
-    shakeIt: false,
-    stats: {},
-    answer: '',
-    charsCount: 0,
 };
 
 export default KanaToRomajiView;

@@ -109,13 +109,4 @@ FinalStatsBlock.propTypes = {
     uniqueCount: PropTypes.number,
 };
 
-FinalStatsBlock.defaultProps = {
-    wrongChars: null,
-    total: null,
-    correct: null,
-    wrong: null,
-    seconds: null,
-    uniqueCount: null,
-};
-
 export default FinalStatsBlock;

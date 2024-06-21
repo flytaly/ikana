@@ -34,7 +34,7 @@ const StyledRadioGroup = styled(Ariakit.RadioGroup)`
     }
 `;
 
-function OptionGroup({ options, current, changeHandler, ariaLabel }) {
+function OptionGroup({ options, current, changeHandler, ariaLabel='' }) {
     return (
         <Ariakit.RadioProvider>
             <StyledRadioGroup render={<div />} onChange={changeHandler} aria-label={ariaLabel}>
@@ -54,10 +54,6 @@ OptionGroup.propTypes = {
     options: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
     current: PropTypes.string.isRequired,
     changeHandler: PropTypes.func.isRequired,
-};
-
-OptionGroup.defaultProps = {
-    ariaLabel: '',
 };
 
 export default OptionGroup;

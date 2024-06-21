@@ -119,8 +119,4 @@ Body.propTypes = {
     route: PropTypes.string,
 };
 
-Body.defaultProps = {
-    route: '',
-};
-
 export default Body;

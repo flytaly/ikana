@@ -59,7 +59,7 @@ const Choice = styled(NoStylesButton)`
 `;
 
 const Quiz = ({
-    question, answers, clickHandler, columns, shakeIt, stats,
+    question, answers, clickHandler, columns=2, shakeIt=false, stats={},
 }) => {
     const { disableAnimations } = useGlobalState('options');
     return (
@@ -86,19 +86,8 @@ Quiz.propTypes = {
     question: PropTypes.string.isRequired,
     answers: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
     clickHandler: PropTypes.func.isRequired,
-    wrong: PropTypes.number,
-    total: PropTypes.string,
     shakeIt: PropTypes.bool,
     stats: PropTypes.shape({}),
 };
-
-Quiz.defaultProps = {
-    columns: 2,
-    wrong: 0,
-    total: '',
-    shakeIt: false,
-    stats: {},
-};
-
 
 export default Quiz;
