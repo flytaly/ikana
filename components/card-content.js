@@ -15,7 +15,7 @@ const StyledContent = styled.main`
     background-color: ${({ theme }) => theme.expandedCardBgColor};
     max-width: 100%;
     min-height: 30rem;
-    border: 3px solid ${({ theme, cardNumber }) => theme[`cardBgColor${cardNumber}`]};
+    border: 3px solid ${({ theme, $cardNumber }) => theme[`cardBgColor${$cardNumber}`]};
     box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
     transition: all 0.3s ease-out;
     padding: 1rem;
@@ -34,7 +34,7 @@ const CardContent = ({ cardNumber, cardType }) => {
     }[cardType]);
 
     return (
-        <StyledContent cardNumber={cardNumber} cardType={cardType}>
+        <StyledContent $cardNumber={cardNumber} $cardType={cardType}>
             {content}
         </StyledContent>);
 };

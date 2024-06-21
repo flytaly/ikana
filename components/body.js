@@ -31,15 +31,15 @@ const CardContainer = styled.aside`
     display: flex;
     flex-wrap: wrap;
     max-width: 100%;
-    justify-content: ${(props) => (props.expanded ? 'flex-start' : 'center')};
+    justify-content: ${(props) => (props.$expanded ? 'flex-start' : 'center')};
     @media ${Media.largeEnough}{
-        flex-direction: ${(props) => (props.expanded ? 'column' : 'row')};
-        margin: ${(props) => (props.expanded ? '0 0 0.5rem 0' : '1rem')}
+        flex-direction: ${(props) => (props.$expanded ? 'column' : 'row')};
+        margin: ${(props) => (props.$expanded ? '0 0 0.5rem 0' : '1rem')}
     }
 `;
 
 const NewLineCard = styled.div`
-    ${(props) => !props.expanded && css`
+    ${(props) => !props.$expanded && css`
         display: flex;
         flex: 1 0 100%;
         justify-content: center;`}
@@ -62,7 +62,7 @@ const Body = ({ route }) => {
 
     return (
         <Container>
-            <CardContainer expanded={isExpanded}>
+            <CardContainer $expanded={isExpanded}>
                 <TileLink
                     cardId="hiragana"
                     href="/hiragana"
@@ -101,7 +101,7 @@ const Body = ({ route }) => {
                     IconSvg={QuestionCircle}
                     bgColor="cardBgColor4"
                 />
-                <NewLineCard expanded={isExpanded}>
+                <NewLineCard $expanded={isExpanded}>
                     <StartTile
                         href="/practice"
                         isBig={!isExpanded}

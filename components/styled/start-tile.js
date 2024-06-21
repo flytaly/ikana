@@ -11,7 +11,7 @@ import Media from '../media-queries';
 const StyledStart = styled(BaseTileLink)`
     flex-direction: row;
     justify-content: center;
-    ${({ isBig }) => (isBig ? css`
+    ${({ $isBig }) => ($isBig ? css`
         min-height: 0;
         min-width: 0;
     ` : css`
@@ -27,9 +27,9 @@ const StyledStart = styled(BaseTileLink)`
     @media ${Media.largeEnough}{
        /* Yeah, it's a code duplication, but it's important for css specificity
         so parent component won't overwrite it. */
-        margin: ${({ isBig }) => (isBig ? '1rem' : '0')};
+        margin: ${({ $isBig }) => ($isBig ? '1rem' : '0')};
         padding: 1rem;
-        ${({ isBig }) => (isBig ? css`
+        ${({ $isBig }) => ($isBig ? css`
             min-height: 0;
             min-width: 0;
         ` : css`
@@ -44,7 +44,7 @@ const StartTile = ({ isBig, href }) => {
     return (
         <Flipped flipId="startButton">
             <StyledStart
-                isBig={isBig}
+                $isBig={isBig}
                 title={t('practice.btn_title')}
                 href={href}
                 onClick={(e) => {
