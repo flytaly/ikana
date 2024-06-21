@@ -39,11 +39,11 @@ const Kana = styled.div`
     position: relative;
     font-size: 3rem;
     color: inherit;
-    ${({ column }) => {
+    ${({ $column }) => {
         // Previous character
-        if (column === 0) { return css`color: lightgrey;`; }
+        if ($column === 0) { return css`color: lightgrey;`; }
         // Current character
-        if (column === 1) {
+        if ($column === 1) {
             return css`
                 word-break: keep-all;
                 font-size: 7rem;
@@ -53,10 +53,10 @@ const Kana = styled.div`
         return css`color: grey;`;
     }}
 
-    ${({ shake }) => shake && ShakeOnError}
+    ${({ $shake }) => $shake && ShakeOnError}
 
     &::after{
-        content: "${(props) => props.answer}";
+        content: "${(props) => props.$answer}";
         position: absolute;
         top: 100%;
         left: 0%;
@@ -129,9 +129,9 @@ const KanaToRomajiView = ({
                             key={`${charsCount + idx - 1}`}
                         >
                             <Kana
-                                column={idx}
-                                shake={!disableAnimations && shakeIt}
-                                answer={idx === 1 ? answer : ''}
+                                $column={idx}
+                                $shake={!disableAnimations && shakeIt}
+                                $answer={idx === 1 ? answer : ''}
                                 data-testid={idx === 1 ? 'kana' : null}
                             >
                                 {ch}

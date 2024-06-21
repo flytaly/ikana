@@ -21,7 +21,7 @@ const QuestionBlock = styled.div`
     margin: 0 0 3rem;
     font-size: 5rem;
 
-    ${({ shake }) => shake && ShakeOnError}
+    ${({ $shake }) => $shake && ShakeOnError}
 `;
 
 const ChoicesBlock = styled.div`
@@ -35,7 +35,7 @@ const ChoicesBlock = styled.div`
 const Choice = styled(NoStylesButton)`
     position: relative;
     padding: 1rem;
-    width: calc(${({ choiceWidth }) => choiceWidth} - 0.5rem);
+    width: calc(${({ $choiceWidth }) => $choiceWidth} - 0.5rem);
     min-width: 6rem;
     border: ${({ theme }) => theme.quizChoiceBorder};
     border-radius: 4px;
@@ -49,7 +49,7 @@ const Choice = styled(NoStylesButton)`
         opacity: 0.25;
     }
     &::before {
-        content: "${({ choiceNumber }) => choiceNumber}";
+        content: "${({ $choiceNumber }) => $choiceNumber}";
         position: absolute;
         top: 0.5rem;
         left: 0.5rem;
@@ -65,13 +65,13 @@ const Quiz = ({
     return (
         <Container>
             <InlineStats {...stats} />
-            <QuestionBlock shake={!disableAnimations && shakeIt}>{question}</QuestionBlock>
+            <QuestionBlock $shake={!disableAnimations && shakeIt}>{question}</QuestionBlock>
             <ChoicesBlock>
                 {answers.map(({ value, disabled, id }, idx) => (
                     <Choice
+                        $choiceWidth={`${100 / columns}%`}
+                        $choiceNumber={idx + 1}
                         key={id}
-                        choiceWidth={`${100 / columns}%`}
-                        choiceNumber={idx + 1}
                         disabled={disabled}
                         onClick={() => clickHandler(id)}
                     >
