@@ -12,44 +12,50 @@ const StyledTable = styled.table`
 `;
 
 export const StyledRow = styled.tr`
-    ${(props) => (props.selected && css`background-color: ${props.theme.kanaTableRowSelectedColor};`)}
+    ${(props) =>
+        props.selected &&
+        css`
+            background-color: ${props.theme.kanaTableRowSelectedColor};
+        `}
     :not(:last-child) {
         border-bottom: ${({ theme }) => theme.kanaTableBorder};
     }
     :hover {
-        background-color: ${({ theme, selected }) => (selected ? theme.kanaTableRowHoverSelectedColor : theme.kanaTableRowHoverColor)};
+        background-color: ${({ theme, selected }) =>
+            selected ? theme.kanaTableRowHoverSelectedColor : theme.kanaTableRowHoverColor};
     }
 `;
 
-export const RowHeaderCell = styled.th.attrs({ scope: 'row' })`
-`;
+export const RowHeaderCell = styled.th.attrs({ scope: 'row' })``;
 
 export const TableHeaderRow = styled.tr`
-    border: 1px solid rgba(0,0,0,0.40);
-    background-color: rgba(0,0,0,0.05);
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.05);
 `;
 export const TableSpanHeader = styled.th.attrs({ colSpan: '100%' })`
     font-size: 1.5rem;
 `;
 
 export const CellContent = styled.div`
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 0.5rem;
-        color: ${(props) => props.theme.kanaTableCellColor};
-        > :first-child {
-            font-size: 2rem;
-        }
-        > :not(:first-child) {
-            font-size: 1.4rem;
-            color: ${(props) => props.theme.kanaTableCellColor2};
-        }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem;
+    color: ${(props) => props.theme.kanaTableCellColor};
+    > :first-child {
+        font-size: 2rem;
+    }
+    > :not(:first-child) {
+        font-size: 1.4rem;
+        color: ${(props) => props.theme.kanaTableCellColor2};
+    }
 `;
 
 const kanaRomajiCellRenderer = ({ cell, columnIdx, rowIdx }) => {
     const key = `${columnIdx}_${rowIdx}`;
-    if (!cell) { return <td key={key} />; }
+    if (!cell) {
+        return <td key={key} />;
+    }
     const romaji = kanaToRomaji[cell] && kanaToRomaji[cell][0];
     return (
         <td key={key}>
@@ -57,13 +63,11 @@ const kanaRomajiCellRenderer = ({ cell, columnIdx, rowIdx }) => {
                 <div>{cell}</div>
                 <div>{romaji}</div>
             </CellContent>
-        </td>);
+        </td>
+    );
 };
 
-
-const defaultRowRenderer = ({
-    rowData, rowIdx, cellRenderer, onRowClick, selectedRows, rowHeaderCell,
-}) => {
+const defaultRowRenderer = ({ rowData, rowIdx, cellRenderer, onRowClick, selectedRows, rowHeaderCell }) => {
     const isSelected = selectedRows.includes(rowIdx);
     return (
         <StyledRow
@@ -72,10 +76,8 @@ const defaultRowRenderer = ({
             selected={isSelected}
             data-selected={isSelected}
         >
-            {rowHeaderCell && rowHeaderCell({ rowIdx }) }
-            {rowData.map((cell, columnIdx) => (
-                cellRenderer({ cell, rowIdx, columnIdx })
-            ))}
+            {rowHeaderCell && rowHeaderCell({ rowIdx })}
+            {rowData.map((cell, columnIdx) => cellRenderer({ cell, rowIdx, columnIdx }))}
         </StyledRow>
     );
 };
@@ -105,7 +107,8 @@ const KanaTable = ({
                 }}
                 state={selectedRows.includes(rowIdx)}
             />
-        </RowHeaderCell>);
+        </RowHeaderCell>
+    );
     const rowHeaderCell = withCheckbox ? checkBoxRenderer : null;
     return (
         <div>
@@ -122,17 +125,26 @@ const KanaTable = ({
                                     state={getSelectAllState(data, selectedRows)}
                                     title="Select all"
                                 />
-                            </th>) : null}
+                            </th>
+                        ) : null}
                         <TableSpanHeader>{tableHeader}</TableSpanHeader>
                     </TableHeaderRow>
                 </thead>
                 <tbody>
-                    {data.map((rowData, rowIdx) => rowRenderer({
-                        rowData, rowIdx, cellRenderer, onRowClick, selectedRows, rowHeaderCell,
-                    })) }
+                    {data.map((rowData, rowIdx) =>
+                        rowRenderer({
+                            rowData,
+                            rowIdx,
+                            cellRenderer,
+                            onRowClick,
+                            selectedRows,
+                            rowHeaderCell,
+                        }),
+                    )}
                 </tbody>
             </StyledTable>
-        </div>);
+        </div>
+    );
 };
 
 KanaTable.propTypes = {

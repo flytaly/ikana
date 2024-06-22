@@ -13,6 +13,7 @@ export default function useShuffledKana() {
         () => getSelectedKana(hiraganaRows, hiragana.selectedRows),
         [hiragana.selectedRows],
     );
+
     const katakanaToLearn = useMemo(
         () => getSelectedKana(katakanaRows, katakana.selectedRows),
         [katakana.selectedRows],
@@ -20,9 +21,8 @@ export default function useShuffledKana() {
 
     const [shuffled, setShuffled] = useState([]);
 
-    const kana = [...hiraganaToLearn, ...katakanaToLearn];
-
     useEffect(() => {
+        const kana = [...hiraganaToLearn, ...katakanaToLearn];
         setShuffled(shuffle(kana));
         setWasShuffled(true);
     }, [hiraganaToLearn, katakanaToLearn]);
@@ -30,6 +30,6 @@ export default function useShuffledKana() {
     return {
         shuffled,
         wasShuffled,
-        reshuffle: () => setShuffled(shuffle(kana)),
+        reshuffle: () => setShuffled(shuffle([...hiraganaToLearn, ...katakanaToLearn])),
     };
 }

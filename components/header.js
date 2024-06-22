@@ -8,7 +8,7 @@ const StyledSiteHeader = styled.header`
     text-transform: uppercase;
     color: ${(props) => props.theme.headerColor};
     text-align: center;
-    text-shadow: 0px 0px 2px rgba(0,0,0,0.25);
+    text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
     a:active,
     a:hover,
     a:visited,

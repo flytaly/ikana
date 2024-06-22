@@ -6,8 +6,7 @@ before(() => {
 
 describe('Hiragana page', () => {
     it('should change to /hiragana by clicking on the tile', () => {
-        cy
-            .visit('/')
+        cy.visit('/')
             .findByText(/^hiragana$/i)
             .click()
             .url()
@@ -15,11 +14,7 @@ describe('Hiragana page', () => {
     });
 
     it('should be 1 selected row', () => {
-        cy
-            .get('[data-selected="true"]')
-            .should('have.length', 1)
-            .contains(/^a$/i)
-            .should('exist');
+        cy.get('[data-selected="true"]').should('have.length', 1).contains(/^a$/i).should('exist');
     });
 
     it('should select "ma" row ', () => {
@@ -30,8 +25,7 @@ describe('Hiragana page', () => {
                 expect(rows).to.have.length(2);
                 expect(rows[1]).to.contain('ma');
             });
-        cy
-            .visit('/')
+        cy.visit('/')
             .findByText(/10\/.* selected/)
             .should('exist');
     });

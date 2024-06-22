@@ -56,7 +56,7 @@ const useModePicker = (prefix, mode) => {
         if (modeRoute && modeRoute !== mode) {
             dispatch({ type: types.SET_PRACTICE_MODE, payload: modeRoute });
         }
-    }, [router.route]);
+    }, [router.route, dispatch, mode, prefix.length]);
 };
 
 function PracticePage() {

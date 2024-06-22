@@ -11,20 +11,19 @@ const StatsBlock = styled.div`
     margin-bottom: 2rem;
 `;
 
-const InlineStats = ({ wrong, total, seconds=0 }) => {
+const InlineStats = ({ wrong, total, seconds = 0 }) => {
     const { t } = useTranslation();
     return (
         <StatsBlock>
             <div>
-                <span>{t('practice.wrong')}</span>
-                {' '}
-                <b data-testid="statsWrong">{wrong}</b>
+                <span>{t('practice.wrong')}</span> <b data-testid="statsWrong">{wrong}</b>
             </div>
             <div data-testid="statsTime">{secondsToString(seconds)}</div>
             <div>
                 <b data-testid="statsTotal">{total}</b>
             </div>
-        </StatsBlock>);
+        </StatsBlock>
+    );
 };
 
 InlineStats.propTypes = {

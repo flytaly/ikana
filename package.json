@@ -11,6 +11,8 @@
         "cy:run": "cypress run",
         "cy:open": "cypress open",
         "test": "npm run test:e2e:run",
+        "prettier": "prettier . --write",
+        "prettier:check": "prettier . --check",
         "pretest:e2e:run": "npm run build",
         "test:e2e:run": "start-server-and-test start http://localhost:3000 cy:run",
         "test:e2e:dev": "start-server-and-test dev http://localhost:3000 cy:open"
@@ -42,6 +44,10 @@
         "styled-normalize": "^8.1.1"
     },
     "devDependencies": {
-        "@svgr/webpack": "^8.1.0"
+        "@svgr/webpack": "^8.1.0",
+        "eslint": "^8.57.0",
+        "eslint-config-next": "14.2.4",
+        "eslint-plugin-cypress": "^3.3.0",
+        "prettier": "^3.3.2"
     }
 }

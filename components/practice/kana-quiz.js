@@ -49,7 +49,7 @@ const Choice = styled(NoStylesButton)`
         opacity: 0.25;
     }
     &::before {
-        content: "${({ $choiceNumber }) => $choiceNumber}";
+        content: '${({ $choiceNumber }) => $choiceNumber}';
         position: absolute;
         top: 0.5rem;
         left: 0.5rem;
@@ -58,9 +58,7 @@ const Choice = styled(NoStylesButton)`
     }
 `;
 
-const Quiz = ({
-    question, answers, clickHandler, columns=2, shakeIt=false, stats={},
-}) => {
+const Quiz = ({ question, answers, clickHandler, columns = 2, shakeIt = false, stats = {} }) => {
     const { disableAnimations } = useGlobalState('options');
     return (
         <Container>
@@ -76,9 +74,11 @@ const Quiz = ({
                         onClick={() => clickHandler(id)}
                     >
                         {value}
-                    </Choice>))}
+                    </Choice>
+                ))}
             </ChoicesBlock>
-        </Container>);
+        </Container>
+    );
 };
 
 Quiz.propTypes = {

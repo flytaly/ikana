@@ -18,19 +18,17 @@ export const BaseTileLink = styled.a`
     background-color: ${({ theme, $bgColor }) => $bgColor && theme[$bgColor]};
     font-size: 2rem;
     font-weight: bold;
-    text-shadow: 0px 0px 5px rgba(0,0,0,0.75);
-    box-shadow:  ${({ $isBig }) => ($isBig
-        ? '0px 0px 5px 0px rgba(0,0,0,0.75)'
-        : '-2px 0px 5px 0px rgba(0,0,0,0.75)')};
+    text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.75);
+    box-shadow: ${({ $isBig }) => ($isBig ? '0px 0px 5px 0px rgba(0,0,0,0.75)' : '-2px 0px 5px 0px rgba(0,0,0,0.75)')};
     margin: ${({ $isBig }) => ($isBig ? '1rem' : '0 0.5rem 0 0')};
     text-decoration: none;
 
     :hover,
     :focus {
-        box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.50);
+        box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.5);
         z-index: 20;
     }
-    @media ${Media.largeEnough}{
+    @media ${Media.largeEnough} {
         margin: ${({ $isBig }) => ($isBig ? '1rem' : '0 0 0.5rem 0')};
         min-height: ${({ $isBig }) => ($isBig ? '20rem' : '6rem')};
         min-width: ${({ $isBig }) => ($isBig ? '20rem' : '5rem')};
@@ -52,7 +50,7 @@ const Icon = styled.div`
         width: 3rem;
         height: 3rem;
     }
-    @media ${Media.largeEnough}{
+    @media ${Media.largeEnough} {
         font-size: 4rem;
         svg {
             width: 4rem;
@@ -66,17 +64,15 @@ const Status = styled.div`
     font-weight: normal;
 `;
 
-const TileLink = ({
-    isBig=true, name, title, shortName, statusLine, IconSvg, cardId, bgColor, href, ...rest
-}) => {
+const TileLink = ({ isBig = true, name, title, shortName, statusLine, IconSvg, cardId, bgColor, href, ...rest }) => {
     const router = useRouter();
     return (
         <Flipped flipId={cardId}>
             <BaseTileLink
-                onClick={((e) => {
+                onClick={(e) => {
                     e.preventDefault();
                     router.push(href);
-                })}
+                }}
                 $isBig={isBig}
                 $bgColor={bgColor}
                 title={title}
@@ -89,7 +85,8 @@ const TileLink = ({
                 </Flipped>
                 {isBig ? <Status>{statusLine || <span>&nbsp;</span>}</Status> : null}
             </BaseTileLink>
-        </Flipped>);
+        </Flipped>
+    );
 };
 
 TileLink.propTypes = {

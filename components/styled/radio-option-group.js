@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import * as Ariakit from "@ariakit/react";
+import * as Ariakit from '@ariakit/react';
 
 const StyledRadioGroup = styled(Ariakit.RadioGroup)`
     display: flex;
     flex-wrap: nowrap;
-    input[type="radio"] {
+    input[type='radio'] {
         position: absolute;
-        opacity: 0
+        opacity: 0;
     }
     label {
         div {
@@ -34,13 +34,13 @@ const StyledRadioGroup = styled(Ariakit.RadioGroup)`
     }
 `;
 
-function OptionGroup({ options, current, changeHandler, ariaLabel='' }) {
+function OptionGroup({ options, current, changeHandler, ariaLabel = '' }) {
     return (
         <Ariakit.RadioProvider>
             <StyledRadioGroup render={<div />} onChange={changeHandler} aria-label={ariaLabel}>
                 {options.map(({ title, id }) => (
                     <label key={id}>
-                        <Ariakit.Radio value={id} checked={id === current}  />
+                        <Ariakit.Radio value={id} checked={id === current} />
                         <div>{title}</div>
                     </label>
                 ))}

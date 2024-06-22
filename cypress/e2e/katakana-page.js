@@ -6,8 +6,7 @@ before(() => {
 
 describe('Katakana page', () => {
     it('should change to /katakana by clicking on the tile', () => {
-        cy
-            .visit('/')
+        cy.visit('/')
             .findByText(/^katakana$/i)
             .click()
             .url()
@@ -15,9 +14,7 @@ describe('Katakana page', () => {
     });
 
     it('should be 0 selected rows', () => {
-        cy
-            .get('[data-selected="true"]')
-            .should('have.length', 0);
+        cy.get('[data-selected="true"]').should('have.length', 0);
     });
 
     it('should select "na" row', () => {
@@ -27,8 +24,7 @@ describe('Katakana page', () => {
             .should('have.length', 1)
             .contains('na')
             .should('exist');
-        cy
-            .visit('/')
+        cy.visit('/')
             .findByText(/5\/.* selected/i)
             .should('exist');
     });

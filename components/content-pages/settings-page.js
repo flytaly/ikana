@@ -47,58 +47,59 @@ const Settings = () => {
             <SettingsBlock>
                 <h2>{t('settings.optGroup_practice')}</h2>
                 <Setting>
-                    <span title={t('settings.opt_animations_title')}>
-                        {t('settings.opt_animations')}
-                    </span>
+                    <span title={t('settings.opt_animations_title')}>{t('settings.opt_animations')}</span>
                     <OptionGroup
                         ariaLabel={t('settings.opt_animations')}
                         options={defaultOnOff}
                         current={disableAnimations ? 'off' : 'on'}
-                        changeHandler={({ target }) => dispatch({
-                            type: types.UPDATE_OPTIONS,
-                            payload: {
-                                ...options,
-                                disableAnimations: target.value === 'off' || false,
-                            },
-                        })}
+                        changeHandler={({ target }) =>
+                            dispatch({
+                                type: types.UPDATE_OPTIONS,
+                                payload: {
+                                    ...options,
+                                    disableAnimations: target.value === 'off' || false,
+                                },
+                            })
+                        }
                     />
                 </Setting>
                 <Setting>
-                    <span title={t('settings.opt_checkInput_title')}>
-                        {t('settings.opt_checkInput')}
-                    </span>
+                    <span title={t('settings.opt_checkInput_title')}>{t('settings.opt_checkInput')}</span>
                     <OptionGroup
                         ariaLabel={t('settings.opt_checkInput')}
                         options={defaultOnOff}
                         current={disableAutoInputCheck ? 'off' : 'on'}
-                        changeHandler={({ target }) => dispatch({
-                            type: types.UPDATE_OPTIONS,
-                            payload: {
-                                ...options,
-                                disableAutoInputCheck: target.value === 'off' || false,
-                            },
-                        })}
+                        changeHandler={({ target }) =>
+                            dispatch({
+                                type: types.UPDATE_OPTIONS,
+                                payload: {
+                                    ...options,
+                                    disableAutoInputCheck: target.value === 'off' || false,
+                                },
+                            })
+                        }
                     />
                 </Setting>
                 <Setting>
-                    <span title={t('settings.opt_repeatMistakes_title')}>
-                        {t('settings.opt_repeatMistakes')}
-                    </span>
+                    <span title={t('settings.opt_repeatMistakes_title')}>{t('settings.opt_repeatMistakes')}</span>
                     <OptionGroup
                         ariaLabel={t('settings.opt_repeatMistakes')}
                         options={defaultOnOff}
                         current={repeatWrongChars ? 'on' : 'off'}
-                        changeHandler={({ target }) => dispatch({
-                            type: types.UPDATE_OPTIONS,
-                            payload: {
-                                ...options,
-                                repeatWrongChars: target.value === 'on' || false,
-                            },
-                        })}
+                        changeHandler={({ target }) =>
+                            dispatch({
+                                type: types.UPDATE_OPTIONS,
+                                payload: {
+                                    ...options,
+                                    repeatWrongChars: target.value === 'on' || false,
+                                },
+                            })
+                        }
                     />
                 </Setting>
             </SettingsBlock>
-        </>);
+        </>
+    );
 };
 
 export default Settings;

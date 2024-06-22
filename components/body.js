@@ -22,7 +22,7 @@ const Container = styled.div`
     width: 100vw;
     max-width: 100vw;
     padding: 1rem;
-    @media ${Media.largeEnough}{
+    @media ${Media.largeEnough} {
         flex-direction: row;
     }
 `;
@@ -32,23 +32,25 @@ const CardContainer = styled.aside`
     flex-wrap: wrap;
     max-width: 100%;
     justify-content: ${(props) => (props.$expanded ? 'flex-start' : 'center')};
-    @media ${Media.largeEnough}{
+    @media ${Media.largeEnough} {
         flex-direction: ${(props) => (props.$expanded ? 'column' : 'row')};
-        margin: ${(props) => (props.$expanded ? '0 0 0.5rem 0' : '1rem')}
+        margin: ${(props) => (props.$expanded ? '0 0 0.5rem 0' : '1rem')};
     }
 `;
 
 const NewLineCard = styled.div`
-    ${(props) => !props.$expanded && css`
-        display: flex;
-        flex: 1 0 100%;
-        justify-content: center;`}
+    ${(props) =>
+        !props.$expanded &&
+        css`
+            display: flex;
+            flex: 1 0 100%;
+            justify-content: center;
+        `}
     min-width: 5rem;
-    :hover{
+    :hover {
         z-index: 20;
     }
 `;
-
 
 const Body = ({ route }) => {
     const { t } = useTranslation();
@@ -102,15 +104,10 @@ const Body = ({ route }) => {
                     bgColor="cardBgColor4"
                 />
                 <NewLineCard $expanded={isExpanded}>
-                    <StartTile
-                        href="/practice"
-                        isBig={!isExpanded}
-                    />
+                    <StartTile href="/practice" isBig={!isExpanded} />
                 </NewLineCard>
             </CardContainer>
-            {isExpanded
-                ? <CardContent cardNumber={cardNumber} cardType={route} />
-                : null}
+            {isExpanded ? <CardContent cardNumber={cardNumber} cardType={route} /> : null}
         </Container>
     );
 };

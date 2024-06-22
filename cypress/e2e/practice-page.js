@@ -7,8 +7,7 @@ before(() => {
 
 describe('Practice page', () => {
     it('should change to /practice by clicking on the tile', () => {
-        cy
-            .visit('/')
+        cy.visit('/')
             .findByText(/^practice$/i)
             .click()
             .url()
@@ -16,8 +15,7 @@ describe('Practice page', () => {
     });
 
     it('should have correct default mode', () => {
-        cy
-            .findByTestId('activeMode')
+        cy.findByTestId('activeMode')
             .should('exist')
             .should((link) => {
                 expect(link.text()).to.match(/kana to romaji/i);
@@ -25,8 +23,7 @@ describe('Practice page', () => {
     });
 
     it('should change mode', () => {
-        cy
-            .findByText(/romaji to kana/i)
+        cy.findByText(/romaji to kana/i)
             .click()
             .url()
             .should('eq', `${Cypress.config().baseUrl}/practice/romaji-to-kana`)
@@ -38,28 +35,21 @@ describe('Practice page', () => {
     });
 
     it('should show initial stats', () => {
-        cy
-            .findByTestId('statsWrong')
-            .should((elem) => {
-                expect(elem.text()).to.match(/^0$/);
-            });
-        cy
-            .findByTestId('statsTime')
-            .should((elem) => {
-                expect(elem.text()).to.match(/^0:00$/);
-            });
-        cy
-            .findByTestId('statsTotal')
-            .should((elem) => {
-                expect(elem.text()).to.match(/1\/5/);
-            });
+        cy.findByTestId('statsWrong').should((elem) => {
+            expect(elem.text()).to.match(/^0$/);
+        });
+        cy.findByTestId('statsTime').should((elem) => {
+            expect(elem.text()).to.match(/^0:00$/);
+        });
+        cy.findByTestId('statsTotal').should((elem) => {
+            expect(elem.text()).to.match(/1\/5/);
+        });
     });
 });
 
 describe('kana to romaji', () => {
     it('input should work with correct answer', () => {
-        cy
-            .visit('/practice/kana-to-romaji')
+        cy.visit('/practice/kana-to-romaji')
             .wait(200)
             .findByTestId('kana')
             .then((kana) => {
@@ -80,8 +70,7 @@ describe('kana to romaji', () => {
     });
 
     it('input should work with incorrect answer', () => {
-        cy
-            .visit('/practice/kana-to-romaji')
+        cy.visit('/practice/kana-to-romaji')
             .wait(200)
             .findByTestId('practiceInput')
             .type('xa')

@@ -11,7 +11,8 @@ const StatsBlock = styled.div`
     align-items: center;
     width: 100%;
     max-width: 40rem;
-    h3, h2 {
+    h3,
+    h2 {
         align-self: center;
     }
 `;
@@ -46,9 +47,7 @@ const countCPM = (secondsSpent, totalChars) => {
     return Math.round((chars / seconds) * 60);
 };
 
-const FinalStatsBlock = ({
-    wrongChars, total, uniqueCount, correct, wrong, seconds,
-}) => {
+const FinalStatsBlock = ({ wrongChars, total, uniqueCount, correct, wrong, seconds }) => {
     const { t } = useTranslation();
 
     return (
@@ -63,16 +62,15 @@ const FinalStatsBlock = ({
                 <StatLine>
                     <b>{t('stats.unique')}</b>
                     <span>{uniqueCount}</span>
-                </StatLine>)
-                : null}
+                </StatLine>
+            ) : null}
 
             {correct ? (
                 <StatLine>
                     <b>{t('stats.correct')}</b>
                     <span>{correct}</span>
-                </StatLine>)
-                : null}
-
+                </StatLine>
+            ) : null}
 
             <StatLine>
                 <b>{t('stats.incorrect')}</b>
@@ -93,11 +91,14 @@ const FinalStatsBlock = ({
                 <>
                     <h3>{t('stats.incorrectList')}</h3>
                     <WrongCharsBlock>
-                        {wrongChars.map((c) => <span key={c}>{`${c} [${KanaToRomaji[c][0]}]`}</span>)}
+                        {wrongChars.map((c) => (
+                            <span key={c}>{`${c} [${KanaToRomaji[c][0]}]`}</span>
+                        ))}
                     </WrongCharsBlock>
-                </>)
-                : null}
-        </StatsBlock>);
+                </>
+            ) : null}
+        </StatsBlock>
+    );
 };
 
 FinalStatsBlock.propTypes = {

@@ -10,7 +10,6 @@ import InlineStats from './inline-stats';
 import { useGlobalState } from '../state';
 import Media from '../media-queries';
 
-
 const Container = styled.div`
     display: flex;
     flex-direction: column;
@@ -41,22 +40,29 @@ const Kana = styled.div`
     color: inherit;
     ${({ $column }) => {
         // Previous character
-        if ($column === 0) { return css`color: lightgrey;`; }
+        if ($column === 0) {
+            return css`
+                color: lightgrey;
+            `;
+        }
         // Current character
         if ($column === 1) {
             return css`
                 word-break: keep-all;
                 font-size: 7rem;
-                min-width: 14rem;`;
+                min-width: 14rem;
+            `;
         }
         // Next character
-        return css`color: grey;`;
+        return css`
+            color: grey;
+        `;
     }}
 
     ${({ $shake }) => $shake && ShakeOnError}
 
-    &::after{
-        content: "${(props) => props.$answer}";
+    &::after {
+        content: '${(props) => props.$answer}';
         position: absolute;
         top: 100%;
         left: 0%;
@@ -66,9 +72,8 @@ const Kana = styled.div`
     }
 `;
 
-
 const UserInputContainer = styled.div`
-    display:flex;
+    display: flex;
     max-width: 100%;
     width: 18rem;
 `;
@@ -91,7 +96,7 @@ const onExit = (el, i, exit) => {
 };
 
 const KanaToRomajiView = ({
-    inputHandler= () => {},
+    inputHandler = () => {},
     currentChar = '',
     inputValue = '',
     nextChar = '',
@@ -113,7 +118,9 @@ const KanaToRomajiView = ({
         };
         const input = inputRef.current;
         input.addEventListener('keydown', listener);
-        return () => { input.removeEventListener('keydown', listener); };
+        return () => {
+            input.removeEventListener('keydown', listener);
+        };
     }, [inputHandler]);
 
     return (
@@ -136,7 +143,8 @@ const KanaToRomajiView = ({
                             >
                                 {ch}
                             </Kana>
-                        </Flipped>))}
+                        </Flipped>
+                    ))}
                 </KanaView>
             </Flipper>
             <UserInputContainer>
@@ -158,7 +166,8 @@ const KanaToRomajiView = ({
                     {t('practice.btnCheck')}
                 </PracticeModeCheckBtn>
             </UserInputContainer>
-        </Container>);
+        </Container>
+    );
 };
 
 KanaToRomajiView.propTypes = {
