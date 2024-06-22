@@ -82,7 +82,7 @@ const defaultRowRenderer = ({
 
 const getSelectAllState = (rows, selectedRows) => {
     if (!selectedRows.length) return false;
-    if (rows.length > selectedRows.length) return 'indeterminate';
+    if (rows.length > selectedRows.length) return 'mixed';
     return true;
 };
 
