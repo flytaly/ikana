@@ -6,32 +6,13 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/router';
 import { BaseTileLink } from './tile-link';
-import Media from '../media-queries';
 
 const StyledStart = styled(BaseTileLink)`
-    flex-direction: row;
-    justify-content: center;
-    ${({ $isBig }) =>
-        $isBig
-            ? css`
-                  min-height: 0;
-                  min-width: 0;
-              `
-            : css`
-                  height: 100%;
-                  width: 100%;
-              `};
-    margin: 0;
-    padding: 1rem;
-    background-color: ${({ theme }) => theme.cardBgColor3};
-    > span {
-        margin-right: 1rem;
-    }
-    @media ${Media.largeEnough} {
-        /* Yeah, it's a code duplication, but it's important for css specificity
-        so parent component won't overwrite it. */
-        margin: ${({ $isBig }) => ($isBig ? '1rem' : '0')};
-        padding: 1rem;
+    && {      /* increase specificity */
+        flex-direction: row;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: nowrap;
         ${({ $isBig }) =>
             $isBig
                 ? css`
@@ -42,15 +23,20 @@ const StyledStart = styled(BaseTileLink)`
                       height: 100%;
                       width: 100%;
                   `};
+        margin: 0;
+        padding: 1rem;
+        }
     }
 `;
-const StartTile = ({ isBig, href }) => {
+
+const StartTile = ({ isBig, href, bgColor }) => {
     const { t } = useTranslation();
     const router = useRouter();
     return (
         <Flipped flipId="startButton">
             <StyledStart
                 $isBig={isBig}
+                $bgColor={bgColor}
                 title={t('practice.btn_title')}
                 href={href}
                 onClick={(e) => {
@@ -75,6 +61,7 @@ const StartTile = ({ isBig, href }) => {
 StartTile.propTypes = {
     href: PropTypes.string.isRequired,
     isBig: PropTypes.bool.isRequired,
+    bgColor: PropTypes.string,
 };
 
 export default StartTile;

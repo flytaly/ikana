@@ -6,6 +6,11 @@ import { useRouter } from 'next/router';
 import Media from '../media-queries';
 
 export const BaseTileLink = styled.a`
+    --page-bg-color: ${({ theme }) => theme.pageBackground};
+    --bg-color: ${({ $bgColor, theme }) => theme[$bgColor]};
+    --text-color: ${({ theme }) => theme.cardTextColor};
+    --shadow-color: color-mix(in lab, var(--bg-color), var(--page-bg-color));
+
     display: flex;
     flex-direction: column;
     justify-content: ${({ $isBig }) => ($isBig ? 'space-between' : 'center')};
@@ -14,20 +19,25 @@ export const BaseTileLink = styled.a`
     min-width: ${({ $isBig }) => ($isBig ? '15rem' : '4rem')};
     padding: ${({ $isBig }) => ($isBig ? '1.5rem 1.5rem 1rem 1.5rem' : '1rem')};
     cursor: default;
-    color: ${({ theme }) => theme.cardTextColor};
-    background-color: ${({ theme, $bgColor }) => $bgColor && theme[$bgColor]};
+    color: var(--text-color);
+    color: color-mix(in lab, var(--text-color) 100%, var(--bg-color) 30%);
+    background-color: var(--bg-color);
     font-size: 2rem;
     font-weight: bold;
     text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.75);
-    box-shadow: ${({ $isBig }) => ($isBig ? '0px 0px 5px 0px rgba(0,0,0,0.75)' : '-2px 0px 5px 0px rgba(0,0,0,0.75)')};
+    box-shadow: ${({ $isBig }) =>
+        $isBig ? '0px 0px 5px 0px var(--shadow-color)' : '-2px 0px 2px 0px var(--shadow-color)'};
     margin: ${({ $isBig }) => ($isBig ? '1rem' : '0 0.5rem 0 0')};
     text-decoration: none;
 
-    :hover,
-    :focus {
-        box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.5);
+    &:hover,
+    &:focus {
         z-index: 20;
+        color: ${({ theme }) => theme.cardTextColor};
+        box-shadow: ${({ $isBig }) =>
+            $isBig ? '0px 0px 5px 5px var(--shadow-color)' : '-2px 0px 2px 2px var(--shadow-color)'};
     }
+
     @media ${Media.largeEnough} {
         margin: ${({ $isBig }) => ($isBig ? '1rem' : '0 0 0.5rem 0')};
         min-height: ${({ $isBig }) => ($isBig ? '20rem' : '6rem')};
@@ -46,7 +56,7 @@ const Icon = styled.div`
     display: flex;
     align-items: center;
     svg {
-        fill: ${({ theme }) => theme.cardTextColor};
+        fill: currentColor;
         width: 3rem;
         height: 3rem;
     }

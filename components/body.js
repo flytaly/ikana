@@ -104,7 +104,7 @@ const Body = ({ route }) => {
                     bgColor="cardBgColor4"
                 />
                 <NewLineCard $expanded={isExpanded}>
-                    <StartTile href="/practice" isBig={!isExpanded} />
+                    <StartTile bgColor="cardBgColor3" href="/practice" isBig={!isExpanded} />
                 </NewLineCard>
             </CardContainer>
             {isExpanded ? <CardContent cardNumber={cardNumber} cardType={route} /> : null}
