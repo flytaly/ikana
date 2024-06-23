@@ -9,6 +9,7 @@ import withI18n from '../lib/with-i18n';
 import * as gtag from '../lib/gtag';
 
 Router.events.on('routeChangeComplete', (url) => gtag.pageview(url));
+
 class MyApp extends App {
     // Only uncomment this method if you have blocking data requirements for
     // every single page in your application. This disables the ability to
@@ -21,6 +22,12 @@ class MyApp extends App {
     //
     //   return { ...appProps }
     // }
+
+    componentDidMount() {
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js');
+        }
+    }
 
     render() {
         const { Component, pageProps, i18n } = this.props;
