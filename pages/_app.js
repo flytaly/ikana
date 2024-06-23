@@ -6,9 +6,6 @@ import { I18nextProvider } from 'react-i18next';
 import Page from '../components/page';
 import { StateProvider } from '../components/state';
 import withI18n from '../lib/with-i18n';
-import * as gtag from '../lib/gtag';
-
-Router.events.on('routeChangeComplete', (url) => gtag.pageview(url));
 
 class MyApp extends App {
     // Only uncomment this method if you have blocking data requirements for

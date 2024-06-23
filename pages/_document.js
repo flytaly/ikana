@@ -3,7 +3,6 @@
 
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
-import LoadGtag from '../lib/load-gtag';
 
 export default class MyDocument extends Document {
     static async getInitialProps(ctx) {
@@ -34,9 +33,7 @@ export default class MyDocument extends Document {
     render() {
         return (
             <Html lang={this.props.lang || 'en'}>
-                <Head>
-                    <LoadGtag />
-                </Head>
+                <Head></Head>
                 <body>
                     <Main />
                     <NextScript />
