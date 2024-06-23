@@ -53,6 +53,7 @@ export function reducer(state, action) {
         case actions.MISTAKE: {
             const { charsQueue, wrongChars } = state;
             const currentChar = charsQueue[0];
+            if (!currentChar) return state;
             const updatedQueue =
                 payload && payload.repeatWrongChars && (!wrongChars.has(currentChar) || !state.isMistake)
                     ? mixUpInQueue(charsQueue, currentChar)
