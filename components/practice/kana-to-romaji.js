@@ -1,12 +1,12 @@
-import React, { useState, useReducer, useEffect, useCallback } from 'react';
-import PropTypes from 'prop-types';
+import React, { useCallback, useEffect, useReducer, useState } from 'react';
 import kanaToRomaji from '../../data/kana-to-romaji';
-import KanaToRomajiView from './kana-to-romaji-view';
-import FinalStatsBlock from './final-stats';
-import RepeatButton from './repeat-button';
 import { useCallbackOnKey, useTimer } from '../../utils/hooks';
-import { reducer, initReducer, actions } from './practice-state';
 import { useGlobalState } from '../state';
+import FinalStatsBlock from './final-stats';
+import KanaToRomajiView from './kana-to-romaji-view';
+import { actions, initReducer, reducer } from './practice-state';
+import RepeatButton from './repeat-button';
+import useShuffledKana from './use-shuffled-kana';
 
 const isCorrectTranslit = (kanaChar, claim) => {
     for (const translit of kanaToRomaji[kanaChar]) {
@@ -16,7 +16,9 @@ const isCorrectTranslit = (kanaChar, claim) => {
     return false;
 };
 
-const KanaToRomaji = ({ kanaChars, onRestart }) => {
+const KanaToRomaji = () => {
+    const { shuffled: kanaChars, wasShuffled, reshuffle } = useShuffledKana();
+
     const [state, dispatch] = useReducer(reducer, { charsQueue: kanaChars }, initReducer);
     const { charsQueue, isPracticeActive, charsCount, wrongCount } = state;
     const { repeatWrongChars } = useGlobalState('options');
@@ -31,10 +33,13 @@ const KanaToRomaji = ({ kanaChars, onRestart }) => {
     }, [kanaChars]);
 
     useTimer(setSeconds, isPracticeActive);
-    useCallbackOnKey('Space', useCallback(() => dispatch({
-        type: actions.MISTAKE,
-        payload: { showAnswer: true, repeatWrongChars },
-    }), [repeatWrongChars]));
+    useCallbackOnKey(
+        'Space',
+        useCallback(
+            () => dispatch({ type: actions.MISTAKE, payload: { showAnswer: true, repeatWrongChars } }),
+            [repeatWrongChars],
+        ),
+    );
 
     // isFinalValue - if false save value without checking if this is a correct answer or not
     const inputHandler = (rawValue, isFinalValue = true) => {
@@ -45,20 +50,22 @@ const KanaToRomaji = ({ kanaChars, onRestart }) => {
 
         setInputValue(translit === true ? '' : value);
 
-        if (translit === true) { // CORRECT. Go to the next char.
+        if (translit === true) {
+            // CORRECT. Go to the next char.
             return dispatch({ type: actions.NEXT_CHAR });
         }
-        if (translit === false) { // INCORRECT.
+        if (translit === false) {
+            // INCORRECT.
             return dispatch({ type: actions.MISTAKE, payload: { repeatWrongChars } });
         }
         // BEGINNING. It's just a valid beginning of a character.
         return dispatch({ type: actions.CHAR_BEGINNING });
     };
 
-    if (!kanaChars || !kanaChars.length) return <div>No kana selected</div>;
+    if (wasShuffled && !kanaChars?.length) return <div>No kana selected</div>;
 
-    return !charsCount || isPracticeActive
-        ? <KanaToRomajiView
+    return !charsCount || isPracticeActive ? (
+        <KanaToRomajiView
             inputHandler={inputHandler}
             currentChar={currentChar}
             inputValue={inputValue}
@@ -73,25 +80,19 @@ const KanaToRomaji = ({ kanaChars, onRestart }) => {
             answer={state.answer}
             seconds={seconds}
             charsCount={charsCount}
-        /> : (
-            <>
-                <FinalStatsBlock
-                    wrongChars={[...state.wrongChars]}
-                    total={charsCount}
-                    uniqueCount={charsCount !== kanaChars.length ? kanaChars.length : null}
-                    wrong={wrongCount}
-                    seconds={seconds}
-                />
-                <RepeatButton clickHandler={() => { onRestart(); }} />
-            </>);
-};
-
-KanaToRomaji.propTypes = {
-    kanaChars: PropTypes.arrayOf(PropTypes.string).isRequired,
-    onRestart: PropTypes.func,
-};
-KanaToRomaji.defaultProps = {
-    onRestart: () => {},
+        />
+    ) : (
+        <>
+            <FinalStatsBlock
+                wrongChars={[...state.wrongChars]}
+                total={charsCount}
+                uniqueCount={charsCount !== kanaChars.length ? kanaChars.length : null}
+                wrong={wrongCount}
+                seconds={seconds}
+            />
+            <RepeatButton clickHandler={() => reshuffle()} />
+        </>
+    );
 };
 
 export default KanaToRomaji;

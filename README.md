@@ -11,5 +11,4 @@ now # deploy to zeit
 npm test # runs cypress tests
 ```
 
-
 MIT License

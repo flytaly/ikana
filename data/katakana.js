@@ -46,7 +46,6 @@ export const digraphsDiacriticsRows = [
     ['ピャ', 'ピュ', 'ピョ'],
 ];
 
-
 export const katakanaRows = {
     monographs: monographsRows,
     diacritics: diacriticsRows,
@@ -54,6 +53,7 @@ export const katakanaRows = {
     digraphsDiacritics: digraphsDiacriticsRows,
 };
 
+// prettier-ignore
 export const katakanaToRomaji = {
     ア: ['a'], イ: ['i'], ウ: ['u'], エ: ['e'], オ: ['o'],
     カ: ['ka'], キ: ['ki'], ク: ['ku'], ケ: ['ke'], コ: ['ko'],
@@ -87,6 +87,5 @@ export const katakanaToRomaji = {
     ビャ: ['bya'], ビュ: ['byu'], ビョ: ['byo'],
     ピャ: ['pya'], ピュ: ['pyu'], ピョ: ['pyo'],
 };
-
 
 export const katakanaTotal = Object.keys(katakanaToRomaji).length;

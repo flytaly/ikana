@@ -1,4 +1,4 @@
-export default {
+const theme = {
     pageBackground: '#f0f0f0',
     mainFont: '"Noto Sans JP", "Noto Sans", Helvetica, Arial, sans-serif',
     headerColor: '#087FA3',
@@ -34,3 +34,5 @@ export default {
     footerFontColor: '#6C6C6C',
     footerHoverLinkColor: '#000000',
 };
+
+export default theme;

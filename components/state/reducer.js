@@ -13,8 +13,8 @@ export const types = {
     UPDATE_OPTIONS: 'UPDATE_OPTIONS',
 };
 
-const countSelected = (dataRows, selectedRows) => selectedRows
-    .reduce((acc, curr) => acc + dataRows[curr].filter((k) => k).length, 0);
+const countSelected = (dataRows, selectedRows) =>
+    selectedRows.reduce((acc, curr) => acc + dataRows[curr].filter((k) => k).length, 0);
 
 const kanaToggleRow = ({ kanaRows, selectedRows, selectedNumber, rowIdx, kanaType }) => {
     const kanaSelectedRows = selectedRows[kanaType];
@@ -53,7 +53,6 @@ const kanaToggleAll = ({ kanaRows, kanaType, selectedRows, selectedNumber }) => 
     return updatedFields;
 };
 
-
 const reducer = (state, action) => {
     const { type, payload } = action;
 
@@ -62,14 +61,21 @@ const reducer = (state, action) => {
             return { ...state, ...payload };
 
         case types.HIRAGANA_TOGGLE_ROW: {
-            const { hiragana, hiragana: { selectedRows, selectedNumber } } = state;
+            const {
+                hiragana,
+                hiragana: { selectedRows, selectedNumber },
+            } = state;
             const { rowIdx, kanaType } = payload;
             const newState = {
                 ...state,
                 hiragana: {
                     ...hiragana,
                     ...kanaToggleRow({
-                        kanaRows: hiraganaRows[kanaType], selectedRows, selectedNumber, rowIdx, kanaType,
+                        kanaRows: hiraganaRows[kanaType],
+                        selectedRows,
+                        selectedNumber,
+                        rowIdx,
+                        kanaType,
                     }),
                 },
             };
@@ -78,7 +84,10 @@ const reducer = (state, action) => {
         }
 
         case types.HIRAGANA_TOGGLE_ALL: {
-            const { hiragana, hiragana: { selectedRows, selectedNumber } } = state;
+            const {
+                hiragana,
+                hiragana: { selectedRows, selectedNumber },
+            } = state;
             const { kanaType } = payload;
             const newState = {
                 ...state,
@@ -92,7 +101,10 @@ const reducer = (state, action) => {
         }
 
         case types.KATAKANA_TOGGLE_ROW: {
-            const { katakana, katakana: { selectedRows, selectedNumber } } = state;
+            const {
+                katakana,
+                katakana: { selectedRows, selectedNumber },
+            } = state;
             const { rowIdx, kanaType } = payload;
 
             const newState = {
@@ -100,7 +112,11 @@ const reducer = (state, action) => {
                 katakana: {
                     ...katakana,
                     ...kanaToggleRow({
-                        kanaRows: katakanaRows[kanaType], selectedRows, selectedNumber, rowIdx, kanaType,
+                        kanaRows: katakanaRows[kanaType],
+                        selectedRows,
+                        selectedNumber,
+                        rowIdx,
+                        kanaType,
                     }),
                 },
             };
@@ -109,7 +125,10 @@ const reducer = (state, action) => {
         }
 
         case types.KATAKANA_TOGGLE_ALL: {
-            const { katakana, katakana: { selectedRows, selectedNumber } } = state;
+            const {
+                katakana,
+                katakana: { selectedRows, selectedNumber },
+            } = state;
             const { kanaType } = payload;
             const newState = {
                 ...state,
@@ -134,7 +153,8 @@ const reducer = (state, action) => {
             return newState;
         }
 
-        default: return state;
+        default:
+            return state;
     }
 };
 

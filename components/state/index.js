@@ -27,7 +27,7 @@ export const StateProvider = ({ children }) => {
                     dispatch({ type: types.UPDATE_STATE, payload: prevState });
                 }
             } catch (e) {
-                console.error('Couldn\'t load state\n', e);
+                console.error("Couldn't load state\n", e);
             }
         };
 
@@ -35,9 +35,7 @@ export const StateProvider = ({ children }) => {
     }, []);
     return (
         <dispatchCtx.Provider value={dispatch}>
-            <stateCtx.Provider value={state}>
-                {children}
-            </stateCtx.Provider>
+            <stateCtx.Provider value={state}>{children}</stateCtx.Provider>
         </dispatchCtx.Provider>
     );
 };

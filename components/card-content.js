@@ -15,8 +15,8 @@ const StyledContent = styled.main`
     background-color: ${({ theme }) => theme.expandedCardBgColor};
     max-width: 100%;
     min-height: 30rem;
-    border: 3px solid ${({ theme, cardNumber }) => theme[`cardBgColor${cardNumber}`]};
-    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    border: 3px solid ${({ theme, $cardNumber }) => theme[`cardBgColor${$cardNumber}`]};
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
     transition: all 0.3s ease-out;
     padding: 1rem;
     @media ${Media.largeEnough} {
@@ -25,18 +25,19 @@ const StyledContent = styled.main`
 `;
 
 const CardContent = ({ cardNumber, cardType }) => {
-    const content = ({
+    const content = {
         hiragana: <HiraganaTable />,
         katakana: <KatakanaTable />,
         settings: <SettingsPage />,
         practice: <PracticePage />,
         help: <HelpPage />,
-    }[cardType]);
+    }[cardType];
 
     return (
-        <StyledContent cardNumber={cardNumber} cardType={cardType}>
+        <StyledContent $cardNumber={cardNumber} $cardType={cardType}>
             {content}
-        </StyledContent>);
+        </StyledContent>
+    );
 };
 
 CardContent.propTypes = {

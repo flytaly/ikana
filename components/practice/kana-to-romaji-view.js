@@ -10,7 +10,6 @@ import InlineStats from './inline-stats';
 import { useGlobalState } from '../state';
 import Media from '../media-queries';
 
-
 const Container = styled.div`
     display: flex;
     flex-direction: column;
@@ -39,24 +38,31 @@ const Kana = styled.div`
     position: relative;
     font-size: 3rem;
     color: inherit;
-    ${({ column }) => {
+    ${({ $column }) => {
         // Previous character
-        if (column === 0) { return css`color: lightgrey;`; }
+        if ($column === 0) {
+            return css`
+                color: lightgrey;
+            `;
+        }
         // Current character
-        if (column === 1) {
+        if ($column === 1) {
             return css`
                 word-break: keep-all;
                 font-size: 7rem;
-                min-width: 14rem;`;
+                min-width: 14rem;
+            `;
         }
         // Next character
-        return css`color: grey;`;
+        return css`
+            color: grey;
+        `;
     }}
 
-    ${({ shake }) => shake && ShakeOnError}
+    ${({ $shake }) => $shake && ShakeOnError}
 
-    &::after{
-        content: "${(props) => props.answer}";
+    &::after {
+        content: '${(props) => props.$answer}';
         position: absolute;
         top: 100%;
         left: 0%;
@@ -66,9 +72,8 @@ const Kana = styled.div`
     }
 `;
 
-
 const UserInputContainer = styled.div`
-    display:flex;
+    display: flex;
     max-width: 100%;
     width: 18rem;
 `;
@@ -91,15 +96,15 @@ const onExit = (el, i, exit) => {
 };
 
 const KanaToRomajiView = ({
-    inputHandler,
-    currentChar,
-    inputValue,
-    nextChar,
-    prevChar,
-    stats,
-    shakeIt,
-    answer,
-    charsCount,
+    inputHandler = () => {},
+    currentChar = '',
+    inputValue = '',
+    nextChar = '',
+    prevChar = '',
+    stats = {},
+    shakeIt = false,
+    answer = '',
+    charsCount = 0,
 }) => {
     const { disableAnimations, disableAutoInputCheck } = useGlobalState('options');
     const inputRef = useRef('');
@@ -113,7 +118,9 @@ const KanaToRomajiView = ({
         };
         const input = inputRef.current;
         input.addEventListener('keydown', listener);
-        return () => { input.removeEventListener('keydown', listener); };
+        return () => {
+            input.removeEventListener('keydown', listener);
+        };
     }, [inputHandler]);
 
     return (
@@ -129,14 +136,15 @@ const KanaToRomajiView = ({
                             key={`${charsCount + idx - 1}`}
                         >
                             <Kana
-                                column={idx}
-                                shake={!disableAnimations && shakeIt}
-                                answer={idx === 1 ? answer : ''}
+                                $column={idx}
+                                $shake={!disableAnimations && shakeIt}
+                                $answer={idx === 1 ? answer : ''}
                                 data-testid={idx === 1 ? 'kana' : null}
                             >
                                 {ch}
                             </Kana>
-                        </Flipped>))}
+                        </Flipped>
+                    ))}
                 </KanaView>
             </Flipper>
             <UserInputContainer>
@@ -158,7 +166,8 @@ const KanaToRomajiView = ({
                     {t('practice.btnCheck')}
                 </PracticeModeCheckBtn>
             </UserInputContainer>
-        </Container>);
+        </Container>
+    );
 };
 
 KanaToRomajiView.propTypes = {
@@ -171,18 +180,6 @@ KanaToRomajiView.propTypes = {
     stats: PropTypes.shape({}),
     answer: PropTypes.string,
     charsCount: PropTypes.number,
-};
-
-KanaToRomajiView.defaultProps = {
-    inputHandler: () => {},
-    currentChar: '',
-    inputValue: '',
-    nextChar: '',
-    prevChar: '',
-    shakeIt: false,
-    stats: {},
-    answer: '',
-    charsCount: 0,
 };
 
 export default KanaToRomajiView;

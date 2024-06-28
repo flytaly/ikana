@@ -24,7 +24,8 @@ const Greeting = () => {
             <div>
                 <span>{t('rootPageMessages.description')}</span>
             </div>
-        </Container>);
+        </Container>
+    );
 };
 
 export default Greeting;

@@ -21,7 +21,7 @@ const QuestionBlock = styled.div`
     margin: 0 0 3rem;
     font-size: 5rem;
 
-    ${({ shake }) => shake && ShakeOnError}
+    ${({ $shake }) => $shake && ShakeOnError}
 `;
 
 const ChoicesBlock = styled.div`
@@ -35,7 +35,7 @@ const ChoicesBlock = styled.div`
 const Choice = styled(NoStylesButton)`
     position: relative;
     padding: 1rem;
-    width: calc(${({ choiceWidth }) => choiceWidth} - 0.5rem);
+    width: calc(${({ $choiceWidth }) => $choiceWidth} - 0.5rem);
     min-width: 6rem;
     border: ${({ theme }) => theme.quizChoiceBorder};
     border-radius: 4px;
@@ -49,7 +49,7 @@ const Choice = styled(NoStylesButton)`
         opacity: 0.25;
     }
     &::before {
-        content: "${({ choiceNumber }) => choiceNumber}";
+        content: '${({ $choiceNumber }) => $choiceNumber}';
         position: absolute;
         top: 0.5rem;
         left: 0.5rem;
@@ -58,27 +58,27 @@ const Choice = styled(NoStylesButton)`
     }
 `;
 
-const Quiz = ({
-    question, answers, clickHandler, columns, shakeIt, stats,
-}) => {
+const Quiz = ({ question, answers, clickHandler, columns = 2, shakeIt = false, stats = {} }) => {
     const { disableAnimations } = useGlobalState('options');
     return (
         <Container>
             <InlineStats {...stats} />
-            <QuestionBlock shake={!disableAnimations && shakeIt}>{question}</QuestionBlock>
+            <QuestionBlock $shake={!disableAnimations && shakeIt}>{question}</QuestionBlock>
             <ChoicesBlock>
                 {answers.map(({ value, disabled, id }, idx) => (
                     <Choice
+                        $choiceWidth={`${100 / columns}%`}
+                        $choiceNumber={idx + 1}
                         key={id}
-                        choiceWidth={`${100 / columns}%`}
-                        choiceNumber={idx + 1}
                         disabled={disabled}
                         onClick={() => clickHandler(id)}
                     >
                         {value}
-                    </Choice>))}
+                    </Choice>
+                ))}
             </ChoicesBlock>
-        </Container>);
+        </Container>
+    );
 };
 
 Quiz.propTypes = {
@@ -86,19 +86,8 @@ Quiz.propTypes = {
     question: PropTypes.string.isRequired,
     answers: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
     clickHandler: PropTypes.func.isRequired,
-    wrong: PropTypes.number,
-    total: PropTypes.string,
     shakeIt: PropTypes.bool,
     stats: PropTypes.shape({}),
 };
-
-Quiz.defaultProps = {
-    columns: 2,
-    wrong: 0,
-    total: '',
-    shakeIt: false,
-    stats: {},
-};
-
 
 export default Quiz;

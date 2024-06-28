@@ -46,7 +46,6 @@ export const digraphsDiacriticsRows = [
     ['ぴゃ', 'ぴゅ', 'ぴょ'],
 ];
 
-
 export const hiraganaRows = {
     monographs: monographsRows,
     diacritics: diacriticsRows,
@@ -54,6 +53,7 @@ export const hiraganaRows = {
     digraphsDiacritics: digraphsDiacriticsRows,
 };
 
+// prettier-ignore
 export const hiraganaToRomaji = {
     あ: ['a'], い: ['i'], う: ['u'], え: ['e'], お: ['o'],
     か: ['ka'], き: ['ki'], く: ['ku'], け: ['ke'], こ: ['ko'],

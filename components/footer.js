@@ -27,7 +27,7 @@ const StyledFooter = styled.footer`
 `;
 
 const Footer = () => {
-    const currentYear = (new Date()).getFullYear();
+    const currentYear = new Date().getFullYear();
     return (
         <StyledFooter>
             <span>{currentYear}</span>
@@ -41,7 +41,8 @@ const Footer = () => {
                     <GitHub size="1.2em" />
                 </a>
             </span>
-        </StyledFooter>);
+        </StyledFooter>
+    );
 };
 
 export default Footer;

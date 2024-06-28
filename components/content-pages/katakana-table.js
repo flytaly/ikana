@@ -11,9 +11,11 @@ const Katakana = () => {
     const dispatch = useDispatch();
     const { t } = useTranslation();
 
-    const makeClickHandler = (kanaType) => ({ rowIdx }) => {
-        dispatch({ type: types.KATAKANA_TOGGLE_ROW, payload: { rowIdx, kanaType } });
-    };
+    const makeClickHandler =
+        (kanaType) =>
+        ({ rowIdx }) => {
+            dispatch({ type: types.KATAKANA_TOGGLE_ROW, payload: { rowIdx, kanaType } });
+        };
     const makeSelectAllHandler = (kanaType) => () => {
         dispatch({ type: types.KATAKANA_TOGGLE_ALL, payload: { kanaType } });
     };
@@ -56,9 +58,9 @@ const Katakana = () => {
                     selectedRows={katakana.selectedRows.digraphs}
                     withCheckbox
                 />
-
             </TablesContainer>
-        </>);
+        </>
+    );
 };
 
 export default Katakana;

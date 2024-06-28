@@ -39,9 +39,6 @@ const Contacts = styled.div`
 
 const About = () => {
     const { t } = useTranslation();
-    // eslint-disable-next-line react/prop-types
-    const LinkWithA = ({ href, children }) => <Link href={href}><a>{children}</a></Link>;
-
     return (
         <>
             <ContentHeader>{t('help.pageHeader')}</ContentHeader>
@@ -59,12 +56,14 @@ const About = () => {
                 <StyledArticle>
                     <h3>{t('help.q2.header')}</h3>
                     <Trans i18nKey="help.q2.body">
-                        {'Select rows of kana characters that you want to learn by clicking on corresponding rows in the '}
-                        <LinkWithA href="/hiragana">hiragana</LinkWithA>
+                        {
+                            'Select rows of kana characters that you want to learn by clicking on corresponding rows in the '
+                        }
+                        <Link href="/hiragana">hiragana</Link>
                         {' and '}
-                        <LinkWithA href="/katakana">katakana</LinkWithA>
+                        <Link href="/katakana">katakana</Link>
                         {' tables. Then go to '}
-                        <LinkWithA href="/practice">practice</LinkWithA>
+                        <Link href="/practice">practice</Link>
                         {' page and choose a practice mode.'}
                     </Trans>
                 </StyledArticle>
@@ -73,16 +72,17 @@ const About = () => {
                     <Contacts>
                         <a href="mailto:flytaly@gmail.com">
                             <Mail size="1.2em" />
-                        flytaly @gmail.com
+                            flytaly @gmail.com
                         </a>
                         <a href="https://github.com/flytaly/ikana">
                             <GitHub size="1.2em" />
-                        GitHub
+                            GitHub
                         </a>
                     </Contacts>
                 </StyledArticle>
             </InfoBlock>
-        </>);
+        </>
+    );
 };
 
 export default About;

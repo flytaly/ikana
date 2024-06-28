@@ -5,9 +5,13 @@ const Meta = () => {
     const { t } = useTranslation();
     return (
         <Head>
-            {/* <link href="https://fonts.googleapis.com/css?family=Noto+Sans|Noto+Sans+JP&display=swap" rel="stylesheet" /> */}
-            <link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,700&display=swap&subset=cyrillic" rel="stylesheet" />
-            <link rel="preload" href="/static/fonts/noto-sans-jp-regular-kana-only.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+            <link
+                rel="preload"
+                href="/static/fonts/noto-sans-jp-regular-kana-only.woff2"
+                as="font"
+                type="font/woff2"
+                crossOrigin="anonymous"
+            />
             <meta charSet="utf-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <title>{t('meta.title')}</title>
@@ -30,8 +34,8 @@ const Meta = () => {
             <meta name="msapplication-TileColor" content="#f0f0f0" />
             <meta name="msapplication-TileImage" content="/static/meta/ms-icon-144x144.png" />
             <meta name="theme-color" content="#f0f0f0" />
-
-        </Head>);
+        </Head>
+    );
 };
 
 export default Meta;

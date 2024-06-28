@@ -6,7 +6,7 @@ import Meta from './meta';
 import theme from './themes/default';
 
 const StyledPage = styled.div`
-  color: black;
+    color: black;
 `;
 
 const GlobalStyle = createGlobalStyle`
