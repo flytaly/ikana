@@ -3,6 +3,7 @@ import MODES from '../practice/modes';
 const initialState = {
     practiceMode: MODES.KANA_TO_ROMAJI,
     options: {
+        disableBgAnimation: false,
         disableAnimations: false,
         disableAutoInputCheck: false,
         repeatWrongChars: false,

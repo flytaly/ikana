@@ -11,6 +11,7 @@ const dispatchCtx = createContext(() => null);
 
 export const useDispatch = () => useContext(dispatchCtx);
 
+/** @param {keyof typeof initialState} property */
 export const useGlobalState = (property = null) => {
     const state = useContext(stateCtx);
     return property ? state[property] : state;

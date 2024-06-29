@@ -31,6 +31,10 @@
         "On": "Вкл",
         "Off": "Выкл",
         "optGroup_practice": "Опции тренировки",
+        "optGroup_general": "Общие",
+
+        "opt_bgAnimation": "Анимация фона страницы",
+        "opt_bgAnimation_title": "Включить/отключить анимацию фона страницы",
 
         "opt_animations": "Анимации",
         "opt_animations_title": "Анимация во время практики",

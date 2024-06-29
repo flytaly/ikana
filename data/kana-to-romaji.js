@@ -9,7 +9,9 @@ export const getKanaType = (kana) => {
 
 export { hiraganaToRomaji, katakanaToRomaji };
 
-export default {
+const kanaToRomaji = {
     ...hiraganaToRomaji,
     ...katakanaToRomaji,
 };
+
+export default kanaToRomaji;

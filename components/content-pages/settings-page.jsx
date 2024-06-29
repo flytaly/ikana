@@ -33,7 +33,7 @@ const Setting = styled.article`
 const Settings = () => {
     const options = useGlobalState('options');
     const dispatch = useDispatch();
-    const { disableAnimations, disableAutoInputCheck, repeatWrongChars } = options;
+    const { disableBgAnimation, disableAnimations, disableAutoInputCheck, repeatWrongChars } = options;
     const { t } = useTranslation();
 
     const defaultOnOff = [
@@ -45,6 +45,24 @@ const Settings = () => {
         <>
             <ContentHeader>{t('settings.pageHeader')}</ContentHeader>
             <SettingsBlock>
+                <h2>{t('settings.optGroup_general')}</h2>
+                <Setting>
+                    <span title={t('settings.opt_bgAnimation_title')}>{t('settings.opt_bgAnimation')}</span>
+                    <OptionGroup
+                        ariaLabel={t('settings.opt_bgAnimation')}
+                        options={defaultOnOff}
+                        current={disableBgAnimation ? 'off' : 'on'}
+                        changeHandler={({ target }) =>
+                            dispatch({
+                                type: types.UPDATE_OPTIONS,
+                                payload: {
+                                    ...options,
+                                    disableBgAnimation: target.value === 'off' || false,
+                                },
+                            })
+                        }
+                    />
+                </Setting>
                 <h2>{t('settings.optGroup_practice')}</h2>
                 <Setting>
                     <span title={t('settings.opt_animations_title')}>{t('settings.opt_animations')}</span>

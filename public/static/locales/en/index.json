@@ -31,9 +31,13 @@
         "On": "On",
         "Off": "Off",
         "optGroup_practice": "Practice options",
+        "optGroup_general": "General",
+
+        "opt_bgAnimation": "Background animation",
+        "opt_bgAnimation_title": "Toggle background animation",
 
         "opt_animations": "Animations",
-        "opt_animations_title": "Enable animations in practice modes",
+        "opt_animations_title": "Toggle animations in practice modes",
 
         "opt_checkInput": "Automatically check input",
         "opt_checkInput_title": "Automatically check input and don't wait for Enter or submit button to be pressed",
