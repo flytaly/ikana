@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ikana.icu/sitemap.xml
+Sitemap: https://kanatrainer.vercel.app/sitemap.xml

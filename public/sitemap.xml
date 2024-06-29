@@ -5,55 +5,55 @@
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
   <url>
-    <loc>https://ikana.icu/</loc>
+    <loc>https://kanatrainer.vercel.app</loc>
     <changefreq>Monthly</changefreq>
     <priority>1</priority>
     <lastmod>2019-10-28T20:53:15Z</lastmod>
   </url>
   <url>
-    <loc>https://ikana.icu/hiragana</loc>
+    <loc>https://kanatrainer.vercel.app/hiragana</loc>
     <changefreq>Monthly</changefreq>
     <priority>1</priority>
     <lastmod>2019-10-28T20:53:15Z</lastmod>
   </url>
   <url>
-    <loc>https://ikana.icu/katakana</loc>
+    <loc>https://kanatrainer.vercel.app/katakana</loc>
     <changefreq>Monthly</changefreq>
     <priority>1</priority>
     <lastmod>2019-10-28T20:53:15Z</lastmod>
   </url>
   <url>
-    <loc>https://ikana.icu/settings</loc>
+    <loc>https://kanatrainer.vercel.app/settings</loc>
     <changefreq>Monthly</changefreq>
     <priority>1</priority>
     <lastmod>2019-10-28T20:53:15Z</lastmod>
   </url>
   <url>
-    <loc>https://ikana.icu/help</loc>
+    <loc>https://kanatrainer.vercel.app/help</loc>
     <changefreq>Monthly</changefreq>
     <priority>1</priority>
     <lastmod>2019-10-28T20:53:15Z</lastmod>
   </url>
   <url>
-    <loc>https://ikana.icu/practice</loc>
+    <loc>https://kanatrainer.vercel.app/practice</loc>
     <changefreq>Monthly</changefreq>
     <priority>1</priority>
     <lastmod>2019-10-28T20:53:15Z</lastmod>
   </url>
   <url>
-    <loc>https://ikana.icu/practice/kana-to-romaji</loc>
+    <loc>https://kanatrainer.vercel.app/practice/kana-to-romaji</loc>
     <changefreq>Monthly</changefreq>
     <priority>1</priority>
     <lastmod>2019-10-28T20:53:15Z</lastmod>
   </url>
   <url>
-    <loc>https://ikana.icu/practice/</loc>
+    <loc>https://kanatrainer.vercel.app/practice/</loc>
     <changefreq>Monthly</changefreq>
     <priority>1</priority>
     <lastmod>2019-10-28T20:53:15Z</lastmod>
   </url>
   <url>
-    <loc>https://ikana.icu/practice/romaji-to-kana</loc>
+    <loc>https://kanatrainer.vercel.app/practice/romaji-to-kana</loc>
     <changefreq>Monthly</changefreq>
     <priority>1</priority>
     <lastmod>2019-10-28T20:53:15Z</lastmod>
