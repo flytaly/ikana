@@ -4,8 +4,9 @@ import styled from 'styled-components';
 import kanaToRomaji from '../data/kana-to-romaji';
 import shuffle from 'lodash.shuffle';
 import { useGlobalState } from './state/index';
+import { usePathname } from 'next/navigation';
 
-const DURATION = 30;
+const DURATION = 60;
 const AMOUNT = 20;
 
 const AnimationContainer = styled.div`
@@ -35,7 +36,7 @@ const FloatingChar = styled.div`
     left: var(--left);
     color: var(--color);
 
-    animation: floating var(--duration) ease-in-out infinite;
+    animation: floating var(--duration) linear infinite;
     animation-delay: var(--delay);
     animation-play-state: var(--animation-state);
 
@@ -69,12 +70,14 @@ function generate() {
 
 const FloatingChars = () => {
     const opts = useGlobalState('options');
+    const pathname = usePathname();
+    let shouldPaused = pathname.startsWith('/practice') || opts.disableBgAnimation;
 
     const [chars, setChars] = useState([]);
-    const [isPaused, setIsPaused] = useState(true);
+    const [isPaused, setIsPaused] = useState(shouldPaused);
 
-    if (isPaused !== opts.disableBgAnimation) {
-        setIsPaused(opts.disableBgAnimation);
+    if (isPaused !== shouldPaused) {
+        setIsPaused(shouldPaused);
     }
 
     useEffect(() => {
