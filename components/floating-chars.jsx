@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import kanaToRomaji from '../data/kana-to-romaji';
@@ -77,7 +77,7 @@ const FloatingChars = () => {
         setIsPaused(opts.disableBgAnimation);
     }
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         setChars(generate());
     }, []);
 
